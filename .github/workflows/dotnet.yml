@@ -20,6 +20,12 @@ jobs:
           repository: TrentBest/TheSingularityWorkshop.FSM_Execution
           ref: development
           path: dependencies/FSM_Execution
+      - name: Check out Physics model source
+        uses: actions/checkout@v4
+        with:
+          repository: TrentBest/TheSingularityWorkshop.Physics
+          ref: development
+          path: dependencies/Physics
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 10.0.x
@@ -27,3 +33,5 @@ jobs:
         run: dotnet test tests/SingularityLaboratories.Tests/SingularityLaboratories.Tests.csproj --configuration Release
       - name: Build Foundry execution adapter
         run: dotnet build src/Laboratory.ExecutionAdapter/Laboratory.ExecutionAdapter.csproj --configuration Release
+      - name: Build Physics adapter
+        run: dotnet build src/Laboratory.PhysicsAdapter/Laboratory.PhysicsAdapter.csproj --configuration Release
