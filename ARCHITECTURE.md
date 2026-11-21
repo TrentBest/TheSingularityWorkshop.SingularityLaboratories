@@ -9,11 +9,12 @@ Singularity Laboratories is exposed directly within The Singularity Workshop. It
 A laboratory is portable across hosts. The same versioned laboratory and experiment should be usable through:
 - Workshop-native pages and tools.
 - A laboratory building or complex inside Singularity City.
+- A game level, research facility, puzzle environment, or narrative location.
 - Online classes and instructor-led sessions.
 - Private research workspaces.
 - Local or hosted execution environments.
 
-Host-specific presentation must remain an adapter around the laboratory domain, not a dependency of it. The laboratory must not require a city, avatar, multiplayer session, or persistent world to function.
+Host-specific presentation must remain an adapter around the laboratory domain, not a dependency of it. The laboratory must not require a city, avatar, multiplayer session, game engine, narrative, or persistent world to function. A game can expose lab apparatus as interactables and experiment state as puzzle or quest state, but those are game-side projections of reusable laboratory capabilities.
 
 ## Responsibility boundaries
 
@@ -28,6 +29,7 @@ Host-specific presentation must remain an adapter around the laboratory domain, 
 | Visualization | Visual, spatial, pixel/world representation, consumed as a MicroBundle |
 | The Singularity Workshop | Direct host and discovery surface for laboratory tools and experiences |
 | Singularity City | Separate spatial/diegetic host for laboratory facilities and complexes |
+| Games and interactive experiences | Game-specific narrative, level design, quests, player progression, and mechanics that may compose laboratory capabilities |
 | ServerApp | Optional persistence, identity, hosted sessions, collaboration |
 | Economy | Optional commerce, entitlements, and virtual-economy integration |
 
@@ -61,6 +63,12 @@ The platform should support the following independently versioned concepts:
 ## Experiment lifecycle
 
 Draft → Configured → Validated → Queued → Running → Completed. Failed and Cancelled are terminal outcomes with retained reasons and diagnostics. A run preserves the exact experiment definition and configuration used; editing a definition never silently rewrites historical results.
+
+## Games are a first-class integration
+
+Games may use laboratories as settings, mechanics, and narrative infrastructure: research campuses, underground complexes, abandoned labs, containment facilities, experimental test chambers, or scientific puzzle spaces. A game-facing adapter can map laboratory facilities to levels/rooms, apparatus to interactables, instruments to player tools, experiment lifecycle to scripted or systemic events, and observations/publications to discoverable records. Horror and survival games in the spirit of *Resident Evil* are an obvious example, but the model should also support simulation, adventure, strategy, and educational games.
+
+The platform owns reusable laboratory semantics and model-backed behaviors; the game owns fictional framing, pacing, level geometry, combat, quests, player progression, and game-specific rules. Game state must not silently rewrite scientific run provenance. Where a game deliberately fictionalizes a model, that boundary should be explicit. Games should be able to use a curated subset of laboratory features without taking a dependency on classroom, research, or hosted-service features.
 
 ## Education and research are core workflows
 
