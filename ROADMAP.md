@@ -18,6 +18,7 @@ Each phase should produce a working capability and verifiable evidence. The plat
 - [ ] Capture configuration, units, model version, run state, observations, and results.
 - [ ] Present the laboratory through MicroBundle composition.
 - [ ] Prove that the same laboratory can be surfaced by more than one host without changing its scientific identity.
+- [ ] Define a minimal game-host adapter for facilities, apparatus interactions, experiment events, and discoverable research records.
 - [ ] Demonstrate repeatability and documented limitations.
 
 **Exit gate:** an author can configure a laboratory and experiment; a learner or researcher can run it, inspect results, and reproduce the run from its recorded configuration; a host can present it without owning its domain state.
@@ -48,11 +49,13 @@ Each phase should produce a working capability and verifiable evidence. The plat
 - [ ] Add dataset lineage, comparison, annotation, and collaboration.
 - [ ] Establish expert review and publication workflows for high-consequence models.
 
-## Phase 5 — Host integrations and laboratory complexes
+## Phase 5 — Host integrations, games, and laboratory complexes
 
 - [ ] Expose laboratories directly in The Singularity Workshop.
 - [ ] Define stable host contracts for external experiences.
 - [ ] Integrate with Singularity City as a separate host for diegetic laboratory buildings and complexes.
+- [ ] Support game integrations that compose laboratories into levels, research facilities, puzzles, quests, and narrative environments.
+- [ ] Demonstrate a game-facing laboratory with reusable apparatus, experiment state, and discoverable records; keep game-specific rules and presentation in the game.
 - [ ] Ensure city presentation, spatial layout, and social features remain optional host concerns.
 - [ ] Support local, classroom, institutional, private, and hosted laboratory deployments.
 
