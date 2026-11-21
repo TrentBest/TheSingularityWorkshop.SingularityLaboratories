@@ -61,6 +61,20 @@ Classroom tooling should support instructor and learner roles, assignment and du
 
 Research users need hypothesis and question tracking, experiment variants, controlled parameter sweeps, batch runs, comparison and analysis, dataset provenance, notes, checkpoints, collaboration, export, and publication. Every result must remain traceable to the exact laboratory, experiment, model, adapter, configuration, and execution environment that produced it.
 
+## Game and interactive-experience integration
+
+A laboratory can be composed into a game as a location, system, or interactive mechanic. Examples include a research campus, an abandoned underground laboratory, a containment wing, a field station, a prototype test chamber, or a sequence of interconnected facilities. A survival-horror game in the spirit of *Resident Evil* might use apparatus puzzles, instrument interfaces, access controls, specimen records, experiment logs, environmental clues, and containment events to make the facility both explorable and narratively meaningful.
+
+The platform should expose reusable capabilities to game hosts:
+- Facility, room, and zone definitions that can be mapped onto game levels without requiring the platform to own geometry.
+- Apparatus and instrument interaction contracts suitable for game-side controls and interactables.
+- Experiment state and event hooks that games can connect to quests, puzzles, scripted sequences, or systemic gameplay.
+- Discoverable observations, research notes, logs, datasets, and provenance records.
+- Model-backed phenomena with declared fidelity, limitations, and safe bounds.
+- A game adapter that can project laboratory state into game state without corrupting canonical experiment/run records.
+
+Games own characters, narrative, pacing, level design, combat, inventory, quests, and player progression. Singularity Laboratories owns reusable lab and experiment semantics. A fictional or intentionally simplified mechanic can be compelling without being presented as validated science. Game integrations should be independently consumable; a game does not need the classroom or research workspace feature set unless it chooses to use it.
+
 ## Example experiences
 
 ### Particle physics
