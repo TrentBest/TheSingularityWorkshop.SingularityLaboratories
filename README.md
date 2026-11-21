@@ -77,7 +77,27 @@ The laboratory layer owns laboratory/experiment definitions, orchestration, inst
 
 See [Architecture](ARCHITECTURE.md), [Laboratory Model](LABORATORY-MODEL.md), and [Roadmap](ROADMAP.md).
 
-## 6. Scientific Integrity and Participation
+## 7. Initial Runtime Foundation
+
+The first implementation slice lives in `src/SingularityLaboratories` and is deliberately host-neutral:
+
+- Versioned laboratory and experiment definitions.
+- Explicit model identity/version, validation level, assumptions, and limitations.
+- Versioned, immutable configuration snapshots.
+- An experiment-model adapter contract and asynchronous run coordinator.
+- Immutable run records that retain the exact configuration, model provenance, scientific disclosures, timestamps, and serialized result.
+
+The core does not implement scientific equations. A domain adapter invokes the authoritative model package and returns its output through `IExperimentModel`. The initial electrical-to-lumped-thermal candidate is an **educational model**, not a validated appliance or material prediction. Its declared absorbed fraction is an input; it is not a predicted efficiency.
+
+Build and test the initial contract layer with:
+
+```sh
+dotnet test tests/SingularityLaboratories.Tests/SingularityLaboratories.Tests.csproj --configuration Release
+```
+
+This first slice is a foundation, not yet the complete authoring, instrument, MicroBundle, classroom, research, or hosted runtime platform.
+
+## 8. Scientific Integrity and Participation
 
 A compelling visualization is not automatically a scientifically valid result. Every experiment must make its model, assumptions, units, parameter ranges, numerical limits, provenance, and uncertainty discoverable. Educational approximations, exploratory models, validated models, and research-reviewed models must be distinguishable.
 
