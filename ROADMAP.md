@@ -7,15 +7,15 @@ Each phase should produce a working capability and verifiable evidence. The plat
 - [x] Establish repository identity and architectural boundaries.
 - [x] Document laboratory, experiment, scientific-integrity, and commercial concepts.
 - [x] Separate portable laboratory domain from Workshop and Singularity City host experiences.
-- [ ] Inspect Physics and identify concrete reusable simulation capabilities.
-- [ ] Inspect FSM_COS, FSM_Execution, Renderer, and Visualization integration contracts.
-- [ ] Define the first experiment and acceptance criteria.
+- [x] Inspect Physics and identify concrete reusable simulation capabilities. The existing electrical-to-lumped-thermal coupling fixture is selected.
+- [x] Inspect FSM_COS, FSM_Execution, Renderer, and Visualization integration contracts. FSM_COS composes MicroBundles; Foundry owns workflow execution; Renderer and Visualization remain presentation capabilities.
+- [x] Define the first experiment and acceptance criteria.
 
 ## Phase 1 — First living laboratory vertical slice
 
-- [ ] Build laboratory authoring/configuration and runtime foundations.
-- [ ] Implement one end-to-end experiment using verified Physics capabilities.
-- [ ] Capture configuration, units, model version, run state, observations, and results.
+- [x] Establish initial versioned laboratory/experiment/configuration contracts, model adapter boundary, and run provenance foundation. Facility/instrument authoring remains.
+- [ ] Implement and verify one end-to-end Physics-backed experiment through Foundry. The concrete Physics adapter and Foundry integration test are in place; final CI verification is pending.
+- [ ] Complete run capture and replay acceptance. Current run records retain configuration, model/experiment versions, validation level, timestamps, assumptions, limitations, and serialized unit-explicit Physics observations.
 - [ ] Present the laboratory through MicroBundle composition.
 - [ ] Prove that the same laboratory can be surfaced by more than one host without changing its scientific identity.
 - [ ] Define a minimal game-host adapter for facilities, apparatus interactions, experiment events, and discoverable research records.
@@ -68,4 +68,4 @@ Each phase should produce a working capability and verifiable evidence. The plat
 
 ## First experiment selection
 
-Choose the first experiment only after inspecting the actual Physics package; do not invent a dependency contract. Prefer a bounded experiment demonstrating the complete author → configure → validate → run → measure → analyze → reproduce lifecycle. The first vertical slice matters more than the spectacle of the first demo.
+Selected: `ElectricalThermalCouplingExperiment` from Physics `development`. It composes an ideal fixed-voltage resistive load with a lumped constant-specific-heat thermal body. The absorbed fraction is explicit input; the fixture is educational, not a validated appliance/material prediction. The adapter uses the existing source project in CI rather than assuming an unpublished NuGet package. The complete author → configure → validate → run → measure → analyze → reproduce lifecycle remains the acceptance target.
