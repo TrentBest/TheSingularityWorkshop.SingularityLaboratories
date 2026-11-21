@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../SingularityLaboratories/SingularityLaboratories.csproj" />
+    <ProjectReference Include="../../dependencies/FSM_Execution/src/Foundry.Workflow/Foundry.Workflow.csproj" />
+  </ItemGroup>
+  <Target Name="ValidateExecutionSource" BeforeTargets="PrepareForBuild">
+    <Error Condition="!Exists('../../dependencies/FSM_Execution/src/Foundry.Workflow/Foundry.Workflow.csproj')" Text="The laboratory execution adapter requires TheSingularityWorkshop.FSM_Execution source at dependencies/FSM_Execution." />
+  </Target>
+</Project>
