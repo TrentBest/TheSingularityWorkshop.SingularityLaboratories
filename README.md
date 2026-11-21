@@ -52,7 +52,7 @@ Singularity Laboratories is an experience and platform layer, not a replacement 
 
 The laboratory layer owns experiment definitions, orchestration, instruments, measurement workflows, result presentation, educational scaffolding, and commercial packaging. It must not duplicate core physics or invent unverified Physics APIs.
 
-See [Architecture](docs/architecture.md) and [Laboratory Model](docs/laboratory-model.md).
+See [Architecture](ARCHITECTURE.md) and [Laboratory Model](LABORATORY-MODEL.md).
 
 ## 4. Scientific Integrity and Safety
 
@@ -60,14 +60,14 @@ A compelling visualization is not automatically a scientifically valid result. E
 
 Hazardous phenomena may be explored as educational simulations of physical processes and consequences. Nuclear-event scenarios, for example, should focus on validated consequence modeling and interpretation — not weapon construction, optimization, or operational instructions. Simulation results must be clearly distinguished from real-world predictions, and high-consequence claims require appropriate validation and expert review.
 
-See [Scientific Integrity and Safety](docs/scientific-integrity.md).
+See [Scientific Integrity and Safety](SCIENTIFIC-INTEGRITY.md).
 
 ## 5. Roadmap and Participation
 
 The first milestone is a working laboratory shell and a complete, reproducible demonstration experiment backed by the existing Physics package. The next milestones establish reusable instruments, experiment packages, educational pathways, collaboration, and monetized hosted laboratories.
 
-- [Roadmap](docs/roadmap.md)
-- [Commercial Model](docs/commercial-model.md)
+- [Roadmap](ROADMAP.md)
+- [Commercial Model](COMMERCIAL-MODEL.md)
 
 This repository follows the Workshop's two-branch policy: `master` represents the released state and `development` is the active source branch. Work begins on `development`; release alignment and publication remain explicit, gated activities.
 
