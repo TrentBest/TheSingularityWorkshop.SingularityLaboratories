@@ -7,67 +7,72 @@
 
 # Singularity Laboratories
 
-**A virtual research city for building, running, teaching, and sharing scientific experiments — from the subatomic to the astronomical.**
+**The Workshop's complete laboratory, experimentation, education, and research platform — from the subatomic to the astronomical.**
 
-Singularity Laboratories is the laboratory and experimentation experience of The Singularity Workshop. It turns the Workshop's Physics capabilities into interactive, composable environments where learners, educators, researchers, and creators can investigate systems across extraordinary ranges of scale.
+Singularity Laboratories provides the abstractions, authoring tools, runtime workflows, instruments, and scientific services for creating and operating laboratories. It is where people configure experiments, investigate models, collect measurements, teach scientific methods, conduct research, and share reproducible work.
 
-A laboratory may be a single molecular reaction, a particle detector, a simulated hadron collider, a planetary system, or a solar-system-scale experiment. Scale is a property of the experiment, not a product limitation.
+**Singularity Laboratories is not Singularity City.** The laboratory platform is exposed directly within The Singularity Workshop and can also be manifested as laboratory facilities and complexes inside Singularity City. Singularity City is a separate world/experience that may host laboratories; it does not own or define the laboratory system. The same laboratory should be usable in a Workshop page, a city facility, an online class, a private research workspace, or another compatible host.
 
-## 1. The Experience
+## 1. What This Package Owns
 
-Singularity Laboratories is envisioned as a navigable scientific city: a collection of specialized facilities, public demonstrations, teaching spaces, private research environments, and creator-operated laboratories.
+This repository is everything about the laboratory abstraction and its tooling:
 
-- **Explore:** enter laboratories, inspect equipment, observe live simulations, and discover experiments.
-- **Experiment:** configure initial conditions, parameters, instruments, boundaries, and measurement plans.
-- **Understand:** connect visual outcomes to the governing models, equations, assumptions, and uncertainty.
-- **Teach:** guide learners through hands-on investigations, from introductory concepts to advanced research.
-- **Research:** run reproducible experiments, compare scenarios, capture results, and collaborate.
-- **Create:** build and publish new laboratory experiences using reusable tools and experiment definitions.
+- **Create and configure:** define laboratories, facilities, experiment templates, instruments, apparatus, parameters, materials, environments, and workflows.
+- **Operate:** initialize, validate, execute, pause, resume, cancel, checkpoint, and reproduce experiments.
+- **Measure:** configure instruments, sensors, sampling, observation channels, units, uncertainty, and data capture.
+- **Teach:** create guided labs, assignments, instructor-led demonstrations, classroom sessions, and learner progression.
+- **Research:** compare hypotheses and runs, manage provenance, collaborate, analyze results, and publish reproducible methods.
+- **Extend:** compose new disciplines, instruments, models, lessons, and lab experiences from versioned reusable components.
+- **Host and govern:** support local, classroom, institutional, private, and hosted laboratory modes with explicit resource and access boundaries.
 
-## 2. Laboratory Domains
+A laboratory may investigate a molecular process, particle detector, collider, material specimen, ecosystem, planetary system, or solar-system-scale phenomenon. Extreme visual and physical scales are first-class design considerations, but model fidelity and compute cost must always be explicit.
 
-| Domain | Example experiences |
+## 2. The Laboratory Is Portable
+
+The laboratory definition and its scientific identity must not depend on the environment in which it appears.
+
+| Host | How it uses Singularity Laboratories |
 |---|---|
-| Particle physics | Collider halls, particle interactions, detector visualization, field studies |
-| Chemistry | Molecular construction, reaction pathways, thermodynamics, energetic reactions |
+| The Singularity Workshop | Direct discovery, authoring, lessons, experiments, and research tools |
+| Singularity City (separate project) | Physical/diegetic manifestation: laboratory buildings, campuses, complexes, public exhibits |
+| Online classroom | Instructor-assigned labs, shared sessions, learner workspaces, assessment |
+| Private research environment | Restricted labs, controlled collaboration, reproducible runs |
+| Hosted service | Remote execution, storage, metering, institutional and premium access |
+
+A host can provide navigation, social presence, avatars, world geometry, and presentation. It must not become the source of truth for experiment definitions, scientific models, measurement semantics, or run provenance.
+
+## 3. Scientific Domains
+
+| Domain | Example laboratory capabilities |
+|---|---|
+| Particle physics | Beam and collider studies, detector configuration, event visualization, field experiments |
+| Chemistry | Molecular modeling, reaction studies, thermodynamics, safe energetic-process simulation |
 | Nuclear science | Fission and fusion models, radiation transport, shielding, consequence studies |
-| Astronomy and cosmology | Orbits, stellar evolution, planetary systems, galaxies, large-scale structure |
+| Astronomy and cosmology | Orbital systems, stellar evolution, planetary science, galaxies, large-scale structure |
 | Engineering | Materials, structures, fluids, heat transfer, mechanical systems |
 | Earth and environmental science | Atmospheres, oceans, climate processes, impact and hazard scenarios |
 | Biology and ecology | Cells, populations, ecosystems, interacting biological systems |
 
-The initial implementation should prove the laboratory model with a small number of coherent experiments before expanding into every discipline.
+## 4. Architecture
 
-## 3. Architecture
-
-Singularity Laboratories is an experience and platform layer, not a replacement for the scientific engine.
-
-- **Physics** supplies mathematical and physical simulation capabilities.
-- **FSM_API** supplies state and interaction foundations where appropriate.
-- **FSM_COS** composes the laboratory experience from MicroBundles.
-- **FSM_Foundry** provides execution.
+- **Physics** owns mathematical and physical models and numerical methods.
+- **FSM_API** provides state and interaction foundations where appropriate.
+- **FSM_COS** composes laboratory experiences from MicroBundles.
+- **FSM_Execution** executes composed experiences.
 - **Renderer** and **Visualization** are consumed through the MicroBundle architecture.
-- **ServerApp** can provide persistent worlds, identity, collaboration, and hosted sessions.
-- **Economy** can support commerce and virtual-economy integration.
+- **ServerApp** may provide optional identity, persistence, collaboration, and hosted sessions.
+- **Economy** may provide optional commerce, entitlements, and virtual-economy integration.
+- **Singularity City** is a separate host experience and must integrate through stable laboratory-facing contracts.
 
-The laboratory layer owns experiment definitions, orchestration, instruments, measurement workflows, result presentation, educational scaffolding, and commercial packaging. It must not duplicate core physics or invent unverified Physics APIs.
+The laboratory layer owns laboratory/experiment definitions, orchestration, instruments, measurement workflows, educational scaffolding, research workflows, provenance, result presentation, authoring tools, and laboratory-specific commercial packaging. It must not duplicate core physics or invent unverified Physics APIs.
 
-See [Architecture](ARCHITECTURE.md) and [Laboratory Model](LABORATORY-MODEL.md).
+See [Architecture](ARCHITECTURE.md), [Laboratory Model](LABORATORY-MODEL.md), and [Roadmap](ROADMAP.md).
 
-## 4. Scientific Integrity and Safety
+## 5. Scientific Integrity and Participation
 
-A compelling visualization is not automatically a scientifically valid result. Every experiment must make its model, assumptions, units, parameter ranges, numerical limits, provenance, and uncertainty discoverable.
+A compelling visualization is not automatically a scientifically valid result. Every experiment must make its model, assumptions, units, parameter ranges, numerical limits, provenance, and uncertainty discoverable. Educational approximations, exploratory models, validated models, and research-reviewed models must be distinguishable.
 
-Hazardous phenomena may be explored as educational simulations of physical processes and consequences. Nuclear-event scenarios, for example, should focus on validated consequence modeling and interpretation — not weapon construction, optimization, or operational instructions. Simulation results must be clearly distinguished from real-world predictions, and high-consequence claims require appropriate validation and expert review.
-
-See [Scientific Integrity and Safety](SCIENTIFIC-INTEGRITY.md).
-
-## 5. Roadmap and Participation
-
-The first milestone is a working laboratory shell and a complete, reproducible demonstration experiment backed by the existing Physics package. The next milestones establish reusable instruments, experiment packages, educational pathways, collaboration, and monetized hosted laboratories.
-
-- [Roadmap](ROADMAP.md)
-- [Commercial Model](COMMERCIAL-MODEL.md)
+Hazardous phenomena may be explored as educational simulations of physical processes and consequences, not as actionable construction or operational guidance. High-consequence claims require appropriate validation and expert review.
 
 This repository follows the Workshop's two-branch policy: `master` represents the released state and `development` is the active source branch. Work begins on `development`; release alignment and publication remain explicit, gated activities.
 
