@@ -19,5 +19,6 @@
   <ItemGroup>
     <ProjectReference Include="../../src/SingularityLaboratories/SingularityLaboratories.csproj" />
     <ProjectReference Include="../../src/Laboratory.ExecutionAdapter/Laboratory.ExecutionAdapter.csproj" />
+    <ProjectReference Include="../../src/Laboratory.PhysicsAdapter/Laboratory.PhysicsAdapter.csproj" />
   </ItemGroup>
 </Project>
