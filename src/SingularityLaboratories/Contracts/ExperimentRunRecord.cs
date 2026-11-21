@@ -19,8 +19,8 @@ public sealed record ExperimentRunRecord
         DateTimeOffset completedAtUtc,
         string resultContentType,
         string resultPayload,
-        IEnumerable<string> assumptions,
-        IEnumerable<string> limitations)
+        IReadOnlyList<string> assumptions,
+        IReadOnlyList<string> limitations)
     {
         if (runId == Guid.Empty) throw new ArgumentException("A run identity is required.", nameof(runId));
         LaboratoryId = Required(laboratoryId, nameof(laboratoryId));
