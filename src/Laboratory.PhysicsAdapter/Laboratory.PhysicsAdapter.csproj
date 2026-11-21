@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../SingularityLaboratories/SingularityLaboratories.csproj" />
+    <ProjectReference Include="../../dependencies/Physics/TheSingularityWorkshop.Physics.csproj" />
+  </ItemGroup>
+  <Target Name="ValidatePhysicsSource" BeforeTargets="PrepareForBuild">
+    <Error Condition="!Exists('../../dependencies/Physics/TheSingularityWorkshop.Physics.csproj')" Text="The laboratory Physics adapter requires TheSingularityWorkshop.Physics source at dependencies/Physics." />
+  </Target>
+</Project>
