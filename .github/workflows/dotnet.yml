@@ -14,8 +14,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Check out FSM_Execution workflow contracts
+        uses: actions/checkout@v4
+        with:
+          repository: TrentBest/TheSingularityWorkshop.FSM_Execution
+          ref: development
+          path: dependencies/FSM_Execution
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 10.0.x
-      - name: Restore and test laboratory contracts
+      - name: Test laboratory domain contracts
         run: dotnet test tests/SingularityLaboratories.Tests/SingularityLaboratories.Tests.csproj --configuration Release
+      - name: Build Foundry execution adapter
+        run: dotnet build src/Laboratory.ExecutionAdapter/Laboratory.ExecutionAdapter.csproj --configuration Release
