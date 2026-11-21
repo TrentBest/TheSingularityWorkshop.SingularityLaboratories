@@ -35,13 +35,22 @@ The laboratory definition and its scientific identity must not depend on the env
 |---|---|
 | The Singularity Workshop | Direct discovery, authoring, lessons, experiments, and research tools |
 | Singularity City (separate project) | Physical/diegetic manifestation: laboratory buildings, campuses, complexes, public exhibits |
+| Games and interactive fiction | Reusable research facilities, experiment mechanics, apparatus, puzzles, environmental storytelling, and scientifically grounded interactions |
 | Online classroom | Instructor-assigned labs, shared sessions, learner workspaces, assessment |
 | Private research environment | Restricted labs, controlled collaboration, reproducible runs |
 | Hosted service | Remote execution, storage, metering, institutional and premium access |
 
-A host can provide navigation, social presence, avatars, world geometry, and presentation. It must not become the source of truth for experiment definitions, scientific models, measurement semantics, or run provenance.
+A host can provide navigation, social presence, avatars, world geometry, narrative, game rules, and presentation. It must not become the source of truth for experiment definitions, scientific models, measurement semantics, or run provenance. A game may adapt a laboratory into a level, quest, puzzle, or story location while reusing the same underlying laboratory and experiment capabilities.
 
-## 3. Scientific Domains
+## 3. Games and Interactive Experiences
+
+Laboratories are common and versatile game settings. They can function as research hubs, abandoned facilities, containment zones, experimental test sites, puzzle spaces, exploration environments, or narrative locations. A survival-horror experience in the spirit of *Resident Evil*, for example, might present interconnected research wings, access-controlled rooms, apparatus puzzles, specimen records, experiment logs, containment failures, and environmental clues.
+
+Singularity Laboratories should provide reusable laboratory capabilities that games can compose: facility and room manifests, apparatus interactions, instrument behaviors, experiment state, observations, records, and model-backed phenomena. The game remains responsible for pacing, combat, quests, characters, level design, and fictional framing. A game-facing adapter must not turn game-specific assumptions into the scientific source of truth. Fictional or deliberately simplified behavior must be labeled as such.
+
+This makes a laboratory usable in a classroom, research workspace, Workshop page, or game without requiring separate copies of its underlying domain definition.
+
+## 4. Scientific Domains
 
 | Domain | Example laboratory capabilities |
 |---|---|
@@ -53,7 +62,7 @@ A host can provide navigation, social presence, avatars, world geometry, and pre
 | Earth and environmental science | Atmospheres, oceans, climate processes, impact and hazard scenarios |
 | Biology and ecology | Cells, populations, ecosystems, interacting biological systems |
 
-## 4. Architecture
+## 5. Architecture
 
 - **Physics** owns mathematical and physical models and numerical methods.
 - **FSM_API** provides state and interaction foundations where appropriate.
@@ -68,7 +77,7 @@ The laboratory layer owns laboratory/experiment definitions, orchestration, inst
 
 See [Architecture](ARCHITECTURE.md), [Laboratory Model](LABORATORY-MODEL.md), and [Roadmap](ROADMAP.md).
 
-## 5. Scientific Integrity and Participation
+## 6. Scientific Integrity and Participation
 
 A compelling visualization is not automatically a scientifically valid result. Every experiment must make its model, assumptions, units, parameter ranges, numerical limits, provenance, and uncertainty discoverable. Educational approximations, exploratory models, validated models, and research-reviewed models must be distinguishable.
 
