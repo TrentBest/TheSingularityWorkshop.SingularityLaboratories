@@ -84,10 +84,12 @@ The first implementation slice lives in `src/SingularityLaboratories` and is del
 - Versioned laboratory and experiment definitions.
 - Explicit model identity/version, validation level, assumptions, and limitations.
 - Versioned, immutable configuration snapshots.
-- An experiment-model adapter contract and asynchronous run coordinator.
+- An experiment-model adapter contract and asynchronous model invocation.
+- A Foundry handler adapter that lets FSM_Execution own workflow lifecycle, cancellation, and timeout semantics.
+- A Physics adapter that invokes the existing `ElectricalThermalCouplingExperiment` without duplicating its equations.
 - Immutable run records that retain the exact configuration, model provenance, scientific disclosures, timestamps, and serialized result.
 
-The core does not implement scientific equations. A domain adapter invokes the authoritative model package and returns its output through `IExperimentModel`. The initial electrical-to-lumped-thermal candidate is an **educational model**, not a validated appliance or material prediction. Its declared absorbed fraction is an input; it is not a predicted efficiency.
+The core does not implement scientific equations. `Laboratory.PhysicsAdapter` invokes the existing Physics `ElectricalThermalCouplingExperiment` implementation and returns its unit-explicit observation through `IExperimentModel`. `Laboratory.ExecutionAdapter` registers that capability as a host-approved Foundry workflow handler; it does not replace Foundry's lifecycle coordinator. The initial electrical-to-lumped-thermal candidate is an **educational model**, not a validated appliance or material prediction. Its declared absorbed fraction is an input; it is not a predicted efficiency.
 
 Build and test the initial contract layer with:
 
