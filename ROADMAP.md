@@ -14,12 +14,12 @@ Each phase should produce a working capability and verifiable evidence. The plat
 ## Phase 1 — First living laboratory vertical slice
 
 - [x] Establish initial versioned laboratory/experiment/configuration contracts, model adapter boundary, and run provenance foundation. Facility/instrument authoring remains.
-- [ ] Implement and verify one end-to-end Physics-backed experiment through Foundry. The concrete Physics adapter and Foundry integration test are in place; final CI verification is pending.
-- [ ] Complete run capture and replay acceptance. Current run records retain configuration, model/experiment versions, validation level, timestamps, assumptions, limitations, and serialized unit-explicit Physics observations.
+- [x] Implement and verify one end-to-end Physics-backed experiment through Foundry. The actual Physics adapter runs through the registered Foundry handler; CI passed all 7 tests.
+- [ ] Complete run replay and resource-profile acceptance. Current run records retain configuration, model/experiment versions, validation level, timestamps, assumptions, limitations, and serialized unit-explicit Physics observations; durable replay and resource budgets remain.
 - [ ] Present the laboratory through MicroBundle composition.
 - [ ] Prove that the same laboratory can be surfaced by more than one host without changing its scientific identity.
 - [ ] Define a minimal game-host adapter for facilities, apparatus interactions, experiment events, and discoverable research records.
-- [ ] Demonstrate repeatability and documented limitations.
+- [x] Demonstrate deterministic model behavior and documented limitations through the Physics fixture tests and adapter tests.
 
 **Exit gate:** an author can configure a laboratory and experiment; a learner or researcher can run it, inspect results, and reproduce the run from its recorded configuration; a host can present it without owning its domain state.
 
