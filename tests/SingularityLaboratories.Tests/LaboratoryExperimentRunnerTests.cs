@@ -105,7 +105,7 @@ public sealed class LaboratoryExperimentRunnerTests
     {
         var definition = CreateDefinition();
         var model = new StubModel(definition, new ExperimentModelOutput("application/json", "{}"));
-        var configuration = new ExperimentConfiguration(definition.Id, definition.Version, 1, "application/json", "{\\"voltageV\\":12}");
+        var configuration = new ExperimentConfiguration(definition.Id, definition.Version, 1, "application/json", "{\"voltageV\":12}");
         var laboratory = new LaboratoryDefinition("lab", "1.0.0", "Lab", "Test lab.");
         var profile = new ExperimentResourceProfile(definition.ModelId, definition.ModelVersion, TimeSpan.FromSeconds(5), 1024 * 1024, 100);
         var budget = new ExecutionResourceBudget(TimeSpan.FromSeconds(2), 2 * 1024 * 1024, 1000);
@@ -121,7 +121,7 @@ public sealed class LaboratoryExperimentRunnerTests
     {
         var definition = CreateDefinition();
         var model = new StubModel(definition, new ExperimentModelOutput("application/json", "{}"));
-        var configuration = new ExperimentConfiguration(definition.Id, definition.Version, 1, "application/json", "{\\"voltageV\\":12}");
+        var configuration = new ExperimentConfiguration(definition.Id, definition.Version, 1, "application/json", "{\"voltageV\":12}");
         var laboratory = new LaboratoryDefinition("lab", "1.0.0", "Lab", "Test lab.");
         var profile = new ExperimentResourceProfile(definition.ModelId, "different-version", TimeSpan.FromSeconds(1), 1024, 10);
         var budget = new ExecutionResourceBudget(TimeSpan.FromSeconds(2), 2048, 20);
@@ -137,7 +137,7 @@ public sealed class LaboratoryExperimentRunnerTests
     {
         var definition = CreateDefinition();
         var model = new StubModel(definition, new ExperimentModelOutput("application/json", "{}"));
-        var configuration = new ExperimentConfiguration(definition.Id, definition.Version, 1, "application/json", "{\\"voltageV\\":12}");
+        var configuration = new ExperimentConfiguration(definition.Id, definition.Version, 1, "application/json", "{\"voltageV\":12}");
         var laboratory = new LaboratoryDefinition("lab", "1.0.0", "Lab", "Test lab.");
         var profile = new ExperimentResourceProfile(definition.ModelId, definition.ModelVersion, TimeSpan.FromSeconds(1), 1024, 10);
 
