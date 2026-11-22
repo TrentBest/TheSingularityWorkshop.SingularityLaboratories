@@ -100,6 +100,53 @@ public sealed class LaboratoryExperimentRunnerTests
         Assert.That(model.InvocationCount, Is.Zero);
     }
 
+    [Test]
+    public void RunAsync_RejectsResourceEstimateOverBudgetBeforeInvokingModel()
+    {
+        var definition = CreateDefinition();
+        var model = new StubModel(definition, new ExperimentModelOutput("application/json", "{}"));
+        var configuration = new ExperimentConfiguration(definition.Id, definition.Version, 1, "application/json", "{\\"voltageV\\":12}");
+        var laboratory = new LaboratoryDefinition("lab", "1.0.0", "Lab", "Test lab.");
+        var profile = new ExperimentResourceProfile(definition.ModelId, definition.ModelVersion, TimeSpan.FromSeconds(5), 1024 * 1024, 100);
+        var budget = new ExecutionResourceBudget(TimeSpan.FromSeconds(2), 2 * 1024 * 1024, 1000);
+
+        Assert.ThrowsAsync<InvalidOperationException>(async () =>
+            await new LaboratoryExperimentRunner().RunAsync(laboratory, model, configuration,
+                resourceProfile: profile, resourceBudget: budget));
+        Assert.That(model.InvocationCount, Is.Zero);
+    }
+
+    [Test]
+    public void RunAsync_RejectsResourceProfileForDifferentModelVersion()
+    {
+        var definition = CreateDefinition();
+        var model = new StubModel(definition, new ExperimentModelOutput("application/json", "{}"));
+        var configuration = new ExperimentConfiguration(definition.Id, definition.Version, 1, "application/json", "{\\"voltageV\\":12}");
+        var laboratory = new LaboratoryDefinition("lab", "1.0.0", "Lab", "Test lab.");
+        var profile = new ExperimentResourceProfile(definition.ModelId, "different-version", TimeSpan.FromSeconds(1), 1024, 10);
+        var budget = new ExecutionResourceBudget(TimeSpan.FromSeconds(2), 2048, 20);
+
+        Assert.ThrowsAsync<ArgumentException>(async () =>
+            await new LaboratoryExperimentRunner().RunAsync(laboratory, model, configuration,
+                resourceProfile: profile, resourceBudget: budget));
+        Assert.That(model.InvocationCount, Is.Zero);
+    }
+
+    [Test]
+    public void RunAsync_RequiresResourceProfileAndBudgetTogether()
+    {
+        var definition = CreateDefinition();
+        var model = new StubModel(definition, new ExperimentModelOutput("application/json", "{}"));
+        var configuration = new ExperimentConfiguration(definition.Id, definition.Version, 1, "application/json", "{\\"voltageV\\":12}");
+        var laboratory = new LaboratoryDefinition("lab", "1.0.0", "Lab", "Test lab.");
+        var profile = new ExperimentResourceProfile(definition.ModelId, definition.ModelVersion, TimeSpan.FromSeconds(1), 1024, 10);
+
+        Assert.ThrowsAsync<ArgumentException>(async () =>
+            await new LaboratoryExperimentRunner().RunAsync(laboratory, model, configuration,
+                resourceProfile: profile));
+        Assert.That(model.InvocationCount, Is.Zero);
+    }
+
     private static ExperimentDefinition CreateDefinition() => new(
         "electrical-thermal-coupling",
         "1.0.0",
