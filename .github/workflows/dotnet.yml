@@ -35,7 +35,7 @@ jobs:
       - name: Check out FSM_UserIO source
         uses: actions/checkout@v4
         with:
-          repository: TrentBest/TheSingularityWorkshop.FSM_UserIO
+          repository: TrentBest/FSM_UserIO
           ref: development
           path: dependencies/FSM_UserIO
       - name: Check out Physics model source
