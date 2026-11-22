@@ -113,7 +113,7 @@ public sealed class FileSystemExperimentRunStoreTests
             Assert.That(replay.ConfigurationPayload, Is.EqualTo(source.ConfigurationPayload));
             Assert.That(replay.ModelId, Is.EqualTo(source.ModelId));
             Assert.That(replay.ModelVersion, Is.EqualTo(source.ModelVersion));
-            Assert.That(replay.ResultPayload, Is.EqualTo("{\\"energyJ\\":240}"));
+            Assert.That(replay.ResultPayload, Is.EqualTo("{\"energyJ\":240}"));
             Assert.That(model.InvocationCount, Is.EqualTo(1));
 
             var persistedReplay = await store.GetAsync(replay.RunId);
@@ -203,7 +203,7 @@ public sealed class FileSystemExperimentRunStoreTests
         {
             InvocationCount++;
             return ValueTask.FromResult(new TheSingularityWorkshop.SingularityLaboratories.Execution.ExperimentModelOutput(
-                "application/json", "{\\"energyJ\\":240}"));
+                "application/json", "{\"energyJ\":240}"));
         }
     }
 
