@@ -4,6 +4,9 @@ This document distinguishes laboratory-domain governance records from the securi
 
 ## 1. People and responsibilities
 
+The general character/person identity and NPC model is owned by Singularity City ([Nonplayer Characters, LOD 1](https://github.com/TrentBest/TheSingularityWorkshop.SingularityCity/blob/development/docs/books/nonplayer-characters.md)). Laboratory-specific staffing and participation are defined by [Laboratory NPCs, LOD 2](docs/books/laboratory-npcs.md). The LOD 2 model specializes the City character; it does not replace it.
+
+
 A laboratory needs accountable people, not just experiment definitions. The domain distinguishes responsibilities such as:
 
 | Role | Laboratory responsibility |
@@ -16,16 +19,18 @@ A laboratory needs accountable people, not just experiment definitions. The doma
 | Technician | Maintains apparatus, instruments, calibration, and operational readiness |
 | Researcher | Conducts and documents research within approved laboratory boundaries |
 
-The first staff contract, `LaboratoryStaffAssignment`, records a host-issued opaque principal reference, laboratory identity, responsibility, assigning principal, and optional UTC expiry. It is a durable domain fact to be stored and audited by a host.
+The first staff contract, `LaboratoryStaffAssignment`, records a host-issued opaque principal reference, laboratory identity, responsibility, assigning principal, and optional UTC expiry. Its `PrincipalId` is a host/account principal, not a City NPC/person ID. The contract does not currently link to a City character, authenticate the person, or grant permissions. A future identity bridge must be explicit and trusted.
 
 Learners, students, guests, external reviewers, and observers are important participants, but they are not automatically staff. Their membership, course enrollment, guest access, and reviewer relationships should be modeled separately as those workflows are implemented. A principal may hold multiple assignments; role combinations and separation-of-duty rules belong in an explicit policy layer.
 
 ## 2. Identity, authentication, and authorization
 
-- **Identity** answers who a principal is. A host identity provider supplies the stable opaque principal reference.
+- **Character identity** identifies the continuing person in the represented world; Singularity City owns the general NPC/resident domain.
+- **Host principal identity** is an opaque digital identity reference supplied by a trusted host or identity provider; it may represent a human account or service identity.
 - **Authentication** establishes control of an identity (for example, session or credential verification). It is not implemented by the staff assignment contract.
 - **Authorization** decides whether that principal may perform a specific action on a specific resource in a specific context. Hosts must enforce it at every relevant service boundary.
-- **Staff assignment** records a laboratory responsibility. It does not authenticate a person, issue credentials, or grant access by itself.
+- **Staff assignment** records a laboratory responsibility. It does not authenticate a person, issue credentials, identify a City character, or grant access by itself.
+- **Qualification** records evidence of competence; it is not an appointment or permission.
 - **Entitlement** concerns commercial or institutional access and must not be confused with scientific validation or safety approval.
 
 No passwords, API keys, session tokens, recovery codes, or other secrets belong in laboratory definitions, assignments, experiment configurations, run records, or evidence descriptions.
@@ -72,7 +77,8 @@ The following capabilities remain future work unless and until separately implem
 
 ## 6. Design rules
 
-1. Keep principal identifiers opaque and host-issued; never embed credentials in domain records.
+1. Keep host principal identifiers opaque and host-issued; never embed credentials in domain records.
+2. Keep character identity, host principal identity, qualification, responsibility assignment, authority, and authorization separate.
 2. Keep responsibility assignment separate from authentication and authorization.
 3. Require explicit policy evaluation at trusted execution and data-access boundaries.
 4. Fail closed when a required policy or safety disclosure is missing.
