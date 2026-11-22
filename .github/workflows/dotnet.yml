@@ -53,6 +53,8 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 10.0.x
+      - name: Restore FSM_COS repository-source dependency graph
+        run: dotnet restore dependencies/FSM_COS/src/FSM_COS/FSM_COS.csproj --property:WorkshopUseRepositorySources=true
       - name: Test the selected Physics experiment
         run: dotnet test dependencies/Physics/tests/TheSingularityWorkshop.Physics.Tests/TheSingularityWorkshop.Physics.Tests.csproj --configuration Release --filter FullyQualifiedName~ElectricalThermalCouplingExperimentTests
       - name: Test laboratory domain contracts and adapters
