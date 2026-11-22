@@ -3,7 +3,7 @@ using NUnit.Framework;
 using TheSingularityWorkshop.Foundry;
 using TheSingularityWorkshop.SingularityLaboratories.Contracts;
 using TheSingularityWorkshop.SingularityLaboratories.Execution;
-using TheSingularityWorkshop.SingularityLaboratories.Foundry;
+using TheSingularityWorkshop.SingularityLaboratories.ExecutionAdapter;
 
 namespace TheSingularityWorkshop.SingularityLaboratories.Tests;
 
@@ -11,7 +11,7 @@ namespace TheSingularityWorkshop.SingularityLaboratories.Tests;
 public sealed class LaboratoryWorkflowAdapterTests
 {
     [Test]
-    public async Task FoundryWorkflow_ExecutesModelAndRetainsReproducibleRunRecord()
+    public async Task ExecutionWorkflow_ExecutesModelAndRetainsReproducibleRunRecord()
     {
         var laboratory = new LaboratoryDefinition("thermal-lab", "1.0.0", "Thermal Lab", "Energy transfer study.");
         var definition = new ExperimentDefinition(
@@ -52,7 +52,7 @@ public sealed class LaboratoryWorkflowAdapterTests
     }
 
     [Test]
-    public async Task FoundryWorkflow_RunsRealPhysicsAdapterAndStoresScientificObservation()
+    public async Task ExecutionWorkflow_RunsRealPhysicsAdapterAndStoresScientificObservation()
     {
         var laboratory = new LaboratoryDefinition("thermal-lab", "1.0.0", "Thermal Lab", "Energy transfer study.");
         var model = new TheSingularityWorkshop.SingularityLaboratories.Physics.ElectricalThermalCouplingModel();
