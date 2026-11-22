@@ -90,6 +90,65 @@ public sealed class FileSystemExperimentRunStoreTests
         }
     }
 
+
+    [Test]
+    public async Task ReplayAsync_ReexecutesStoredConfigurationAndPersistsSourceLineage()
+    {
+        var directory = CreateTemporaryDirectory();
+        try
+        {
+            var store = new FileSystemExperimentRunStore(directory);
+            var source = CreateRun();
+            await store.SaveAsync(source);
+            var model = CreateModel();
+
+            var replay = await new ExperimentRunReplayService(store).ReplayAsync(
+                new LaboratoryDefinition("thermal-lab", "1.0.0", "Thermal Lab", "Energy transfer study."),
+                source.RunId,
+                (experimentId, version) =>
+                    experimentId == model.Definition.Id && version == model.Definition.Version ? model : null);
+
+            Assert.That(replay.RunId, Is.Not.EqualTo(source.RunId));
+            Assert.That(replay.ReplayedFromRunId, Is.EqualTo(source.RunId));
+            Assert.That(replay.ConfigurationPayload, Is.EqualTo(source.ConfigurationPayload));
+            Assert.That(replay.ModelId, Is.EqualTo(source.ModelId));
+            Assert.That(replay.ModelVersion, Is.EqualTo(source.ModelVersion));
+            Assert.That(replay.ResultPayload, Is.EqualTo("{\\"energyJ\\":240}"));
+            Assert.That(model.InvocationCount, Is.EqualTo(1));
+
+            var persistedReplay = await store.GetAsync(replay.RunId);
+            Assert.That(persistedReplay!.ReplayedFromRunId, Is.EqualTo(source.RunId));
+        }
+        finally
+        {
+            Directory.Delete(directory, recursive: true);
+        }
+    }
+
+    [Test]
+    public async Task ReplayAsync_RejectsDifferentModelVersionBeforeExecution()
+    {
+        var directory = CreateTemporaryDirectory();
+        try
+        {
+            var store = new FileSystemExperimentRunStore(directory);
+            var source = CreateRun();
+            await store.SaveAsync(source);
+            var model = CreateModel(modelVersion: "0.2.0");
+
+            Assert.ThrowsAsync<InvalidOperationException>(async () =>
+                await new ExperimentRunReplayService(store).ReplayAsync(
+                    new LaboratoryDefinition("thermal-lab", "1.0.0", "Thermal Lab", "Energy transfer study."),
+                    source.RunId,
+                    (_, _) => model));
+            Assert.That(model.InvocationCount, Is.Zero);
+        }
+        finally
+        {
+            Directory.Delete(directory, recursive: true);
+        }
+    }
+
     private static ExperimentRunRecord CreateRun()
     {
         var started = DateTimeOffset.Parse("2026-11-22T10:00:00+00:00");
@@ -111,6 +170,41 @@ public sealed class FileSystemExperimentRunStoreTests
             "{\"energyJ\":240}",
             ["Ideal fixed-voltage DC bus."],
             ["No spatial temperature gradients."]);
+    }
+
+
+    private static StubModel CreateModel(string modelVersion = "0.1.0")
+    {
+        var definition = new ExperimentDefinition(
+            "electrical-thermal-coupling",
+            "1.0.0",
+            "Electrical to thermal coupling",
+            "electrical-thermal-model",
+            modelVersion,
+            ScientificValidationLevel.EducationalModel,
+            ["Ideal fixed-voltage DC bus."],
+            ["No spatial temperature gradients."]);
+        return new StubModel(definition);
+    }
+
+    private sealed class StubModel(ExperimentDefinition definition) : TheSingularityWorkshop.SingularityLaboratories.Execution.IExperimentModel
+    {
+        public ExperimentDefinition Definition { get; } = definition;
+        public ExperimentParameterSchema ParameterSchema { get; } = new(
+            definition.Id,
+            definition.Version,
+            1,
+            [new("voltageV", "Voltage", "Input voltage.", ExperimentParameterType.Number, unitSymbol: "V")]);
+        public int InvocationCount { get; private set; }
+
+        public ValueTask<TheSingularityWorkshop.SingularityLaboratories.Execution.ExperimentModelOutput> ExecuteAsync(
+            ExperimentConfiguration configuration,
+            CancellationToken cancellationToken = default)
+        {
+            InvocationCount++;
+            return ValueTask.FromResult(new TheSingularityWorkshop.SingularityLaboratories.Execution.ExperimentModelOutput(
+                "application/json", "{\\"energyJ\\":240}"));
+        }
     }
 
     private static string CreateTemporaryDirectory()
