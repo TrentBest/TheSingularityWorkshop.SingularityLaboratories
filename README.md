@@ -9,118 +9,65 @@
 
 [Singularity Laboratories Pages preview](https://trentbest.github.io/TheSingularityWorkshop.SingularityLaboratories/) — the site source and Actions deployment are in place; the repository's Pages setting still needs to be enabled for the first deployment.
 
-**The Workshop's complete laboratory, experimentation, education, and research platform — from the subatomic to the astronomical.**
+**The Workshop's laboratory, experimentation, education, and research platform — from the subatomic to the astronomical.**
 
-Singularity Laboratories provides the abstractions, authoring tools, runtime workflows, instruments, and scientific services for creating and operating laboratories. It is where people configure experiments, investigate models, collect measurements, teach scientific methods, conduct research, and share reproducible work.
+Singularity Laboratories provides abstractions, authoring tools, runtime workflows, instruments, and scientific services for creating and operating laboratories. It is where people configure experiments, investigate models, collect measurements, teach scientific methods, conduct research, and share reproducible work.
 
-**Singularity Laboratories is not Singularity City.** The laboratory platform is exposed directly within The Singularity Workshop and can also be manifested as laboratory facilities and complexes inside Singularity City. Singularity City is a separate world/experience that may host laboratories; it does not own or define the laboratory system. The same laboratory should be usable in a Workshop page, a city facility, an online class, a private research workspace, or another compatible host.
+A laboratory is portable. It can appear directly in The Singularity Workshop, as a facility or campus inside Singularity City, in an online classroom, a private research workspace, or a game. The host provides navigation, social presence, world geometry, and presentation; the laboratory platform owns its scientific definitions, measurement semantics, and run provenance.
 
-## 1. What This Package Owns
+## 1. Domain ownership
 
-This repository is everything about the laboratory abstraction and its tooling:
+- **Singularity City** owns general character, resident (Digiten), visitor, and NPC identity and agency. See [Nonplayer Characters — LOD 1](https://github.com/TrentBest/TheSingularityWorkshop.SingularityCity/blob/development/docs/books/nonplayer-characters.md).
+- **Singularity Laboratories** owns portable laboratory and experiment semantics, facility and instrument definitions, scientific workflows, and laboratory-specific staffing and governance.
+- **Physics** owns mathematical and physical models and numerical methods.
+- **FSM_Execution** owns workflow lifecycle, cancellation, and execution.
+- **FSM_COS** composes laboratory experiences from MicroBundles.
+- **Trusted hosts** own authentication, authorization, credentials, and enforcement.
+- **Renderer / Visualize** own presentation and visual manifestation.
 
-- **Create and configure:** define laboratories, facilities, experiment templates, instruments, apparatus, parameters, materials, environments, and workflows.
+The LOD 2 [Laboratory NPCs sourcebook](docs/books/laboratory-npcs.md) specializes the City people model for laboratory positions, qualifications, staffing, shifts, participant relationships, safety governance, and independent review. It does not create a separate kind of person.
+
+## 2. What this package owns
+
+- **Create and configure:** laboratories, facilities, experiment templates, instruments, apparatus, parameters, materials, environments, and workflows.
 - **Operate:** initialize, validate, execute, pause, resume, cancel, checkpoint, and reproduce experiments.
-- **Measure:** configure instruments, sensors, sampling, observation channels, units, uncertainty, and data capture.
-- **Teach:** create guided labs, assignments, instructor-led demonstrations, classroom sessions, and learner progression.
-- **Research:** compare hypotheses and runs, manage provenance, collaborate, analyze results, and publish reproducible work.
-- **Extend:** compose new disciplines, instruments, models, lessons, and lab experiences from versioned reusable components.
-- **Host and govern:** support local, classroom, institutional, private, and hosted laboratory modes with explicit resource and access boundaries, accountable staff responsibilities, safety review, and auditable governance.
+- **Measure:** instruments, sensors, sampling, observation channels, units, uncertainty, and data capture.
+- **Teach:** guided labs, assignments, instructor-led demonstrations, classroom sessions, and learner progression.
+- **Research:** hypotheses, runs, provenance, collaboration, analysis, comparison, and reproducible work.
+- **Staff and govern:** laboratory-specific positions and responsibilities, qualification context, safety review, and auditable governance.
+- **Extend:** compose disciplines, instruments, models, lessons, and lab experiences from versioned reusable components.
 
-A laboratory may investigate a molecular process, particle detector, collider, material specimen, ecosystem, planetary system, or solar-system-scale phenomenon. Extreme visual and physical scales are first-class design considerations, but model fidelity and compute cost must always be explicit.
+The laboratory layer must not duplicate core physics or invent unverified Physics APIs. A facility building is a possible City manifestation, not the laboratory domain object itself.
 
-## 2. The Laboratory Is Portable
+## 3. Scientific domains
 
-The laboratory definition and its scientific identity must not depend on the environment in which it appears.
-
-| Host | How it uses Singularity Laboratories |
+| Domain | Example capabilities |
 |---|---|
-| The Singularity Workshop | Direct discovery, authoring, lessons, experiments, and research tools |
-| Singularity City (separate project) | Physical/diegetic manifestation: laboratory buildings, campuses, complexes, public exhibits |
-| Games and interactive fiction | Reusable research facilities, experiment mechanics, apparatus, puzzles, environmental storytelling, and scientifically grounded interactions |
-| Online classroom | Instructor-assigned labs, shared sessions, learner workspaces, assessment |
-| Private research environment | Restricted labs, controlled collaboration, reproducible runs |
-| Hosted service | Remote execution, storage, metering, institutional and premium access |
-
-A host can provide navigation, social presence, avatars, world geometry, narrative, game rules, and presentation. It must not become the source of truth for experiment definitions, scientific models, measurement semantics, or run provenance. A game may adapt a laboratory into a level, quest, puzzle, or story location while reusing the same underlying laboratory and experiment capabilities.
-
-## 3. Games and Interactive Experiences
-
-Laboratories are common and versatile game settings. They can function as research hubs, abandoned facilities, containment zones, experimental test sites, puzzle spaces, exploration environments, or narrative locations. A survival-horror experience in the spirit of *Resident Evil*, for example, might present interconnected research wings, access-controlled rooms, apparatus puzzles, specimen records, experiment logs, containment failures, and environmental clues.
-
-Singularity Laboratories should provide reusable laboratory capabilities that games can compose: facility and room manifests, apparatus interactions, instrument behaviors, experiment state, observations, records, and model-backed phenomena. The game remains responsible for pacing, combat, quests, characters, level design, and fictional framing. A game-facing adapter must not turn game-specific assumptions into the scientific source of truth. Fictional or deliberately simplified behavior must be labeled as such.
-
-This makes a laboratory usable in a classroom, research workspace, Workshop page, or game without requiring separate copies of its underlying domain definition.
-
-## 4. Scientific Domains
-
-| Domain | Example laboratory capabilities |
-|---|---|
-| Particle physics | Beam and collider studies, detector configuration, event visualization, field experiments |
-| Chemistry | Molecular modeling, reaction studies, thermodynamics, safe energetic-process simulation |
-| Nuclear science | Fission and fusion models, radiation transport, shielding, consequence studies |
-| Astronomy and cosmology | Orbital systems, stellar evolution, planetary science, galaxies, large-scale structure |
+| Particle physics | Beam and collider studies, detector configuration, event visualization |
+| Chemistry | Molecular modeling, reaction studies, thermodynamics |
+| Nuclear science | Fission/fusion models, radiation transport, shielding, consequence studies |
+| Astronomy and cosmology | Orbital systems, stellar evolution, planetary science, galaxies |
 | Engineering | Materials, structures, fluids, heat transfer, mechanical systems |
 | Earth and environmental science | Atmospheres, oceans, climate processes, impact and hazard scenarios |
 | Biology and ecology | Cells, populations, ecosystems, interacting biological systems |
 
-## 5. Architecture
+Hazardous phenomena may be explored as bounded educational simulations of processes and consequences, not as actionable construction or operational guidance. High-consequence claims require appropriate validation and expert review.
 
-- **Physics** owns mathematical and physical models and numerical methods.
-- **FSM_API** provides state and interaction foundations where appropriate.
-- **FSM_COS** composes laboratory experiences from MicroBundles.
-- **FSM_Execution** executes composed experiences and owns workflow lifecycle.
-- **Renderer** and **Visualization** are consumed through the MicroBundle architecture.
-- **ServerApp** may provide optional identity, persistence, collaboration, and hosted sessions.
-- **Economy** may provide optional commerce, entitlements, and virtual-economy integration.
-- **Singularity City** is a separate host experience and must integrate through stable laboratory-facing contracts.
+## 4. Current implementation
 
-The laboratory layer owns laboratory/experiment definitions, orchestration, instruments, measurement workflows, educational scaffolding, research workflows, provenance, result presentation, authoring tools, and laboratory-specific commercial packaging. It must not duplicate core physics or invent unverified Physics APIs.
+The initial runtime is a host-neutral foundation with versioned laboratory/experiment definitions, configuration validation, authoring templates, Physics and FSM_Execution adapters, MicroBundle composition, immutable run records, persistence, replay, result views, safety metadata, validation assessments, admission policy, and resource-budget estimates.
 
-See [Architecture](ARCHITECTURE.md), [Laboratory Model](LABORATORY-MODEL.md), [Governance and Security](GOVERNANCE-AND-SECURITY.md), and [Roadmap](ROADMAP.md).
+The `LaboratoryStaffAssignment` contract currently records a host-issued opaque principal reference, laboratory identity, responsibility, assigning principal, assignment time, and optional expiry. Its `PrincipalId` is a digital host principal reference, **not** a City NPC/person ID. It does not prove a qualification, define a stable institutional position, or grant digital permissions. A future character-to-principal mapping requires an explicit trusted identity-link contract.
 
-## 6. Initial Runtime and Composition Foundation
+This is a foundation, not yet the complete authoring, instrument, classroom, research, or hosted runtime platform. The repository's Pages setting still needs to be enabled for the first deployment; the source and workflow are not proof of a live published site.
 
-The first implementation slice lives in `src/SingularityLaboratories` and is deliberately host-neutral:
+## 5. Development and release
 
-- Versioned laboratory and experiment definitions.
-- Explicit model identity/version, validation level, assumptions, and limitations.
-- Versioned, immutable configuration snapshots.
-- Reusable authoring templates that bind an exact experiment definition, parameter schema, and validated default configuration; template-created configurations are revalidated before use.
-- An experiment-model adapter contract and asynchronous model invocation.
-- An FSM_Execution workflow adapter that lets FSM_Execution own workflow lifecycle, cancellation, and timeout semantics.
-- A Physics adapter that invokes the existing `ElectricalThermalCouplingExperiment` without duplicating its equations.
-- Immutable run records that retain the exact configuration, model provenance, scientific disclosures, timestamps, and serialized result.
-- A laboratory MicroBundle adapter that exposes immutable laboratory and facility catalogs through a typed provider interface.
-
-The core does not implement scientific equations. `Laboratory.PhysicsAdapter` invokes the existing Physics `ElectricalThermalCouplingExperiment` implementation and returns its unit-explicit observation through `IExperimentModel`. `Laboratory.ExecutionAdapter` registers that capability as a host-approved FSM_Execution workflow handler; it does not replace FSM_Execution's lifecycle coordinator. The initial electrical-to-lumped-thermal candidate is an **educational model**, not a validated appliance or material prediction. Its declared absorbed fraction is an input; it is not a predicted efficiency.
-
-The MicroBundle provider declaration is metadata. A composition host resolves the loaded `IMicroBundle` instance and explicitly casts it to `ILaboratoryCatalogProvider`; the neutral MicroBundle load context is not a service locator. The adapter references MicroBundleDomain source rather than assuming an unpublished package is available.
-
-For a local cross-repository build, check out the matching sources into the ignored dependency directory, then run the tests:
-
-```sh
-mkdir -p dependencies
-git clone --branch development https://github.com/TrentBest/TheSingularityWorkshop.FSM_Execution.git dependencies/FSM_Execution
-git clone --branch development https://github.com/TrentBest/TheSingularityWorkshop.Physics.git dependencies/Physics
-git clone --branch development https://github.com/TrentBest/TheSingularityWorkshop.FSM_COS.git dependencies/FSM_COS
-git clone --branch development https://github.com/TrentBest/FSM_API.git dependencies/FSM_API
-git clone --branch development https://github.com/TrentBest/FSM_UserIO.git dependencies/FSM_UserIO
-git clone --branch development https://github.com/TrentBest/TheSingularityWorkshop.MicroBundleDomain.git dependencies/TheSingularityWorkshop.MicroBundleDomain
-dotnet test tests/SingularityLaboratories.Tests/SingularityLaboratories.Tests.csproj --configuration Release
-```
-
-The GitHub Actions workflow performs these source checkouts automatically and runs focused Physics tests, the laboratory suite, and all adapter builds.
-
-`ExperimentAuthoringTemplate` binds one exact experiment definition/version to its matching parameter schema and a validated default configuration. It provides a host-neutral reusable starting point and validates each newly created configuration against the same schema; it does not replace scientific-model validation. `ExperimentAuthoringTemplateSerializer` exports that complete versioned definition as portable JSON with a SHA-256 payload-integrity check and imports it by reconstructing the domain objects through their validating constructors. `ExperimentAuthoringTemplateComparison.Compare` produces a deterministic, host-neutral change list between two template versions, covering template and experiment identity, model provenance, scientific disclosures, safety/review metadata, schema version, parameter additions/removals/changes, and default configuration differences. Parameter changes are ordered by stable parameter ID and use explicit Added/Removed/Changed classifications; the comparison is descriptive and does not automatically migrate configurations or approve scientific changes. `ExperimentDefaultConfigurationCompatibility.Assess` separately checks whether a source template's default JSON configuration is accepted by a target template's parameter schema, reporting a precise failure reason when it is not. This is a narrow check of that one default payload, not a migration, a guarantee for all historical configurations, or a scientific-equivalence judgment. `ExperimentConfigurationCompatibility.Assess` extends the same assessment to one explicitly supplied saved configuration, retaining its source experiment/schema versions and the target template/experiment/schema versions while checking the payload against the target schema. Older version numbers are not rejected merely for differing when experiment identity matches and the target schema accepts the payload; this remains assessment only, not migration, approval, or proof of scientific equivalence. The package format is versioned and deterministic; its digest detects accidental or unauthorized payload changes but is not a publisher signature. The optional `Laboratory.Persistence` adapter provides atomic, non-overwriting JSON run storage and retrieval through `IExperimentRunStore`. It also provides `IExperimentAuthoringTemplateStore` and `FileSystemExperimentAuthoringTemplateStore` for durable, exact-version template save/retrieval and deterministic catalog listing; each ID/version pair is stored once and cannot be silently overwritten. `ExperimentResultCatalog` reads those durable records as `ExperimentResultView` projections, supporting single-run lookup and deterministic completion-time ordering for host result browsers; it does not add host-specific presentation or duplicate payloads. `LaboratoryWorkflowAdapter.Register` accepts that store optionally and persists completed runs before exposing them as workflow output. `ExperimentRunReplayService` reloads the original configuration, requires the exact laboratory, experiment, and model versions plus unchanged scientific disclosures, then executes a new run linked to its source through `ReplayedFromRunId`. The storage location remains host-owned; this does not introduce a database, hosted service, or mandatory persistence dependency. The domain now includes `LaboratoryStaffAssignment` for recording a host-identified person's responsibility (Owner, Administrator, SafetyOfficer, PrincipalInvestigator, Instructor, Technician, or Researcher) within a laboratory, including assigning principal and optional expiry. Principal identifiers are opaque references, never credentials; the record does not authenticate anyone or grant permissions. Learners, guests, and reviewers remain distinct participant relationships to be modeled with their respective workflows. The authoring contracts now include `ExperimentSafetyMetadata` for explicit qualitative risk, hazards, precautions, and prohibited-use boundaries, plus `ExperimentValidationAssessment` for version-bound review state and traceable evidence. Accepted assessments require both a named reviewer and evidence. Review state is intentionally separate from `ScientificValidationLevel`: recording an approval does not upgrade a model's declared scientific evidence level, certify safety, or execute validation tests. `ExperimentDefinition` can carry these safety disclosures and a matching validation assessment directly. Construction rejects an assessment whose experiment ID/version or model ID/version differs from the definition, preventing a review decision from being displayed against another revision. Both attachments remain optional for compatibility with existing definitions. Hosts and reviewers remain responsible for the review process and the quality of supplied evidence. Hosts can also pass an optional `ExperimentExecutionPolicy` to the runner. It can require an accepted assessment attached to the exact definition and/or enforce a maximum declared risk level; missing review or safety metadata and risk levels above the host ceiling are rejected before model invocation. `ExperimentExecutionPolicy.Evaluate` returns an immutable `ExperimentExecutionAdmissionResult` containing every applicable machine-readable denial reason, so a host can explain all blockers before deciding whether to invoke the runner. The runner uses the same result to enforce the gate. This is an opt-in host admission gate, not a safety certification, and omitting the policy preserves the existing execution behavior. The core also defines version-bound `ExperimentResourceProfile` estimates (execution time, peak memory, and compute units) and host-owned `ExecutionResourceBudget` ceilings. The runner rejects mismatched model profiles and estimates that exceed the supplied budget before invoking the model. These are admission estimates, not runtime metering or enforced process isolation; hosts remain responsible for selecting defensible estimates and enforcing actual resource limits. `ExperimentResultView` provides a host-neutral, read-only projection over the authoritative immutable run record. It exposes run, laboratory, experiment, model, validation, timing, result-content, and scientific-disclosure metadata without introducing UI, renderer, or world dependencies and without duplicating the result payload. Workshop, Singularity City, and game hosts can build their own presentation adapters over this shared contract. This is still a foundation, not yet the complete authoring, instrument, classroom, research, or hosted runtime platform.
-
-## 7. Scientific Integrity and Participation
-
-A compelling visualization is not automatically a scientifically valid result. Every experiment must make its model, assumptions, units, parameter ranges, numerical limits, provenance, and uncertainty discoverable. Educational approximations, exploratory models, validated models, and research-reviewed models must be distinguishable.
-
-Hazardous phenomena may be explored as educational simulations of physical processes and consequences, not as actionable construction or operational guidance. High-consequence claims require appropriate validation and expert review.
-
-This repository follows the Workshop's two-branch policy: `master` represents the released state and `development` is the active source branch. Work begins on `development`; release alignment and publication remain explicit, gated activities.
+- Active work: `development`
+- Release-aligned branch: `master`
+- Pages workflow: `.github/workflows/pages.yml`
+- No NuGet package is published by this repository workflow.
+- Changes are developed and validated on `development`; release synchronization and publication remain explicit gated activities.
 
 ---
 
