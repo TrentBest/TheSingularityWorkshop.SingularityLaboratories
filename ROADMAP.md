@@ -31,6 +31,8 @@ Each phase should produce a working capability and verifiable evidence. The plat
 
 ## Phase 2 — Laboratory authoring toolkit
 
+- [x] Publish the first GitHub Pages landing experience from `development` through GitHub Actions; expand it into a live catalog, authoring, and experiment surface as host adapters become available.
+
 - [x] Establish versioned laboratory, facility, instrument, apparatus, measurement-channel, and experiment definitions.
 - [x] Add versioned parameter schemas and a host-neutral result view projection.
 - [x] Add reusable authoring templates. `ExperimentAuthoringTemplate` binds a versioned experiment definition, matching parameter schema, and schema-validated default configuration; generated configurations are validated before creation.
