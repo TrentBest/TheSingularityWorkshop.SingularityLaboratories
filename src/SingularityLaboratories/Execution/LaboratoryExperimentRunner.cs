@@ -9,11 +9,16 @@ public sealed class LaboratoryExperimentRunner
         LaboratoryDefinition laboratory,
         IExperimentModel model,
         ExperimentConfiguration configuration,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default,
+        ExperimentResourceProfile? resourceProfile = null,
+        ExecutionResourceBudget? resourceBudget = null)
     {
         ArgumentNullException.ThrowIfNull(laboratory);
         ArgumentNullException.ThrowIfNull(model);
         ArgumentNullException.ThrowIfNull(configuration);
+
+        if ((resourceProfile is null) != (resourceBudget is null))
+            throw new ArgumentException("A resource profile and budget must be supplied together.");
 
         var definition = model.Definition ?? throw new InvalidOperationException("The model has no experiment definition.");
         var schema = model.ParameterSchema ?? throw new InvalidOperationException("The model has no parameter schema.");
@@ -31,6 +36,17 @@ public sealed class LaboratoryExperimentRunner
         if (!string.Equals(configuration.ContentType, "application/json", StringComparison.Ordinal))
             throw new ArgumentException("The current portable parameter schema requires application/json.", nameof(configuration));
         schema.ValidateJson(configuration.Payload);
+
+        if (resourceProfile is not null && resourceBudget is not null)
+        {
+            if (!string.Equals(resourceProfile.ModelId, definition.ModelId, StringComparison.Ordinal) ||
+                !string.Equals(resourceProfile.ModelVersion, definition.ModelVersion, StringComparison.Ordinal))
+            {
+                throw new ArgumentException("The resource profile does not target the exact model identity and version.", nameof(resourceProfile));
+            }
+
+            resourceProfile.EnsureWithin(resourceBudget);
+        }
 
         cancellationToken.ThrowIfCancellationRequested();
         var runId = Guid.NewGuid();
