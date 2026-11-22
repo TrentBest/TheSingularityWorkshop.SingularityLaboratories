@@ -1,6 +1,7 @@
 using TheSingularityWorkshop.Foundry;
 using TheSingularityWorkshop.SingularityLaboratories.Contracts;
 using TheSingularityWorkshop.SingularityLaboratories.Execution;
+using TheSingularityWorkshop.SingularityLaboratories.Persistence;
 
 namespace TheSingularityWorkshop.SingularityLaboratories.ExecutionAdapter;
 
@@ -23,7 +24,8 @@ public static class LaboratoryWorkflowAdapter
     public static void Register(
         WorkflowHandlerRegistry handlers,
         LaboratoryDefinition laboratory,
-        IExperimentModelCatalog models)
+        IExperimentModelCatalog models,
+        IExperimentRunStore? runStore = null)
     {
         ArgumentNullException.ThrowIfNull(handlers);
         ArgumentNullException.ThrowIfNull(laboratory);
@@ -41,6 +43,9 @@ public static class LaboratoryWorkflowAdapter
 
             var run = await new LaboratoryExperimentRunner().RunAsync(
                 laboratory, model, configuration, cancellationToken).ConfigureAwait(false);
+            if (runStore is not null)
+                await runStore.SaveAsync(run, cancellationToken).ConfigureAwait(false);
+
             context.SetOutput(RunRecordOutputKey, run);
         });
     }
