@@ -16,7 +16,7 @@ A laboratory definition identifies:
 - Educational capabilities such as lessons, instructor controls, assignments, and learner progression.
 - Research capabilities such as parameter studies, datasets, comparison workflows, and export.
 
-## Core concepts
+## Staffing and participant relationships\n\nA laboratory has accountable staff responsibilities: Owner, Administrator, SafetyOfficer, PrincipalInvestigator, Instructor, Technician, and Researcher. `LaboratoryStaffAssignment` records a host-issued opaque principal reference, laboratory ID, role, assigning principal, assignment time, and optional expiry. Multiple assignments may coexist for one principal. The contract does not authenticate the person, authorize actions, or establish separation-of-duty policy. Learners, students, guests, and external reviewers are participants, not automatically staff; enrollment, guest access, and review relationships require separate contracts.\n\nHosts must enforce permissions at trusted service boundaries and must not treat a client-side role label as authorization. Authentication, access revocation, storage protection, tenant isolation, workload sandboxing, device security, and audit infrastructure are host/platform responsibilities. The laboratory domain records scientific safety disclosures, review evidence, and operational responsibility. See [Governance and Security](GOVERNANCE-AND-SECURITY.md) for the threat and control boundary.\n\n## Core concepts
 
 | Concept | Meaning |
 |---|---|
