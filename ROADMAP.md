@@ -45,6 +45,7 @@ Each phase should produce a working capability and verifiable evidence. The plat
 - [x] Add durable save and catalog retrieval for reusable authoring templates; exact versions are immutable in the filesystem store.
 - [x] Add deterministic, host-neutral authoring-template comparison with stable parameter-level added/removed/changed results; comparison does not migrate configurations or approve scientific changes.
 - [x] Assess whether a source template's default JSON configuration passes a target template's parameter schema; report incompatibility without automatic migration or claims about every historical configuration.
+- [x] Assess individual saved configurations against a target template's parameter schema while retaining source and target version provenance; compatibility checks do not migrate or approve saved work.
 - [x] Add portable, versioned authoring-template export/import with deterministic JSON and SHA-256 payload-integrity verification.
 - [x] Establish model-specific resource profiles and budget admission gates.
 - [ ] Add runtime metering/enforcement, measured resource history, and cancellation policy integration.
