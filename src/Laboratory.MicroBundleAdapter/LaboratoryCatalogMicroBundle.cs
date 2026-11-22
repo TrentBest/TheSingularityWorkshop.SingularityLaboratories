@@ -23,9 +23,7 @@ public interface ILaboratoryCatalogProvider
     bool TryGetFacility(string id, out LaboratoryFacility? facility);
 }
 
-/// <summary>
-/// A host-neutral, immutable catalog of portable laboratory and facility definitions.
-/// </summary>
+/// <summary>A host-neutral, immutable catalog of portable laboratory and facility definitions.</summary>
 public sealed class LaboratoryCatalogMicroBundle : IMicroBundle, ILaboratoryCatalogProvider
 {
     /// <summary>Stable identity for the first laboratory catalog capability.</summary>
@@ -51,6 +49,9 @@ public sealed class LaboratoryCatalogMicroBundle : IMicroBundle, ILaboratoryCata
     /// <inheritdoc />
     public MicroBundleDescriptor Descriptor { get; } =
         new(BundleId, "0.1.0-alpha.1", providers: [new MicroBundleProvider(ProviderId)]);
+
+    /// <inheritdoc />
+    public ulong Id => Descriptor.Id;
 
     /// <inheritdoc />
     public IReadOnlyList<MicroBundleDependencyRequest> Dependencies { get; } =
