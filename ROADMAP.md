@@ -19,7 +19,8 @@ Each phase should produce a working capability and verifiable evidence. The plat
 - [x] Integrate the laboratory MicroBundle through an FSM_COS composition manifest and verify provider resolution from the resulting RuntimeAssembly. CI explicitly builds FSM_COS against the repository-source dependency graph and exercises the composition test.
 - [x] Add durable run-record storage and retrieval. `Laboratory.Persistence` supplies an atomic filesystem implementation of `IExperimentRunStore`; the FSM_Execution adapter can persist each completed run when a host supplies the store. Round-trip, duplicate-ID protection, missing-run, and identity validation tests cover the storage contract.
 - [x] Implement version-locked run replay. `ExperimentRunReplayService` reloads the recorded configuration, requires the exact laboratory/experiment/model versions and unchanged scientific disclosures, re-executes through the normal runner, and stores a new run linked to its source via `ReplayedFromRunId`.
-- [x] Establish version-bound model resource profiles and host-owned execution budgets; the runner rejects estimates exceeding a supplied budget before model invocation. Estimates are advisory admission data, not runtime metering or process isolation.\n- [ ] Add runtime resource metering/enforcement and improve pre-run estimates with model-specific evidence.
+- [x] Establish version-bound model resource profiles and host-owned execution budgets; the runner rejects estimates exceeding a supplied budget before model invocation. Estimates are advisory admission data, not runtime metering or process isolation.
+- [ ] Add runtime resource metering/enforcement and improve pre-run estimates with model-specific evidence.
 - [x] Define a host-neutral result projection over the authoritative run record; it exposes scientific identity and result content without UI/world dependencies or payload duplication.
 - [ ] Prove that the same laboratory can be surfaced by more than one host without changing its scientific identity.
 - [ ] Define a minimal game-host adapter for facilities, apparatus interactions, experiment events, and discoverable research records.
@@ -34,7 +35,8 @@ Each phase should produce a working capability and verifiable evidence. The plat
 - [ ] Add reusable authoring templates.
 - [ ] Add validation states, safety metadata, and scientific provenance.
 - [ ] Add save, compare, export, and replay workflows.
-- [x] Establish model-specific resource profiles and budget admission gates.\n- [ ] Add runtime metering/enforcement, measured resource history, and cancellation policy integration.
+- [x] Establish model-specific resource profiles and budget admission gates.
+- [ ] Add runtime metering/enforcement, measured resource history, and cancellation policy integration.
 - [ ] Add reusable templates so new labs do not require bespoke application code.
 
 ## Phase 3 — Education and online classes
