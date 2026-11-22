@@ -25,8 +25,9 @@ Host-specific presentation must remain an adapter around the laboratory domain, 
 | FSM_API | State and interaction foundations |
 | FSM_COS | Resolve and compose laboratory MicroBundles into a `RuntimeAssembly`; composition is not workflow execution |
 | FSM_Execution | Own workflow validation, registered-handler execution, retained run lifecycle, cancellation, timeouts, and structured outcomes |
-| Laboratory.ExecutionAdapter | Register laboratory experiment invocation as an explicit Foundry workflow handler; does not reimplement Foundry lifecycle |
+| Laboratory.ExecutionAdapter | Register laboratory experiment invocation as an explicit FSM_Execution workflow handler; does not reimplement workflow lifecycle |
 | Laboratory.PhysicsAdapter | Map a strict, versioned laboratory configuration to an existing Physics model and return unit-explicit observations |
+| Laboratory.MicroBundleAdapter | Expose portable laboratory/facility catalogs as a typed MicroBundle provider; no host service locator or presentation dependency |
 | Renderer | Rendering experience, consumed as a MicroBundle |
 | Visualization | Visual, spatial, pixel/world representation, consumed as a MicroBundle |
 | The Singularity Workshop | Direct host and discovery surface for laboratory tools and experiences |
@@ -58,7 +59,7 @@ The platform should support the following independently versioned concepts:
 2. **Laboratory experience:** domain-specific environment, apparatus, controls, guidance, teaching and research workflows.
 3. **Experiment runtime:** lifecycle, validation, execution, pause/resume, cancellation, checkpoints, result capture.
 4. **Scientific model adapter:** narrow boundary to Physics with explicit units, model versions, and supported parameter contracts.
-5. **Composition and execution:** FSM_COS resolves and loads MicroBundles; FSM_Execution's Foundry workflow runner executes host-registered handlers and owns accepted/running/terminal lifecycle state. Renderer and Visualization remain optional MicroBundle presentation capabilities.
+5. **Composition and execution:** FSM_COS resolves and loads MicroBundles; FSM_Execution executes host-registered workflow handlers and owns accepted/running/terminal lifecycle state. Renderer and Visualization remain optional MicroBundle presentation capabilities.
 6. **Host adapters:** Workshop surfaces, Singularity City facilities, classroom interfaces, and other compatible clients.
 7. **Platform services:** optional identity, persistence, collaboration, storage, metering, entitlements, and commerce.
 
@@ -86,4 +87,4 @@ Support unit-aware quantities, coordinate frames, explicit time and spatial scal
 
 ## Extension and portability
 
-Laboratories, facilities, instruments, experiment templates, lessons, and host adapters should be independently composable through versioned contracts and declarative manifests. Host adapters may add spatial placement and presentation without changing the underlying lab definition. The initial implementation now includes versioned laboratory/experiment/configuration/run contracts, a strict Physics adapter for the electrical-to-lumped-thermal fixture, and a Foundry handler adapter. The first Physics model is explicitly educational; it is not a validated appliance or material prediction. Facility/instrument schemas, laboratory MicroBundle providers, host presentation, and reproducible replay acceptance remain open work.
+Laboratories, facilities, instruments, experiment templates, lessons, and host adapters should be independently composable through versioned contracts and declarative manifests. Host adapters may add spatial placement and presentation without changing the underlying lab definition. The initial implementation includes versioned laboratory/experiment/configuration/run contracts, portable facility/instrument contracts, a strict Physics adapter for the electrical-to-lumped-thermal fixture, an FSM_Execution workflow adapter, and a typed laboratory catalog MicroBundle. The first Physics model is explicitly educational; it is not a validated appliance or material prediction. Parameter schemas, result views, durable replay, resource profiles, host presentation, and reproducible replay acceptance remain open work.
