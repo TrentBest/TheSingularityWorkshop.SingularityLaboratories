@@ -22,6 +22,7 @@ Each phase should produce a working capability and verifiable evidence. The plat
 - [x] Establish version-bound model resource profiles and host-owned execution budgets; the runner rejects estimates exceeding a supplied budget before model invocation. Estimates are advisory admission data, not runtime metering or process isolation.
 - [ ] Add runtime resource metering/enforcement and improve pre-run estimates with model-specific evidence.
 - [x] Define a host-neutral result projection over the authoritative run record; it exposes scientific identity and result content without UI/world dependencies or payload duplication.
+- [x] Add a persisted result catalog that exposes the same run record through host-neutral result projections, with deterministic ordering for host browsers.
 - [ ] Prove that the same laboratory can be surfaced by more than one host without changing its scientific identity.
 - [ ] Define a minimal game-host adapter for facilities, apparatus interactions, experiment events, and discoverable research records.
 - [x] Demonstrate deterministic model behavior and documented limitations through the Physics fixture tests and adapter tests.
