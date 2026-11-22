@@ -21,24 +21,28 @@ public sealed record ExperimentExecutionPolicy
     public bool RequireAcceptedValidationAssessment { get; }
     public ExperimentRiskLevel? MaximumRiskLevel { get; }
 
-    /// <summary>Rejects a definition that does not satisfy this host's declared admission rules.</summary>
-    public void EnsureCanExecute(ExperimentDefinition definition)
+    /// <summary>Evaluates all configured admission rules and returns every denial reason.</summary>
+    public ExperimentExecutionAdmissionResult Evaluate(ExperimentDefinition definition)
     {
         ArgumentNullException.ThrowIfNull(definition);
+        var reasons = new List<ExperimentExecutionDenialReason>();
 
         if (RequireAcceptedValidationAssessment &&
             definition.ValidationAssessment?.State != ExperimentValidationState.Accepted)
-            throw new InvalidOperationException(
-                "The host requires an accepted validation assessment for this exact experiment and model version.");
+            reasons.Add(ExperimentExecutionDenialReason.ValidationAssessmentNotAccepted);
 
         if (MaximumRiskLevel is not null)
         {
-            var safety = definition.SafetyMetadata ??
-                throw new InvalidOperationException("The host requires safety metadata to enforce its risk ceiling.");
-
-            if (safety.RiskLevel > MaximumRiskLevel.Value)
-                throw new InvalidOperationException(
-                    $"The declared experiment risk level '{safety.RiskLevel}' exceeds the host maximum '{MaximumRiskLevel.Value}'.");
+            var safety = definition.SafetyMetadata;
+            if (safety is null)
+                reasons.Add(ExperimentExecutionDenialReason.SafetyMetadataMissing);
+            else if (safety.RiskLevel > MaximumRiskLevel.Value)
+                reasons.Add(ExperimentExecutionDenialReason.RiskAboveMaximum);
         }
+
+        return new ExperimentExecutionAdmissionResult(reasons);
     }
+
+    /// <summary>Rejects a definition that does not satisfy this host's declared admission rules.</summary>
+    public void EnsureCanExecute(ExperimentDefinition definition) => Evaluate(definition).EnsureAllowed();
 }
