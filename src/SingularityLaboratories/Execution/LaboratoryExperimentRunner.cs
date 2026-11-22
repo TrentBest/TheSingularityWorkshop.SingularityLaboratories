@@ -11,7 +11,8 @@ public sealed class LaboratoryExperimentRunner
         ExperimentConfiguration configuration,
         CancellationToken cancellationToken = default,
         ExperimentResourceProfile? resourceProfile = null,
-        ExecutionResourceBudget? resourceBudget = null)
+        ExecutionResourceBudget? resourceBudget = null,
+        ExperimentExecutionPolicy? executionPolicy = null)
     {
         ArgumentNullException.ThrowIfNull(laboratory);
         ArgumentNullException.ThrowIfNull(model);
@@ -22,6 +23,7 @@ public sealed class LaboratoryExperimentRunner
 
         var definition = model.Definition ?? throw new InvalidOperationException("The model has no experiment definition.");
         var schema = model.ParameterSchema ?? throw new InvalidOperationException("The model has no parameter schema.");
+        executionPolicy?.EnsureCanExecute(definition);
         if (!string.Equals(configuration.ExperimentId, definition.Id, StringComparison.Ordinal) ||
             !string.Equals(configuration.ExperimentVersion, definition.Version, StringComparison.Ordinal))
         {
