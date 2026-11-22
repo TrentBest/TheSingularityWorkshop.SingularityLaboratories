@@ -21,7 +21,7 @@ This repository is everything about the laboratory abstraction and its tooling:
 - **Operate:** initialize, validate, execute, pause, resume, cancel, checkpoint, and reproduce experiments.
 - **Measure:** configure instruments, sensors, sampling, observation channels, units, uncertainty, and data capture.
 - **Teach:** create guided labs, assignments, instructor-led demonstrations, classroom sessions, and learner progression.
-- **Research:** compare hypotheses and runs, manage provenance, collaborate, analyze results, and publish reproducible methods.
+- **Research:** compare hypotheses and runs, manage provenance, collaborate, analyze results, and publish reproducible work.
 - **Extend:** compose new disciplines, instruments, models, lessons, and lab experiences from versioned reusable components.
 - **Host and govern:** support local, classroom, institutional, private, and hosted laboratory modes with explicit resource and access boundaries.
 
@@ -67,7 +67,7 @@ This makes a laboratory usable in a classroom, research workspace, Workshop page
 - **Physics** owns mathematical and physical models and numerical methods.
 - **FSM_API** provides state and interaction foundations where appropriate.
 - **FSM_COS** composes laboratory experiences from MicroBundles.
-- **FSM_Execution** executes composed experiences.
+- **FSM_Execution** executes composed experiences and owns workflow lifecycle.
 - **Renderer** and **Visualization** are consumed through the MicroBundle architecture.
 - **ServerApp** may provide optional identity, persistence, collaboration, and hosted sessions.
 - **Economy** may provide optional commerce, entitlements, and virtual-economy integration.
@@ -77,7 +77,7 @@ The laboratory layer owns laboratory/experiment definitions, orchestration, inst
 
 See [Architecture](ARCHITECTURE.md), [Laboratory Model](LABORATORY-MODEL.md), and [Roadmap](ROADMAP.md).
 
-## 7. Initial Runtime Foundation
+## 6. Initial Runtime and Composition Foundation
 
 The first implementation slice lives in `src/SingularityLaboratories` and is deliberately host-neutral:
 
@@ -85,26 +85,30 @@ The first implementation slice lives in `src/SingularityLaboratories` and is del
 - Explicit model identity/version, validation level, assumptions, and limitations.
 - Versioned, immutable configuration snapshots.
 - An experiment-model adapter contract and asynchronous model invocation.
-- A Foundry handler adapter that lets FSM_Execution own workflow lifecycle, cancellation, and timeout semantics.
+- An FSM_Execution workflow adapter that lets FSM_Execution own workflow lifecycle, cancellation, and timeout semantics.
 - A Physics adapter that invokes the existing `ElectricalThermalCouplingExperiment` without duplicating its equations.
 - Immutable run records that retain the exact configuration, model provenance, scientific disclosures, timestamps, and serialized result.
+- A laboratory MicroBundle adapter that exposes immutable laboratory and facility catalogs through a typed provider interface.
 
-The core does not implement scientific equations. `Laboratory.PhysicsAdapter` invokes the existing Physics `ElectricalThermalCouplingExperiment` implementation and returns its unit-explicit observation through `IExperimentModel`. `Laboratory.ExecutionAdapter` registers that capability as a host-approved Foundry workflow handler; it does not replace Foundry's lifecycle coordinator. The initial electrical-to-lumped-thermal candidate is an **educational model**, not a validated appliance or material prediction. Its declared absorbed fraction is an input; it is not a predicted efficiency.
+The core does not implement scientific equations. `Laboratory.PhysicsAdapter` invokes the existing Physics `ElectricalThermalCouplingExperiment` implementation and returns its unit-explicit observation through `IExperimentModel`. `Laboratory.ExecutionAdapter` registers that capability as a host-approved FSM_Execution workflow handler; it does not replace FSM_Execution's lifecycle coordinator. The initial electrical-to-lumped-thermal candidate is an **educational model**, not a validated appliance or material prediction. Its declared absorbed fraction is an input; it is not a predicted efficiency.
 
-The adapter projects use source references rather than assuming unpublished NuGet packages. For a local cross-repository build, check out the matching `development` sources into the ignored dependency directory, then run the tests:
+The MicroBundle provider declaration is metadata. A composition host resolves the loaded `IMicroBundle` instance and explicitly casts it to `ILaboratoryCatalogProvider`; the neutral MicroBundle load context is not a service locator. The adapter references MicroBundleDomain source rather than assuming an unpublished package is available.
+
+For a local cross-repository build, check out the matching sources into the ignored dependency directory, then run the tests:
 
 ```sh
 mkdir -p dependencies
 git clone --branch development https://github.com/TrentBest/TheSingularityWorkshop.FSM_Execution.git dependencies/FSM_Execution
 git clone --branch development https://github.com/TrentBest/TheSingularityWorkshop.Physics.git dependencies/Physics
+git clone --branch master https://github.com/TrentBest/TheSingularityWorkshop.MicroBundleDomain.git dependencies/MicroBundleDomain
 dotnet test tests/SingularityLaboratories.Tests/SingularityLaboratories.Tests.csproj --configuration Release
 ```
 
-The GitHub Actions workflow performs these source checkouts automatically and also runs the selected Physics experiment's focused tests.
+The GitHub Actions workflow performs these source checkouts automatically and runs focused Physics tests, the laboratory suite, and all adapter builds.
 
-This first slice is a foundation, not yet the complete authoring, instrument, MicroBundle, classroom, research, or hosted runtime platform.
+This is still a foundation, not yet the complete authoring, instrument, classroom, research, or hosted runtime platform. Parameter schemas, result views, durable replay, resource profiles, and host presentation remain active work.
 
-## 8. Scientific Integrity and Participation
+## 7. Scientific Integrity and Participation
 
 A compelling visualization is not automatically a scientifically valid result. Every experiment must make its model, assumptions, units, parameter ranges, numerical limits, provenance, and uncertainty discoverable. Educational approximations, exploratory models, validated models, and research-reviewed models must be distinguishable.
 
