@@ -8,6 +8,5 @@
   "cover": "docs/books/covers/laboratory-npcs.svg",
   "lodBadge": "docs/assets/sourcebook-lod-2.svg",
   "publisher": "The Singularity Workshop",
-  "publisherMoniker": "https://raw.githubusercontent.com/TrentBest/TheSingularityWorkshop.Visualize/development/docs/assets/moniker.svg",
-  "parentBook": "https://github.com/TrentBest/TheSingularityWorkshop.SingularityCity/blob/development/docs/books/nonplayer-characters.book.json"
+  "publisherMoniker": "https://raw.githubusercontent.com/TrentBest/TheSingularityWorkshop.Visualize/development/docs/assets/moniker.svg"
 }
