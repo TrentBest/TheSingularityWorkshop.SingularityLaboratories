@@ -81,7 +81,7 @@ public sealed class ExperimentResultCatalogTests
         // City/game-style host: a world marker with scientific identity.
         static CityMarker ToCityMarker(ExperimentResultView result) =>
             new(result.RunId, result.ModelId, result.ModelVersion,
-                result.CompletedAtUtc, result.ResultContentType);
+                result.CompletedAtUtc, result.ContentType);
 
         var workshopResult = await catalog.GetAsync(run.RunId);
         var cityResult = await catalog.GetAsync(run.RunId);
@@ -99,7 +99,7 @@ public sealed class ExperimentResultCatalogTests
             Assert.That(cityMarker.ModelId, Is.EqualTo(run.ModelId));
             Assert.That(workshopCard.ValidationLevel, Is.EqualTo(run.ValidationLevel));
             Assert.That(cityMarker.ContentType, Is.EqualTo(run.ResultContentType));
-            Assert.That(workshopCard, Is.Not.EqualTo(cityMarker));
+            Assert.That(workshopCard.GetType(), Is.Not.EqualTo(cityMarker.GetType()));
         });
     }
 
