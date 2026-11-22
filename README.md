@@ -109,7 +109,7 @@ dotnet test tests/SingularityLaboratories.Tests/SingularityLaboratories.Tests.cs
 
 The GitHub Actions workflow performs these source checkouts automatically and runs focused Physics tests, the laboratory suite, and all adapter builds.
 
-This is still a foundation, not yet the complete authoring, instrument, classroom, research, or hosted runtime platform. Parameter schemas, result views, durable replay, resource profiles, and host presentation remain active work.
+The optional `Laboratory.Persistence` adapter now provides atomic, non-overwriting JSON run storage and retrieval through `IExperimentRunStore`. `LaboratoryWorkflowAdapter.Register` accepts that store optionally and persists completed runs before exposing them as workflow output. The storage location remains host-owned; this does not introduce a database, hosted service, or mandatory persistence dependency. Re-executing a stored configuration against its exact model version, resource profiles, result views, and host presentation remain active work. This is still a foundation, not yet the complete authoring, instrument, classroom, research, or hosted runtime platform.
 
 ## 7. Scientific Integrity and Participation
 
