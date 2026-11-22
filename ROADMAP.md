@@ -43,7 +43,8 @@ Each phase should produce a working capability and verifiable evidence. The plat
 - [x] Add opt-in host execution admission policy: require accepted version-bound review and/or enforce a declared risk ceiling before model invocation; policy remains separate from safety certification.
 - [x] Return structured admission results with all machine-readable denial reasons so hosts can explain every blocked condition before execution.
 - [x] Add durable save and catalog retrieval for reusable authoring templates; exact versions are immutable in the filesystem store.
-- [ ] Add template/experiment comparison and portable export workflows.
+- [ ] Add template/experiment comparison workflows.
+- [x] Add portable, versioned authoring-template export/import with deterministic JSON and SHA-256 payload-integrity verification.
 - [x] Establish model-specific resource profiles and budget admission gates.
 - [ ] Add runtime metering/enforcement, measured resource history, and cancellation policy integration.
 - [x] Establish a reusable template contract so new experiment configurations can start from validated, version-bound authoring definitions.
