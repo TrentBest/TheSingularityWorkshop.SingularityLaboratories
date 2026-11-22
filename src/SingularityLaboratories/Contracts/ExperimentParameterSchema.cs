@@ -14,8 +14,8 @@ public sealed record ExperimentParameterSchema
         int schemaVersion,
         IEnumerable<ExperimentParameterDefinition> parameters)
     {
-        ExperimentId = Required(experimentId, nameof(experimentId));
-        ExperimentVersion = Required(experimentVersion, nameof(experimentVersion));
+        ExperimentId = RequireText(experimentId, nameof(experimentId));
+        ExperimentVersion = RequireText(experimentVersion, nameof(experimentVersion));
         ArgumentOutOfRangeException.ThrowIfLessThan(schemaVersion, 1);
         SchemaVersion = schemaVersion;
         ArgumentNullException.ThrowIfNull(parameters);
@@ -157,7 +157,7 @@ public sealed record ExperimentParameterDefinition
         }
     }
 
-    private static string Required(string value, string parameterName)
+    private static string RequireText(string value, string parameterName)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(value, parameterName);
         return value.Trim();
