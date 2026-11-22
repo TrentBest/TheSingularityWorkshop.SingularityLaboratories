@@ -20,6 +20,24 @@ jobs:
           repository: TrentBest/TheSingularityWorkshop.FSM_Execution
           ref: development
           path: dependencies/FSM_Execution
+      - name: Check out FSM_COS composition source
+        uses: actions/checkout@v4
+        with:
+          repository: TrentBest/TheSingularityWorkshop.FSM_COS
+          ref: development
+          path: dependencies/FSM_COS
+      - name: Check out FSM_API source
+        uses: actions/checkout@v4
+        with:
+          repository: TrentBest/FSM_API
+          ref: development
+          path: dependencies/FSM_API
+      - name: Check out FSM_UserIO source
+        uses: actions/checkout@v4
+        with:
+          repository: TrentBest/TheSingularityWorkshop.FSM_UserIO
+          ref: development
+          path: dependencies/FSM_UserIO
       - name: Check out Physics model source
         uses: actions/checkout@v4
         with:
@@ -31,7 +49,7 @@ jobs:
         with:
           repository: TrentBest/TheSingularityWorkshop.MicroBundleDomain
           ref: master
-          path: dependencies/MicroBundleDomain
+          path: dependencies/TheSingularityWorkshop.MicroBundleDomain
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 10.0.x
