@@ -20,5 +20,6 @@
     <ProjectReference Include="../../src/SingularityLaboratories/SingularityLaboratories.csproj" />
     <ProjectReference Include="../../src/Laboratory.ExecutionAdapter/Laboratory.ExecutionAdapter.csproj" />
     <ProjectReference Include="../../src/Laboratory.PhysicsAdapter/Laboratory.PhysicsAdapter.csproj" />
+    <ProjectReference Include="../../src/Laboratory.MicroBundleAdapter/Laboratory.MicroBundleAdapter.csproj" />
   </ItemGroup>
 </Project>
