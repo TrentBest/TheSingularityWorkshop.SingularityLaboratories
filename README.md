@@ -100,7 +100,10 @@ For a local cross-repository build, check out the matching sources into the igno
 mkdir -p dependencies
 git clone --branch development https://github.com/TrentBest/TheSingularityWorkshop.FSM_Execution.git dependencies/FSM_Execution
 git clone --branch development https://github.com/TrentBest/TheSingularityWorkshop.Physics.git dependencies/Physics
-git clone --branch master https://github.com/TrentBest/TheSingularityWorkshop.MicroBundleDomain.git dependencies/MicroBundleDomain
+git clone --branch development https://github.com/TrentBest/TheSingularityWorkshop.FSM_COS.git dependencies/FSM_COS
+git clone --branch development https://github.com/TrentBest/FSM_API.git dependencies/FSM_API
+git clone --branch development https://github.com/TrentBest/TheSingularityWorkshop.FSM_UserIO.git dependencies/FSM_UserIO
+git clone --branch master https://github.com/TrentBest/TheSingularityWorkshop.MicroBundleDomain.git dependencies/TheSingularityWorkshop.MicroBundleDomain
 dotnet test tests/SingularityLaboratories.Tests/SingularityLaboratories.Tests.csproj --configuration Release
 ```
 
