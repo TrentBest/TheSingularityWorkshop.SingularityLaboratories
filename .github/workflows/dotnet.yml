@@ -61,6 +61,8 @@ jobs:
         run: dotnet test dependencies/Physics/tests/TheSingularityWorkshop.Physics.Tests/TheSingularityWorkshop.Physics.Tests.csproj --configuration Release --filter FullyQualifiedName~ElectricalThermalCouplingExperimentTests
       - name: Test laboratory domain contracts and adapters
         run: dotnet test tests/SingularityLaboratories.Tests/SingularityLaboratories.Tests.csproj --configuration Release --property:WorkshopUseRepositorySources=true
+      - name: Build laboratory persistence adapter
+        run: dotnet build src/Laboratory.Persistence/Laboratory.Persistence.csproj --configuration Release
       - name: Build FSM_Execution workflow adapter
         run: dotnet build src/Laboratory.ExecutionAdapter/Laboratory.ExecutionAdapter.csproj --configuration Release
       - name: Build Physics adapter
