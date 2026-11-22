@@ -9,6 +9,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../SingularityLaboratories/SingularityLaboratories.csproj" />
+    <ProjectReference Include="../Laboratory.Persistence/Laboratory.Persistence.csproj" />
     <ProjectReference Include="../../dependencies/FSM_Execution/src/Foundry.Workflow/Foundry.Workflow.csproj" />
   </ItemGroup>
   <Target Name="ValidateExecutionSource" BeforeTargets="PrepareForBuild">
