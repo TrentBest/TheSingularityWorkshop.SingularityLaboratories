@@ -9,7 +9,7 @@ Each phase should produce a working capability and verifiable evidence. The plat
 - [x] Separate portable laboratory domain from Workshop and Singularity City host experiences.
 - [x] Inspect Physics and identify concrete reusable simulation capabilities. The existing electrical-to-lumped-thermal coupling fixture is selected.
 - [x] Inspect FSM_COS, FSM_Execution, Renderer, and Visualization integration contracts. FSM_COS composes MicroBundles; FSM_Execution owns workflow execution; Renderer and Visualization remain presentation capabilities.
-- [x] Define the first experiment and acceptance criteria.
+- [x] Define the first experiment and acceptance criteria.\n- [x] Define laboratory staff responsibility assignments with opaque host principal references, UTC validity, and explicit non-authorization semantics.\n- [x] Document laboratory governance, security responsibilities, implemented controls, and outstanding host-security requirements.
 
 ## Phase 1 — First living laboratory vertical slice
 
@@ -49,7 +49,7 @@ Each phase should produce a working capability and verifiable evidence. The plat
 - [x] Add portable, versioned authoring-template export/import with deterministic JSON and SHA-256 payload-integrity verification.
 - [x] Establish model-specific resource profiles and budget admission gates.
 - [ ] Add runtime metering/enforcement, measured resource history, and cancellation policy integration.
-- [x] Establish a reusable template contract so new experiment configurations can start from validated, version-bound authoring definitions.
+- [x] Establish a reusable template contract so new experiment configurations can start from validated, version-bound authoring definitions.\n- [ ] Add durable staff assignment storage, change history, revocation, and explicit role-combination/separation-of-duty policy.\n- [ ] Add fine-grained authorization scopes for laboratories, facilities, apparatus, experiments, datasets, runs, and publications.
 
 ## Phase 3 — Education and online classes
 
@@ -57,7 +57,7 @@ Each phase should produce a working capability and verifiable evidence. The plat
 - [ ] Support instructor and learner roles, assignments, and individual/shared runs.
 - [ ] Add class demonstrations, learner workspaces, observations, and submission evidence.
 - [ ] Support progression from observation to independent investigation.
-- [ ] Integrate optional identity, roster, scheduling, and collaboration services through host boundaries.
+- [ ] Integrate optional identity, roster, scheduling, and collaboration services through host boundaries.\n- [ ] Model learner, student, guest, and external-reviewer participation separately from staff assignments.
 - [ ] Include accessible explanations, units, assumptions, and uncertainty in every lesson.
 
 ## Phase 4 — Research and collaboration
@@ -82,7 +82,7 @@ Each phase should produce a working capability and verifiable evidence. The plat
 ## Phase 6 — Hosted laboratories and monetization
 
 - [ ] Define compute metering, budgets, quotas, and pre-run estimates.
-- [ ] Integrate identity, entitlements, persistence, and hosted sessions through platform boundaries.
+- [ ] Integrate identity, authentication, authorization, entitlements, persistence, and hosted sessions through platform boundaries.\n- [ ] Implement host-backed security controls: tenant isolation, encryption/key management, data retention/deletion, protected audit events, and incident response.\n- [ ] Add execution sandboxing, network/filesystem isolation, runtime resource metering, and enforced cancellation.
 - [ ] Introduce paid private laboratories and institutional offerings.
 - [ ] Add creator publishing and licensing only after governance is operational.
 
