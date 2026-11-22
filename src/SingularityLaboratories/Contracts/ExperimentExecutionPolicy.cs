@@ -14,11 +14,6 @@ public sealed record ExperimentExecutionPolicy
             (!Enum.IsDefined(maximumRiskLevel.Value) || maximumRiskLevel == ExperimentRiskLevel.Unspecified))
             throw new ArgumentOutOfRangeException(nameof(maximumRiskLevel));
 
-        if (maximumRiskLevel is not null && !requireAcceptedValidationAssessment)
-        {
-            // Risk ceilings are still useful without review, so no coupling is imposed here.
-        }
-
         RequireAcceptedValidationAssessment = requireAcceptedValidationAssessment;
         MaximumRiskLevel = maximumRiskLevel;
     }
