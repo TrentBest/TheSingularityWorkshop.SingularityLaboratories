@@ -2,6 +2,8 @@
 
 ![The Singularity Workshop animated moniker](https://raw.githubusercontent.com/TrentBest/TheSingularityWorkshop.Visualize/development/docs/assets/moniker.svg)
 
+![The Singularity Workshop animated moniker](https://raw.githubusercontent.com/TrentBest/TheSingularityWorkshop.Visualize/development/docs/assets/moniker.svg)
+
 ![SURPS Rulebook LOD 2](../assets/sourcebook-lod-2.svg)
 
 ![Laboratory NPCs cover](covers/laboratory-npcs.svg)
