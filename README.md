@@ -7,6 +7,8 @@
 
 # Singularity Laboratories
 
+[Open the Singularity Laboratories preview site](https://trentbest.github.io/TheSingularityWorkshop.SingularityLaboratories/) — the first Pages surface, deployed from `development`.
+
 **The Workshop's complete laboratory, experimentation, education, and research platform — from the subatomic to the astronomical.**
 
 Singularity Laboratories provides the abstractions, authoring tools, runtime workflows, instruments, and scientific services for creating and operating laboratories. It is where people configure experiments, investigate models, collect measurements, teach scientific methods, conduct research, and share reproducible work.
