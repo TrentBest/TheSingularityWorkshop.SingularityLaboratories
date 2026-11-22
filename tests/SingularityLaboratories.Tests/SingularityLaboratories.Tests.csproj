@@ -21,5 +21,6 @@
     <ProjectReference Include="../../src/Laboratory.ExecutionAdapter/Laboratory.ExecutionAdapter.csproj" />
     <ProjectReference Include="../../src/Laboratory.PhysicsAdapter/Laboratory.PhysicsAdapter.csproj" />
     <ProjectReference Include="../../src/Laboratory.MicroBundleAdapter/Laboratory.MicroBundleAdapter.csproj" />
+    <ProjectReference Include="../../dependencies/FSM_COS/src/FSM_COS/FSM_COS.csproj" AdditionalProperties="WorkshopUseRepositorySources=true" />
   </ItemGroup>
 </Project>
