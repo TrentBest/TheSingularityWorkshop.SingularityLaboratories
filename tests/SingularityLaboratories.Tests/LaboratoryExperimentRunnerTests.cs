@@ -147,6 +147,67 @@ public sealed class LaboratoryExperimentRunnerTests
         Assert.That(model.InvocationCount, Is.Zero);
     }
 
+    [Test]
+    public void RunAsync_RequiresAcceptedAssessmentWhenHostPolicyDemandsIt()
+    {
+        var definition = CreateDefinition();
+        var model = new StubModel(definition, new ExperimentModelOutput("application/json", "{}"));
+        var configuration = new ExperimentConfiguration(definition.Id, definition.Version, 1, "application/json", "{\\"voltageV\\":12}");
+        var laboratory = new LaboratoryDefinition("lab", "1.0.0", "Lab", "Test lab.");
+        var policy = new ExperimentExecutionPolicy(requireAcceptedValidationAssessment: true);
+
+        Assert.ThrowsAsync<InvalidOperationException>(async () =>
+            await new LaboratoryExperimentRunner().RunAsync(laboratory, model, configuration,
+                executionPolicy: policy));
+        Assert.That(model.InvocationCount, Is.Zero);
+    }
+
+    [Test]
+    public void RunAsync_RejectsRiskAboveHostCeilingBeforeInvokingModel()
+    {
+        var baseDefinition = CreateDefinition();
+        var safety = new ExperimentSafetyMetadata(ExperimentRiskLevel.High,
+            ["High temperature surfaces."], ["Use thermal protection."], ["Unsupervised operation."]);
+        var definition = new ExperimentDefinition(baseDefinition.Id, baseDefinition.Version, baseDefinition.Name,
+            baseDefinition.ModelId, baseDefinition.ModelVersion, baseDefinition.ValidationLevel,
+            baseDefinition.Assumptions, baseDefinition.Limitations, safety);
+        var model = new StubModel(definition, new ExperimentModelOutput("application/json", "{}"));
+        var configuration = new ExperimentConfiguration(definition.Id, definition.Version, 1, "application/json", "{\\"voltageV\\":12}");
+        var laboratory = new LaboratoryDefinition("lab", "1.0.0", "Lab", "Test lab.");
+        var policy = new ExperimentExecutionPolicy(maximumRiskLevel: ExperimentRiskLevel.Moderate);
+
+        Assert.ThrowsAsync<InvalidOperationException>(async () =>
+            await new LaboratoryExperimentRunner().RunAsync(laboratory, model, configuration,
+                executionPolicy: policy));
+        Assert.That(model.InvocationCount, Is.Zero);
+    }
+
+    [Test]
+    public async Task RunAsync_AllowsDefinitionMeetingHostAdmissionPolicy()
+    {
+        var baseDefinition = CreateDefinition();
+        var safety = new ExperimentSafetyMetadata(ExperimentRiskLevel.Low,
+            ["No known hazards under stated conditions."], ["Follow the published procedure."],
+            ["Use outside stated conditions."]);
+        var evidence = new ExperimentValidationEvidence("review-1", "Reviewed model test evidence.",
+            new DateTimeOffset(2026, 11, 22, 18, 0, 0, TimeSpan.Zero));
+        var assessment = new ExperimentValidationAssessment(baseDefinition.Id, baseDefinition.Version,
+            baseDefinition.ModelId, baseDefinition.ModelVersion, ExperimentValidationState.Accepted,
+            new DateTimeOffset(2026, 11, 22, 18, 1, 0, TimeSpan.Zero), [evidence], "Host reviewer");
+        var definition = new ExperimentDefinition(baseDefinition.Id, baseDefinition.Version, baseDefinition.Name,
+            baseDefinition.ModelId, baseDefinition.ModelVersion, baseDefinition.ValidationLevel,
+            baseDefinition.Assumptions, baseDefinition.Limitations, safety, assessment);
+        var model = new StubModel(definition, new ExperimentModelOutput("application/json", "{}"));
+        var configuration = new ExperimentConfiguration(definition.Id, definition.Version, 1, "application/json", "{\\"voltageV\\":12}");
+        var laboratory = new LaboratoryDefinition("lab", "1.0.0", "Lab", "Test lab.");
+        var policy = new ExperimentExecutionPolicy(true, ExperimentRiskLevel.Moderate);
+
+        await new LaboratoryExperimentRunner().RunAsync(laboratory, model, configuration,
+            executionPolicy: policy);
+
+        Assert.That(model.InvocationCount, Is.EqualTo(1));
+    }
+
     private static ExperimentDefinition CreateDefinition() => new(
         "electrical-thermal-coupling",
         "1.0.0",
