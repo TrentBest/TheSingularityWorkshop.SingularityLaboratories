@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using TheSingularityWorkshop.FSM_COS;
 using TheSingularityWorkshop.MicroBundleDomain;
 using TheSingularityWorkshop.SingularityLaboratories.Contracts;
 using TheSingularityWorkshop.SingularityLaboratories.MicroBundles;
@@ -53,6 +54,33 @@ public sealed class LaboratoryCatalogMicroBundleTests
     }
 
     [Test]
+    public void FsmCos_ComposesCatalogAndHostResolvesTypedProviderFromRuntimeAssembly()
+    {
+        var laboratory = new LaboratoryDefinition(
+            "electrical-thermal", "1.0.0", "Electrical and thermal lab", "Educational coupling experiment.");
+        var facility = new LaboratoryFacility(
+            "teaching-facility", "1.0.0", "Teaching facility",
+            [new LaboratoryRoom("bench", "Bench", "Controlled experiments.")],
+            [], [], []);
+        var bundle = new LaboratoryCatalogMicroBundle([laboratory], [facility]);
+        var catalog = new TestBundleCatalog(bundle);
+        var manifest = new RuntimeManifest(
+            RuntimeId: 1001,
+            Bundles: [new MicroBundleManifestEntry(bundle.Id, bundle.Descriptor.Version)]);
+
+        var assembly = new FsmCos(catalog).Execute(manifest);
+
+        Assert.That(assembly.TryGetBundle<LaboratoryCatalogMicroBundle>(
+            LaboratoryCatalogMicroBundle.BundleId, out var loaded), Is.True);
+        Assert.That(loaded, Is.SameAs(bundle));
+        var provider = (ILaboratoryCatalogProvider)loaded!;
+        Assert.That(provider.TryGetLaboratory("electrical-thermal", out var resolved), Is.True);
+        Assert.That(resolved, Is.SameAs(laboratory));
+        Assert.That(provider.TryGetFacility("teaching-facility", out var resolvedFacility), Is.True);
+        Assert.That(resolvedFacility, Is.SameAs(facility));
+    }
+
+    [Test]
     public void LoadAndArbitration_RespectNeutralMicroBundleLifecycle()
     {
         var bundle = new LaboratoryCatalogMicroBundle([], []);
@@ -62,6 +90,28 @@ public sealed class LaboratoryCatalogMicroBundleTests
         Assert.DoesNotThrow(() => bundle.Load(loadContext));
         Assert.That(bundle.Arbitrate(arbitrationContext, 0), Is.False);
         Assert.Throws<ArgumentOutOfRangeException>(() => bundle.Arbitrate(arbitrationContext, -1));
+    }
+
+    private sealed class TestBundleCatalog(params IMicroBundle[] bundles) : IMicroBundleCatalog
+    {
+        private readonly IReadOnlyDictionary<ulong, IMicroBundle> _bundles =
+            bundles.ToDictionary(bundle => bundle.Id);
+
+        public bool TryResolve(ulong bundleId, string version, out IMicroBundle? bundle)
+        {
+            if (_bundles.TryGetValue(bundleId, out var found) &&
+                string.Equals(found.Descriptor.Version, version, StringComparison.Ordinal))
+            {
+                bundle = found;
+                return true;
+            }
+
+            bundle = null;
+            return false;
+        }
+
+        public bool TryResolve(ulong bundleId, out IMicroBundle? bundle) =>
+            _bundles.TryGetValue(bundleId, out bundle);
     }
 
     private sealed class TestLoadContext : IMicroBundleLoadContext
