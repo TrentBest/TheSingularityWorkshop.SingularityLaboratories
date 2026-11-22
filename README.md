@@ -103,7 +103,7 @@ git clone --branch development https://github.com/TrentBest/TheSingularityWorksh
 git clone --branch development https://github.com/TrentBest/TheSingularityWorkshop.FSM_COS.git dependencies/FSM_COS
 git clone --branch development https://github.com/TrentBest/FSM_API.git dependencies/FSM_API
 git clone --branch development https://github.com/TrentBest/FSM_UserIO.git dependencies/FSM_UserIO
-git clone --branch master https://github.com/TrentBest/TheSingularityWorkshop.MicroBundleDomain.git dependencies/TheSingularityWorkshop.MicroBundleDomain
+git clone --branch development https://github.com/TrentBest/TheSingularityWorkshop.MicroBundleDomain.git dependencies/TheSingularityWorkshop.MicroBundleDomain
 dotnet test tests/SingularityLaboratories.Tests/SingularityLaboratories.Tests.csproj --configuration Release
 ```
 
