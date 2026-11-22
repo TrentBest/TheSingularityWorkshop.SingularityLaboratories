@@ -2,17 +2,17 @@ using TheSingularityWorkshop.Foundry;
 using TheSingularityWorkshop.SingularityLaboratories.Contracts;
 using TheSingularityWorkshop.SingularityLaboratories.Execution;
 
-namespace TheSingularityWorkshop.SingularityLaboratories.Foundry;
+namespace TheSingularityWorkshop.SingularityLaboratories.ExecutionAdapter;
 
-/// <summary>Resolves laboratory model capabilities for the host-approved Foundry handler.</summary>
+/// <summary>Resolves laboratory model capabilities for the host-approved FSM_Execution handler.</summary>
 public interface IExperimentModelCatalog
 {
     bool TryResolve(string experimentId, string version, out IExperimentModel? model);
 }
 
 /// <summary>
-/// Registers the laboratory execution operation with Foundry. Foundry retains ownership of
-/// workflow validation, accepted/running/terminal states, cancellation, and timeouts.
+/// Registers laboratory experiment invocation with FSM_Execution. FSM_Execution retains ownership
+/// of workflow validation, accepted/running/terminal states, cancellation, and timeouts.
 /// </summary>
 public static class LaboratoryWorkflowAdapter
 {
