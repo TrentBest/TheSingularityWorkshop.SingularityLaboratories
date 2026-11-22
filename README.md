@@ -7,7 +7,7 @@
 
 # Singularity Laboratories
 
-[Open the Singularity Laboratories preview site](https://trentbest.github.io/TheSingularityWorkshop.SingularityLaboratories/) — the first Pages surface, deployed from `development`.
+[Singularity Laboratories Pages preview](https://trentbest.github.io/TheSingularityWorkshop.SingularityLaboratories/) — the site source and Actions deployment are in place; the repository's Pages setting still needs to be enabled for the first deployment.
 
 **The Workshop's complete laboratory, experimentation, education, and research platform — from the subatomic to the astronomical.**
 
