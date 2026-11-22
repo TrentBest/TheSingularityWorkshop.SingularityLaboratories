@@ -71,6 +71,7 @@ Each phase should produce a working capability and verifiable evidence. The plat
 - [ ] Expose laboratories directly in The Singularity Workshop.
 - [ ] Define stable host contracts for external experiences.
 - [ ] Integrate with Singularity City as a separate host for diegetic laboratory buildings and complexes.
+- [ ] Add an optional SURPS parent MicroBundle that composes the ordinary laboratory MicroBundle and implements `SurpsRulebookLaboratories` against the upstream `ISurpsRulebook` contract once SURPS publishes/introduces that contract; keep laboratory execution and scientific authority independent of SURPS.
 - [ ] Support game integrations that compose laboratories into levels, research facilities, puzzles, quests, and narrative environments.
 - [ ] Demonstrate a game-facing laboratory with reusable apparatus, experiment state, and discoverable records; keep game-specific rules and presentation in the game.
 - [ ] Ensure city presentation, spatial layout, and social features remain optional host concerns.
