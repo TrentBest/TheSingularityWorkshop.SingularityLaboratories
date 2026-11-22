@@ -18,7 +18,8 @@ Each phase should produce a working capability and verifiable evidence. The plat
 - [x] Implement a typed laboratory catalog MicroBundle exposing immutable laboratory and facility definitions through its loaded provider instance.
 - [x] Integrate the laboratory MicroBundle through an FSM_COS composition manifest and verify provider resolution from the resulting RuntimeAssembly. CI explicitly builds FSM_COS against the repository-source dependency graph and exercises the composition test.
 - [x] Add durable run-record storage and retrieval. `Laboratory.Persistence` supplies an atomic filesystem implementation of `IExperimentRunStore`; the FSM_Execution adapter can persist each completed run when a host supplies the store. Round-trip, duplicate-ID protection, missing-run, and identity validation tests cover the storage contract.
-- [ ] Complete re-execution replay and resource-profile acceptance. A stored record preserves the exact configuration and model/experiment versions, but resolving that historical model version and re-running it as a new linked run, plus resource budgets, remain.
+- [x] Implement version-locked run replay. `ExperimentRunReplayService` reloads the recorded configuration, requires the exact laboratory/experiment/model versions and unchanged scientific disclosures, re-executes through the normal runner, and stores a new run linked to its source via `ReplayedFromRunId`.
+- [ ] Establish model-specific resource profiles, budgets, and pre-run estimates; resource governance remains separate from replay and is still outstanding.
 - [ ] Prove that the same laboratory can be surfaced by more than one host without changing its scientific identity.
 - [ ] Define a minimal game-host adapter for facilities, apparatus interactions, experiment events, and discoverable research records.
 - [x] Demonstrate deterministic model behavior and documented limitations through the Physics fixture tests and adapter tests.
