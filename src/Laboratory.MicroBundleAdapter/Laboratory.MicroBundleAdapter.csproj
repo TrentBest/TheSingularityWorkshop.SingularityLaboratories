@@ -9,9 +9,9 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../SingularityLaboratories/SingularityLaboratories.csproj" />
-    <ProjectReference Include="../../dependencies/MicroBundleDomain/TheSingularityWorkshop.MicroBundleDomain.csproj" />
+    <ProjectReference Include="../../dependencies/TheSingularityWorkshop.MicroBundleDomain/TheSingularityWorkshop.MicroBundleDomain.csproj" />
   </ItemGroup>
   <Target Name="ValidateMicroBundleDomainSource" BeforeTargets="PrepareForBuild">
-    <Error Condition="!Exists('../../dependencies/MicroBundleDomain/TheSingularityWorkshop.MicroBundleDomain.csproj')" Text="The laboratory MicroBundle adapter requires MicroBundleDomain source at dependencies/MicroBundleDomain." />
+    <Error Condition="!Exists('../../dependencies/TheSingularityWorkshop.MicroBundleDomain/TheSingularityWorkshop.MicroBundleDomain.csproj')" Text="The laboratory MicroBundle adapter requires MicroBundleDomain source at dependencies/TheSingularityWorkshop.MicroBundleDomain." />
   </Target>
 </Project>
