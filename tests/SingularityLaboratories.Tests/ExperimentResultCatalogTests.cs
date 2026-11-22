@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using TheSingularityWorkshop.SingularityLaboratories.Contracts;
 using TheSingularityWorkshop.SingularityLaboratories.Persistence;
 
