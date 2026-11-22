@@ -6,6 +6,7 @@ namespace TheSingularityWorkshop.SingularityLaboratories.Execution;
 public interface IExperimentModel
 {
     ExperimentDefinition Definition { get; }
+    ExperimentParameterSchema ParameterSchema { get; }
 
     ValueTask<ExperimentModelOutput> ExecuteAsync(
         ExperimentConfiguration configuration,
