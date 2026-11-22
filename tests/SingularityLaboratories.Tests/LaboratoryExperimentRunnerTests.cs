@@ -47,11 +47,50 @@ public sealed class LaboratoryExperimentRunnerTests
     }
 
     [Test]
+    public void RunAsync_RejectsUnknownParametersBeforeInvokingModel()
+    {
+        var definition = CreateDefinition();
+        var model = new StubModel(definition, new ExperimentModelOutput("application/json", "{}"));
+        var configuration = new ExperimentConfiguration(definition.Id, definition.Version, 1, "application/json", "{\"voltageV\":12,\"unexpected\":true}");
+        var laboratory = new LaboratoryDefinition("lab", "1.0.0", "Lab", "Test lab.");
+
+        Assert.ThrowsAsync<ArgumentException>(async () =>
+            await new LaboratoryExperimentRunner().RunAsync(laboratory, model, configuration));
+        Assert.That(model.InvocationCount, Is.Zero);
+    }
+
+    [Test]
+    public void RunAsync_RejectsWrongParameterTypeBeforeInvokingModel()
+    {
+        var definition = CreateDefinition();
+        var model = new StubModel(definition, new ExperimentModelOutput("application/json", "{}"));
+        var configuration = new ExperimentConfiguration(definition.Id, definition.Version, 1, "application/json", "{\"voltageV\":\"twelve\"}");
+        var laboratory = new LaboratoryDefinition("lab", "1.0.0", "Lab", "Test lab.");
+
+        Assert.ThrowsAsync<ArgumentException>(async () =>
+            await new LaboratoryExperimentRunner().RunAsync(laboratory, model, configuration));
+        Assert.That(model.InvocationCount, Is.Zero);
+    }
+
+    [Test]
+    public void RunAsync_RejectsMismatchedParameterSchemaVersionBeforeInvokingModel()
+    {
+        var definition = CreateDefinition();
+        var model = new StubModel(definition, new ExperimentModelOutput("application/json", "{}"));
+        var configuration = new ExperimentConfiguration(definition.Id, definition.Version, 2, "application/json", "{\"voltageV\":12}");
+        var laboratory = new LaboratoryDefinition("lab", "1.0.0", "Lab", "Test lab.");
+
+        Assert.ThrowsAsync<ArgumentException>(async () =>
+            await new LaboratoryExperimentRunner().RunAsync(laboratory, model, configuration));
+        Assert.That(model.InvocationCount, Is.Zero);
+    }
+
+    [Test]
     public void RunAsync_HonorsCancellationBeforeInvokingModel()
     {
         var definition = CreateDefinition();
         var model = new StubModel(definition, new ExperimentModelOutput("application/json", "{}"));
-        var configuration = new ExperimentConfiguration(definition.Id, definition.Version, 1, "application/json", "{}");
+        var configuration = new ExperimentConfiguration(definition.Id, definition.Version, 1, "application/json", "{\"voltageV\":12}");
         var laboratory = new LaboratoryDefinition("lab", "1.0.0", "Lab", "Test lab.");
         using var cancellation = new CancellationTokenSource();
         cancellation.Cancel();
@@ -76,6 +115,11 @@ public sealed class LaboratoryExperimentRunnerTests
         ExperimentModelOutput output) : IExperimentModel
     {
         public ExperimentDefinition Definition { get; } = definition;
+        public ExperimentParameterSchema ParameterSchema { get; } = new(
+            definition.Id,
+            definition.Version,
+            1,
+            [new("voltageV", "Voltage", "Input voltage.", ExperimentParameterType.Number, unitSymbol: "V")]);
         public int InvocationCount { get; private set; }
 
         public ValueTask<ExperimentModelOutput> ExecuteAsync(
