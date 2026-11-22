@@ -45,12 +45,18 @@ public sealed class LaboratoryFacilityTests
             []));
     }
 
-    [TestCase(null)]
+    [Test]
+    public void PeriodicMeasurementChannel_RequiresExplicitRate()
+    {
+        Assert.Throws<ArgumentException>(() => new MeasurementChannel(
+            "channel", "Channel", "instrument", "temperature", "K", MeasurementSamplingMode.Periodic));
+    }
+
     [TestCase(0d)]
     [TestCase(-1d)]
     [TestCase(double.NaN)]
     [TestCase(double.PositiveInfinity)]
-    public void PeriodicMeasurementChannel_RejectsMissingOrInvalidRate(double? rate)
+    public void PeriodicMeasurementChannel_RejectsInvalidRate(double rate)
     {
         Assert.Throws<ArgumentOutOfRangeException>(() => new MeasurementChannel(
             "channel",
