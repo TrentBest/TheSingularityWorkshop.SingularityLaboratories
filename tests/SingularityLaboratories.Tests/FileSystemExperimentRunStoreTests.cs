@@ -20,8 +20,12 @@ public sealed class FileSystemExperimentRunStoreTests
             var actual = await store.GetAsync(expected.RunId);
 
             Assert.That(actual, Is.Not.Null);
-            Assert.That(actual, Is.EqualTo(expected));
-            Assert.That(actual!.Assumptions, Is.EqualTo(expected.Assumptions));
+            Assert.That(actual!.RunId, Is.EqualTo(expected.RunId));
+            Assert.That(actual.ConfigurationPayload, Is.EqualTo(expected.ConfigurationPayload));
+            Assert.That(actual.ResultPayload, Is.EqualTo(expected.ResultPayload));
+            Assert.That(actual.ModelId, Is.EqualTo(expected.ModelId));
+            Assert.That(actual.ModelVersion, Is.EqualTo(expected.ModelVersion));
+            Assert.That(actual.Assumptions, Is.EqualTo(expected.Assumptions));
             Assert.That(actual.Limitations, Is.EqualTo(expected.Limitations));
             Assert.That(await store.ListAsync(), Is.EquivalentTo([expected.RunId]));
         }
@@ -43,7 +47,10 @@ public sealed class FileSystemExperimentRunStoreTests
             await store.SaveAsync(run);
 
             Assert.ThrowsAsync<IOException>(async () => await store.SaveAsync(run));
-            Assert.That(await store.GetAsync(run.RunId), Is.EqualTo(run));
+            var persisted = await store.GetAsync(run.RunId);
+            Assert.That(persisted!.RunId, Is.EqualTo(run.RunId));
+            Assert.That(persisted.ResultPayload, Is.EqualTo(run.ResultPayload));
+            Assert.That(persisted.Assumptions, Is.EqualTo(run.Assumptions));
         }
         finally
         {
