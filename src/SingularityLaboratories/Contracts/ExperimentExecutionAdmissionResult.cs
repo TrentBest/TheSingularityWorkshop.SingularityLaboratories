@@ -12,7 +12,7 @@ public enum ExperimentExecutionDenialReason
 /// <remarks>
 /// Admission describes whether a host's configured rules allow invocation. It is not a safety
 /// certification, scientific validation, or guarantee that execution will succeed.
-</remarks>
+/// </remarks>
 public sealed record ExperimentExecutionAdmissionResult
 {
     public ExperimentExecutionAdmissionResult(IEnumerable<ExperimentExecutionDenialReason> denialReasons)
