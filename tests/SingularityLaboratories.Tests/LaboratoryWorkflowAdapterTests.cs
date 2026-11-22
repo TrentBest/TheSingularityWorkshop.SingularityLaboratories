@@ -120,6 +120,11 @@ public sealed class LaboratoryWorkflowAdapterTests
     private sealed class StubModel(ExperimentDefinition definition) : IExperimentModel
     {
         public ExperimentDefinition Definition { get; } = definition;
+        public ExperimentParameterSchema ParameterSchema { get; } = new(
+            definition.Id,
+            definition.Version,
+            1,
+            [new("voltageV", "Voltage", "Input voltage.", ExperimentParameterType.Number, unitSymbol: "V")]);
         public int InvocationCount { get; private set; }
 
         public ValueTask<ExperimentModelOutput> ExecuteAsync(
