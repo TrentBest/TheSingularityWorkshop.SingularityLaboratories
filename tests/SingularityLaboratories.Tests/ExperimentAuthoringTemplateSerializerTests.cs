@@ -62,7 +62,11 @@ public sealed class ExperimentAuthoringTemplateSerializerTests
     public void ImportFromJson_RejectsTamperedPayload()
     {
         var json = ExperimentAuthoringTemplateSerializer.ExportToJson(CreateTemplate());
-        var tampered = json.Replace("thermal-template", "altered-template", StringComparison.Ordinal);
+        const string payloadMarker = "\"payload\": \"";
+        var payloadStart = json.IndexOf(payloadMarker, StringComparison.Ordinal) + payloadMarker.Length;
+        var tampered = json[..payloadStart] +
+            (json[payloadStart] == 'A' ? 'B' : 'A') +
+            json[(payloadStart + 1)..];
 
         Assert.Throws<InvalidDataException>(() =>
             ExperimentAuthoringTemplateSerializer.ImportFromJson(tampered));
