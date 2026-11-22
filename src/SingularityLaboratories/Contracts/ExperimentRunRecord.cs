@@ -20,9 +20,12 @@ public sealed record ExperimentRunRecord
         string resultContentType,
         string resultPayload,
         IReadOnlyList<string> assumptions,
-        IReadOnlyList<string> limitations)
+        IReadOnlyList<string> limitations,
+        Guid? replayedFromRunId = null)
     {
         if (runId == Guid.Empty) throw new ArgumentException("A run identity is required.", nameof(runId));
+        if (replayedFromRunId == Guid.Empty || replayedFromRunId == runId)
+            throw new ArgumentException("A replay source must be a different, non-empty run identity.", nameof(replayedFromRunId));
         LaboratoryId = Required(laboratoryId, nameof(laboratoryId));
         LaboratoryVersion = Required(laboratoryVersion, nameof(laboratoryVersion));
         ExperimentId = Required(experimentId, nameof(experimentId));
@@ -41,6 +44,7 @@ public sealed record ExperimentRunRecord
         ArgumentNullException.ThrowIfNull(resultPayload);
 
         RunId = runId;
+        ReplayedFromRunId = replayedFromRunId;
         ConfigurationSchemaVersion = configurationSchemaVersion;
         ConfigurationPayload = configurationPayload;
         ValidationLevel = validationLevel;
@@ -54,6 +58,7 @@ public sealed record ExperimentRunRecord
     }
 
     public Guid RunId { get; }
+    public Guid? ReplayedFromRunId { get; }
     public string LaboratoryId { get; }
     public string LaboratoryVersion { get; }
     public string ExperimentId { get; }
