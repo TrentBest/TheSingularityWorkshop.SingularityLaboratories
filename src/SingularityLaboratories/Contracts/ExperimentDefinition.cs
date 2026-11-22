@@ -11,7 +11,9 @@ public sealed record ExperimentDefinition
         string modelVersion,
         ScientificValidationLevel validationLevel,
         IEnumerable<string> assumptions,
-        IEnumerable<string> limitations)
+        IEnumerable<string> limitations,
+        ExperimentSafetyMetadata? safetyMetadata = null,
+        ExperimentValidationAssessment? validationAssessment = null)
     {
         Id = Required(id, nameof(id));
         Version = Required(version, nameof(version));
@@ -21,6 +23,16 @@ public sealed record ExperimentDefinition
         ValidationLevel = validationLevel;
         Assumptions = Snapshot(assumptions, nameof(assumptions));
         Limitations = Snapshot(limitations, nameof(limitations));
+        SafetyMetadata = safetyMetadata;
+        ValidationAssessment = validationAssessment;
+        if (validationAssessment is not null &&
+            (validationAssessment.ExperimentId != Id ||
+             validationAssessment.ExperimentVersion != Version ||
+             validationAssessment.ModelId != ModelId ||
+             validationAssessment.ModelVersion != ModelVersion))
+            throw new ArgumentException(
+                "A validation assessment must target this exact experiment and model version.",
+                nameof(validationAssessment));
         if (Assumptions.Count == 0)
             throw new ArgumentException("At least one model assumption must be disclosed.", nameof(assumptions));
         if (Limitations.Count == 0)
@@ -37,6 +49,8 @@ public sealed record ExperimentDefinition
     public ScientificValidationLevel ValidationLevel { get; }
     public IReadOnlyList<string> Assumptions { get; }
     public IReadOnlyList<string> Limitations { get; }
+    public ExperimentSafetyMetadata? SafetyMetadata { get; }
+    public ExperimentValidationAssessment? ValidationAssessment { get; }
 
     private static string Required(string value, string parameterName)
     {
