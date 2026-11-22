@@ -26,14 +26,22 @@ jobs:
           repository: TrentBest/TheSingularityWorkshop.Physics
           ref: development
           path: dependencies/Physics
+      - name: Check out MicroBundleDomain contracts
+        uses: actions/checkout@v4
+        with:
+          repository: TrentBest/TheSingularityWorkshop.MicroBundleDomain
+          ref: master
+          path: dependencies/MicroBundleDomain
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 10.0.x
       - name: Test the selected Physics experiment
         run: dotnet test dependencies/Physics/tests/TheSingularityWorkshop.Physics.Tests/TheSingularityWorkshop.Physics.Tests.csproj --configuration Release --filter FullyQualifiedName~ElectricalThermalCouplingExperimentTests
-      - name: Test laboratory domain contracts
+      - name: Test laboratory domain contracts and adapters
         run: dotnet test tests/SingularityLaboratories.Tests/SingularityLaboratories.Tests.csproj --configuration Release
-      - name: Build Foundry execution adapter
+      - name: Build FSM_Execution workflow adapter
         run: dotnet build src/Laboratory.ExecutionAdapter/Laboratory.ExecutionAdapter.csproj --configuration Release
       - name: Build Physics adapter
         run: dotnet build src/Laboratory.PhysicsAdapter/Laboratory.PhysicsAdapter.csproj --configuration Release
+      - name: Build laboratory MicroBundle adapter
+        run: dotnet build src/Laboratory.MicroBundleAdapter/Laboratory.MicroBundleAdapter.csproj --configuration Release
