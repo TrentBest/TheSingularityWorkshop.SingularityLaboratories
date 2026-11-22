@@ -38,7 +38,7 @@ Host-specific presentation must remain an adapter around the laboratory domain, 
 
 Keep scientific computation in Physics. Do not invent Physics APIs before inspecting the package. Renderer and Visualization are MicroBundle dependencies, not ordinary NuGet consumption dependencies. Local educational experiments should not require ServerApp, Economy, or Singularity City.
 
-## Laboratory domain model
+## Staffing, governance, and security\n\nLaboratory operations require accountable owners, administrators, safety officers, principal investigators, instructors, technicians, and researchers. `LaboratoryStaffAssignment` records an opaque host principal reference, laboratory responsibility, assigning principal, and optional expiry. It is a responsibility record, not an identity provider, authenticator, permission grant, or authorization engine. Learners, guests, and external reviewers are separate participant relationships.\n\nThe laboratory domain owns safety disclosures, version-bound review evidence, execution admission requirements, scientific provenance, and attributable governance records. Hosts own authentication, authorization enforcement, secure storage, tenant isolation, workload sandboxing, device/network security, audit infrastructure, incident response, and operational controls. Every sensitive action must be authorized at a trusted service boundary; client-side role labels are never security controls. See [Governance and Security](GOVERNANCE-AND-SECURITY.md) for implemented controls, responsibility boundaries, and explicit gaps.\n\n## Laboratory domain model
 
 The platform should support the following independently versioned concepts:
 
