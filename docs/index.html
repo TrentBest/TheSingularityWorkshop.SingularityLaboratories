@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101923">
+  <title>Singularity Laboratories | The Singularity Workshop</title>
+  <style>
+    :root{color-scheme:dark;--bg:#101923;--panel:#172431;--line:#2b4050;--ink:#edf4f7;--muted:#a8bac6;--cyan:#72d6df;--gold:#e7bf72;--green:#8bd6a8}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#203c4b 0,transparent 42%),var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,Segoe UI,sans-serif}
+    a{color:var(--cyan)}.wrap{width:min(1120px,calc(100% - 40px));margin:auto}.top{padding:26px 0;border-bottom:1px solid var(--line)}.brand{display:flex;align-items:center;gap:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.8rem;color:var(--muted)}.orb{width:13px;height:13px;border-radius:50%;background:var(--cyan);box-shadow:0 0 22px var(--cyan)}
+    header{padding:82px 0 60px}.eyebrow{color:var(--cyan);font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700}h1{font-size:clamp(2.8rem,7vw,5.8rem);line-height:.98;letter-spacing:-.055em;margin:18px 0 24px;max-width:850px}h1 span{color:var(--cyan)}.lede{font-size:1.2rem;color:var(--muted);max-width:760px}
+    .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}.btn{display:inline-block;padding:11px 17px;border:1px solid var(--line);border-radius:7px;text-decoration:none;color:var(--ink);font-weight:650}.btn.primary{background:var(--cyan);border-color:var(--cyan);color:#0b1a22}
+    .section{padding:34px 0 56px}h2{font-size:1.65rem;letter-spacing:-.025em;margin:0 0 18px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}.card{background:linear-gradient(145deg,#1b2c39,#14212c);border:1px solid var(--line);border-radius:12px;padding:22px}.card h3{margin:0 0 8px;font-size:1.05rem}.card p{margin:0;color:var(--muted)}.tag{display:inline-block;color:var(--green);font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:12px}
+    .status{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}.stat{background:var(--panel);padding:20px}.stat strong{display:block;font-size:1.55rem;color:var(--cyan)}.stat span{font-size:.85rem;color:var(--muted)}
+    .callout{border-left:3px solid var(--gold);padding:4px 0 4px 18px;color:var(--muted);max-width:850px}.footer{border-top:1px solid var(--line);padding:28px 0 46px;color:var(--muted);font-size:.85rem}
+    @media(max-width:600px){header{padding:58px 0 40px}.wrap{width:min(100% - 28px,1120px)}}
+  </style>
+</head>
+<body>
+  <div class="top"><div class="wrap brand"><span class="orb"></span> The Singularity Workshop <span aria-hidden="true">/</span> Living Laboratory Platform</div></div>
+  <header class="wrap">
+    <div class="eyebrow">Author · Configure · Validate · Run · Measure · Analyze · Reproduce</div>
+    <h1>Science becomes a <span>living experience.</span></h1>
+    <p class="lede">Singularity Laboratories is the portable laboratory platform behind experiments, instruments, scientific models, education, and research—usable in the Workshop, a classroom, a private research space, or a game world.</p>
+    <div class="actions">
+      <a class="btn primary" href="https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories">Explore the repository</a>
+      <a class="btn" href="https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/blob/development/ROADMAP.md">Development roadmap</a>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="section">
+      <h2>What is working now</h2>
+      <div class="status">
+        <div class="stat"><strong>1</strong><span>Physics-backed experiment vertical slice</span></div>
+        <div class="stat"><strong>3</strong><span>Host-neutral adapters and composition boundaries</span></div>
+        <div class="stat"><strong>Replay</strong><span>Version-locked reproducibility and run provenance</span></div>
+        <div class="stat"><strong>Governed</strong><span>Validation, safety disclosures, and admission gates</span></div>
+      </div>
+    </section>
+    <section class="section">
+      <h2>The platform layers</h2>
+      <div class="grid">
+        <article class="card"><span class="tag">Scientific source of truth</span><h3>Physics</h3><p>Owns equations, numerical methods, and scientific models. Laboratories consume model capabilities rather than reimplementing them.</p></article>
+        <article class="card"><span class="tag">Portable domain</span><h3>Singularity Laboratories</h3><p>Owns laboratory and experiment definitions, authoring, instruments, measurements, provenance, and result records.</p></article>
+        <article class="card"><span class="tag">Workflow lifecycle</span><h3>FSM_Execution</h3><p>Owns workflow execution and lifecycle semantics. Laboratory adapters register capabilities without replacing the execution engine.</p></article>
+        <article class="card"><span class="tag">Composition</span><h3>FSM_COS</h3><p>Composes laboratory experiences from MicroBundles. Hosts resolve the provider through the loaded bundle instance.</p></article>
+      </div>
+    </section>
+    <section class="section">
+      <h2>First working experiment</h2>
+      <div class="card">
+        <span class="tag">Educational model · Not a validated appliance prediction</span>
+        <h3>Electrical → thermal coupling</h3>
+        <p>An ideal fixed-voltage resistive load couples to a lumped thermal body using the existing Physics implementation. The absorbed-energy fraction is an explicit input—not a predicted efficiency. The adapter runs through the registered FSM_Execution workflow, records model and configuration provenance, and supports exact-version replay.</p>
+      </div>
+    </section>
+    <section class="section">
+      <h2>What comes next</h2>
+      <p class="callout">This site is the first public-facing window into the repository, not a claim that the full platform is finished. The immediate work is reusable template comparison/export, runtime resource enforcement, multi-host proof, and a game-facing laboratory adapter. Live experiment controls and result visualization will arrive as those host-facing presentation contracts are implemented.</p>
+    </section>
+  </main>
+  <footer class="footer"><div class="wrap">The Singularity Workshop · Singularity Laboratories · Active development on <code>development</code>. Scientific claims remain bounded by each model's declared assumptions, limitations, and validation level.</div></footer>
+</body>
+</html>
