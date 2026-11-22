@@ -16,11 +16,21 @@ public sealed class LaboratoryExperimentRunner
         ArgumentNullException.ThrowIfNull(configuration);
 
         var definition = model.Definition ?? throw new InvalidOperationException("The model has no experiment definition.");
+        var schema = model.ParameterSchema ?? throw new InvalidOperationException("The model has no parameter schema.");
         if (!string.Equals(configuration.ExperimentId, definition.Id, StringComparison.Ordinal) ||
             !string.Equals(configuration.ExperimentVersion, definition.Version, StringComparison.Ordinal))
         {
             throw new ArgumentException("The configuration does not target the model's exact experiment identity and version.", nameof(configuration));
         }
+        if (!string.Equals(schema.ExperimentId, definition.Id, StringComparison.Ordinal) ||
+            !string.Equals(schema.ExperimentVersion, definition.Version, StringComparison.Ordinal) ||
+            configuration.SchemaVersion != schema.SchemaVersion)
+        {
+            throw new ArgumentException("The configuration does not target the model's exact parameter schema version.", nameof(configuration));
+        }
+        if (!string.Equals(configuration.ContentType, "application/json", StringComparison.Ordinal))
+            throw new ArgumentException("The current portable parameter schema requires application/json.", nameof(configuration));
+        schema.ValidateJson(configuration.Payload);
 
         cancellationToken.ThrowIfCancellationRequested();
         var runId = Guid.NewGuid();
