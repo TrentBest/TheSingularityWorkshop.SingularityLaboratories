@@ -14,9 +14,9 @@ Each phase should produce a working capability and verifiable evidence. The plat
 ## Phase 1 — First living laboratory vertical slice
 
 - [x] Establish initial versioned laboratory/experiment/configuration contracts, model adapter boundary, run provenance, and portable facility/instrument manifest contracts.
-- [x] Implement and verify one end-to-end Physics-backed experiment through FSM_Execution. The actual Physics adapter runs through the registered FSM_Execution workflow handler; latest verified code CI passed 5 focused Physics tests and 15 laboratory tests, with both adapters building cleanly.
+- [x] Implement and verify one end-to-end Physics-backed experiment through FSM_Execution. The actual Physics adapter runs through the registered FSM_Execution workflow handler; CI passed 5 focused Physics tests and 19 laboratory tests, with all three adapter builds clean.
 - [x] Implement a typed laboratory catalog MicroBundle exposing immutable laboratory and facility definitions through its loaded provider instance.
-- [ ] Integrate the laboratory MicroBundle through an FSM_COS composition manifest and verify provider resolution from the resulting RuntimeAssembly.
+- [x] Integrate the laboratory MicroBundle through an FSM_COS composition manifest and verify provider resolution from the resulting RuntimeAssembly. CI explicitly builds FSM_COS against the repository-source dependency graph and exercises the composition test.
 - [ ] Complete run replay and resource-profile acceptance. Current run records retain configuration, model/experiment versions, validation level, timestamps, assumptions, limitations, and serialized unit-explicit Physics observations; durable replay and resource budgets remain.
 - [ ] Prove that the same laboratory can be surfaced by more than one host without changing its scientific identity.
 - [ ] Define a minimal game-host adapter for facilities, apparatus interactions, experiment events, and discoverable research records.
