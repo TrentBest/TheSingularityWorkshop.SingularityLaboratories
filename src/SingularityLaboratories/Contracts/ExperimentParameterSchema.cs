@@ -60,7 +60,7 @@ public sealed record ExperimentParameterSchema
         }
     }
 
-    private static string Required(string value, string parameterName)
+    private static string RequireText(string value, string parameterName)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(value, parameterName);
         return value.Trim();
@@ -81,9 +81,9 @@ public sealed record ExperimentParameterDefinition
         double? maximum = null,
         IEnumerable<string>? allowedValues = null)
     {
-        Id = Required(id, nameof(id));
-        Name = Required(name, nameof(name));
-        Description = Required(description, nameof(description));
+        Id = RequireText(id, nameof(id));
+        Name = RequireText(name, nameof(name));
+        Description = RequireText(description, nameof(description));
         if (!Enum.IsDefined(type))
             throw new ArgumentOutOfRangeException(nameof(type));
         if (minimum is { } min && !double.IsFinite(min))
@@ -97,7 +97,7 @@ public sealed record ExperimentParameterDefinition
         if (unitSymbol is not null && string.IsNullOrWhiteSpace(unitSymbol))
             throw new ArgumentException("A unit symbol must be non-empty when supplied.", nameof(unitSymbol));
 
-        var values = allowedValues?.Select(value => Required(value, nameof(allowedValues))).ToArray() ?? [];
+        var values = allowedValues?.Select(value => RequireText(value, nameof(allowedValues))).ToArray() ?? [];
         if (values.Distinct(StringComparer.Ordinal).Count() != values.Length)
             throw new ArgumentException("Allowed values must be unique.", nameof(allowedValues));
         if (values.Length > 0 && type is not (ExperimentParameterType.String or ExperimentParameterType.Enumeration))
