@@ -27,9 +27,9 @@ public sealed class ExperimentDefaultConfigurationCompatibilityTests
             new ExperimentConfiguration("thermal-coupling", experimentVersion,
                 schema.SchemaVersion, contentType, payload));
 
-    private static ExperimentParameterDefinition Voltage(bool required = true) =>
+    private static ExperimentParameterDefinition Voltage(bool required = true, double maximum = 100) =>
         new("voltageV", "Voltage", "Applied voltage.", ExperimentParameterType.Number,
-            required: required, minimum: 0, maximum: 100);
+            required: required, minimum: 0, maximum: maximum);
 
     private static ExperimentParameterDefinition Resistance() =>
         new("resistanceOhm", "Resistance", "Load resistance.", ExperimentParameterType.Number,
@@ -75,7 +75,7 @@ public sealed class ExperimentDefaultConfigurationCompatibilityTests
     public void Assess_RejectsSourceDefaultWhenTargetNarrowsParameterRange()
     {
         var source = CreateTemplate("1.0.0", "1.0.0",
-            CreateSchema([Voltage(), Resistance()]), "{\"voltageV\":120,\"resistanceOhm\":6}");
+            CreateSchema([Voltage(maximum: 200), Resistance()]), "{\"voltageV\":120,\"resistanceOhm\":6}");
         var target = CreateTemplate("2.0.0", "1.0.0",
             CreateSchema([
                 new ExperimentParameterDefinition("voltageV", "Voltage", "Applied voltage.",
