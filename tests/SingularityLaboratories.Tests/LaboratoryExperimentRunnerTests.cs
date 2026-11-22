@@ -152,7 +152,7 @@ public sealed class LaboratoryExperimentRunnerTests
     {
         var definition = CreateDefinition();
         var model = new StubModel(definition, new ExperimentModelOutput("application/json", "{}"));
-        var configuration = new ExperimentConfiguration(definition.Id, definition.Version, 1, "application/json", "{\\"voltageV\\":12}");
+        var configuration = new ExperimentConfiguration(definition.Id, definition.Version, 1, "application/json", "{\"voltageV\":12}");
         var laboratory = new LaboratoryDefinition("lab", "1.0.0", "Lab", "Test lab.");
         var policy = new ExperimentExecutionPolicy(requireAcceptedValidationAssessment: true);
 
@@ -172,7 +172,7 @@ public sealed class LaboratoryExperimentRunnerTests
             baseDefinition.ModelId, baseDefinition.ModelVersion, baseDefinition.ValidationLevel,
             baseDefinition.Assumptions, baseDefinition.Limitations, safety);
         var model = new StubModel(definition, new ExperimentModelOutput("application/json", "{}"));
-        var configuration = new ExperimentConfiguration(definition.Id, definition.Version, 1, "application/json", "{\\"voltageV\\":12}");
+        var configuration = new ExperimentConfiguration(definition.Id, definition.Version, 1, "application/json", "{\"voltageV\":12}");
         var laboratory = new LaboratoryDefinition("lab", "1.0.0", "Lab", "Test lab.");
         var policy = new ExperimentExecutionPolicy(maximumRiskLevel: ExperimentRiskLevel.Moderate);
 
@@ -198,7 +198,7 @@ public sealed class LaboratoryExperimentRunnerTests
             baseDefinition.ModelId, baseDefinition.ModelVersion, baseDefinition.ValidationLevel,
             baseDefinition.Assumptions, baseDefinition.Limitations, safety, assessment);
         var model = new StubModel(definition, new ExperimentModelOutput("application/json", "{}"));
-        var configuration = new ExperimentConfiguration(definition.Id, definition.Version, 1, "application/json", "{\\"voltageV\\":12}");
+        var configuration = new ExperimentConfiguration(definition.Id, definition.Version, 1, "application/json", "{\"voltageV\":12}");
         var laboratory = new LaboratoryDefinition("lab", "1.0.0", "Lab", "Test lab.");
         var policy = new ExperimentExecutionPolicy(true, ExperimentRiskLevel.Moderate);
 
