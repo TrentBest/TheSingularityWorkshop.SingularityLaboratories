@@ -13,8 +13,8 @@ Each phase should produce a working capability and verifiable evidence. The plat
 
 ## Phase 1 — First living laboratory vertical slice
 
-- [x] Establish initial versioned laboratory/experiment/configuration contracts, model adapter boundary, and run provenance foundation. Facility/instrument authoring remains.
-- [x] Implement and verify one end-to-end Physics-backed experiment through Foundry. The actual Physics adapter runs through the registered Foundry handler; CI passed all 7 tests.
+- [x] Establish initial versioned laboratory/experiment/configuration contracts, model adapter boundary, run provenance, and portable facility/instrument manifest contracts.
+- [x] Implement and verify one end-to-end Physics-backed experiment through Foundry. The actual Physics adapter runs through the registered Foundry handler; latest CI passed 5 focused Physics tests and 15 laboratory tests, with both adapters building cleanly.
 - [ ] Complete run replay and resource-profile acceptance. Current run records retain configuration, model/experiment versions, validation level, timestamps, assumptions, limitations, and serialized unit-explicit Physics observations; durable replay and resource budgets remain.
 - [ ] Present the laboratory through MicroBundle composition.
 - [ ] Prove that the same laboratory can be surfaced by more than one host without changing its scientific identity.
@@ -25,8 +25,8 @@ Each phase should produce a working capability and verifiable evidence. The plat
 
 ## Phase 2 — Laboratory authoring toolkit
 
-- [ ] Establish versioned laboratory, facility, instrument, and experiment definitions.
-- [ ] Add reusable apparatus, instruments, parameter schemas, measurement channels, and result views.
+- [x] Establish versioned laboratory, facility, instrument, apparatus, measurement-channel, and experiment definitions.
+- [ ] Add parameter schemas, result views, and reusable authoring templates.
 - [ ] Add validation states, safety metadata, and scientific provenance.
 - [ ] Add save, compare, export, and replay workflows.
 - [ ] Establish model-specific resource profiles, budgets, and cancellation.
