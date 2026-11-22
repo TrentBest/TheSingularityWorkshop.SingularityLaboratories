@@ -34,7 +34,7 @@ Each phase should produce a working capability and verifiable evidence. The plat
 - [x] Establish versioned laboratory, facility, instrument, apparatus, measurement-channel, and experiment definitions.
 - [x] Add versioned parameter schemas and a host-neutral result view projection.
 - [x] Add reusable authoring templates. `ExperimentAuthoringTemplate` binds a versioned experiment definition, matching parameter schema, and schema-validated default configuration; generated configurations are validated before creation.
-- [ ] Add validation states, safety metadata, and scientific provenance.
+- [x] Define version-bound validation states, explicit safety metadata, and traceable evidence records. Accepted assessments require a reviewer and evidence; review state does not upgrade scientific validation level or certify safety.
 - [ ] Add save, compare, export, and replay workflows.
 - [x] Establish model-specific resource profiles and budget admission gates.
 - [ ] Add runtime metering/enforcement, measured resource history, and cancellation policy integration.
