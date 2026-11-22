@@ -36,6 +36,7 @@ Each phase should produce a working capability and verifiable evidence. The plat
 - [x] Add reusable authoring templates. `ExperimentAuthoringTemplate` binds a versioned experiment definition, matching parameter schema, and schema-validated default configuration; generated configurations are validated before creation.
 - [x] Define version-bound validation states, explicit safety metadata, and traceable evidence records. Accepted assessments require a reviewer and evidence; review state does not upgrade scientific validation level or certify safety.
 - [x] Attach optional safety metadata and validation assessments to experiment definitions, enforcing exact experiment and model version identity at construction.
+- [x] Add opt-in host execution admission policy: require accepted version-bound review and/or enforce a declared risk ceiling before model invocation; policy remains separate from safety certification.
 - [ ] Add save, compare, export, and replay workflows.
 - [x] Establish model-specific resource profiles and budget admission gates.
 - [ ] Add runtime metering/enforcement, measured resource history, and cancellation policy integration.
