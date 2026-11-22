@@ -41,7 +41,7 @@ public sealed class FileSystemExperimentAuthoringTemplateStore : IExperimentAuth
                 temporary, FileMode.CreateNew, FileAccess.Write, FileShare.None,
                 4096, FileOptions.Asynchronous | FileOptions.WriteThrough))
             {
-                await JsonSerializer.SerializeAsync(stream, template, SerializerOptions, cancellationToken)
+                await JsonSerializer.SerializeAsync(stream, ExperimentAuthoringTemplateDocument.From(template), SerializerOptions, cancellationToken)
                     .ConfigureAwait(false);
                 await stream.FlushAsync(cancellationToken).ConfigureAwait(false);
             }
@@ -72,7 +72,7 @@ public sealed class FileSystemExperimentAuthoringTemplateStore : IExperimentAuth
         await using var stream = new FileStream(
             path, FileMode.Open, FileAccess.Read, FileShare.Read,
             4096, FileOptions.Asynchronous | FileOptions.SequentialScan);
-        var template = await JsonSerializer.DeserializeAsync<ExperimentAuthoringTemplate>(
+        var template = await JsonSerializer.DeserializeAsync<ExperimentAuthoringTemplateDocument>(
             stream, SerializerOptions, cancellationToken).ConfigureAwait(false);
 
         if (template is null ||
@@ -80,7 +80,7 @@ public sealed class FileSystemExperimentAuthoringTemplateStore : IExperimentAuth
             !StringComparer.Ordinal.Equals(template.Version, version))
             throw new InvalidDataException("The persisted authoring template does not match its requested identity.");
 
-        return template;
+        return template.ToTemplate();
     }
 
     public async ValueTask<IReadOnlyList<ExperimentAuthoringTemplateIdentity>> ListAsync(
@@ -95,7 +95,7 @@ public sealed class FileSystemExperimentAuthoringTemplateStore : IExperimentAuth
             await using var stream = new FileStream(
                 path, FileMode.Open, FileAccess.Read, FileShare.Read,
                 4096, FileOptions.Asynchronous | FileOptions.SequentialScan);
-            var template = await JsonSerializer.DeserializeAsync<ExperimentAuthoringTemplate>(
+            var template = await JsonSerializer.DeserializeAsync<ExperimentAuthoringTemplateDocument>(
                 stream, SerializerOptions, cancellationToken).ConfigureAwait(false);
 
             if (template is null || !StringComparer.Ordinal.Equals(path, GetPath(template.Id, template.Version)))
