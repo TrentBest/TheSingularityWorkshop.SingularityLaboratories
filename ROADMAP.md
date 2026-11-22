@@ -8,15 +8,16 @@ Each phase should produce a working capability and verifiable evidence. The plat
 - [x] Document laboratory, experiment, scientific-integrity, and commercial concepts.
 - [x] Separate portable laboratory domain from Workshop and Singularity City host experiences.
 - [x] Inspect Physics and identify concrete reusable simulation capabilities. The existing electrical-to-lumped-thermal coupling fixture is selected.
-- [x] Inspect FSM_COS, FSM_Execution, Renderer, and Visualization integration contracts. FSM_COS composes MicroBundles; Foundry owns workflow execution; Renderer and Visualization remain presentation capabilities.
+- [x] Inspect FSM_COS, FSM_Execution, Renderer, and Visualization integration contracts. FSM_COS composes MicroBundles; FSM_Execution owns workflow execution; Renderer and Visualization remain presentation capabilities.
 - [x] Define the first experiment and acceptance criteria.
 
 ## Phase 1 — First living laboratory vertical slice
 
 - [x] Establish initial versioned laboratory/experiment/configuration contracts, model adapter boundary, run provenance, and portable facility/instrument manifest contracts.
-- [x] Implement and verify one end-to-end Physics-backed experiment through Foundry. The actual Physics adapter runs through the registered Foundry handler; latest CI passed 5 focused Physics tests and 15 laboratory tests, with both adapters building cleanly.
+- [x] Implement and verify one end-to-end Physics-backed experiment through FSM_Execution. The actual Physics adapter runs through the registered FSM_Execution workflow handler; latest verified code CI passed 5 focused Physics tests and 15 laboratory tests, with both adapters building cleanly.
+- [x] Implement a typed laboratory catalog MicroBundle exposing immutable laboratory and facility definitions through its loaded provider instance.
+- [ ] Integrate the laboratory MicroBundle through an FSM_COS composition manifest and verify provider resolution from the resulting RuntimeAssembly.
 - [ ] Complete run replay and resource-profile acceptance. Current run records retain configuration, model/experiment versions, validation level, timestamps, assumptions, limitations, and serialized unit-explicit Physics observations; durable replay and resource budgets remain.
-- [ ] Present the laboratory through MicroBundle composition.
 - [ ] Prove that the same laboratory can be surfaced by more than one host without changing its scientific identity.
 - [ ] Define a minimal game-host adapter for facilities, apparatus interactions, experiment events, and discoverable research records.
 - [x] Demonstrate deterministic model behavior and documented limitations through the Physics fixture tests and adapter tests.
