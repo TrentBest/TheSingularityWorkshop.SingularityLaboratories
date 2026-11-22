@@ -33,12 +33,12 @@ Each phase should produce a working capability and verifiable evidence. The plat
 
 - [x] Establish versioned laboratory, facility, instrument, apparatus, measurement-channel, and experiment definitions.
 - [x] Add versioned parameter schemas and a host-neutral result view projection.
-- [ ] Add reusable authoring templates.
+- [x] Add reusable authoring templates. `ExperimentAuthoringTemplate` binds a versioned experiment definition, matching parameter schema, and schema-validated default configuration; generated configurations are validated before creation.
 - [ ] Add validation states, safety metadata, and scientific provenance.
 - [ ] Add save, compare, export, and replay workflows.
 - [x] Establish model-specific resource profiles and budget admission gates.
 - [ ] Add runtime metering/enforcement, measured resource history, and cancellation policy integration.
-- [ ] Add reusable templates so new labs do not require bespoke application code.
+- [x] Establish a reusable template contract so new experiment configurations can start from validated, version-bound authoring definitions.
 
 ## Phase 3 — Education and online classes
 
