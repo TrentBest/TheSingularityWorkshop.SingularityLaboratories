@@ -57,6 +57,22 @@ public sealed class ElectricalThermalCouplingModel : IExperimentModel
             "The specific heat capacity must be appropriate to the declared educational scenario and temperature range."
         ]);
 
+    public ExperimentParameterSchema ParameterSchema { get; } = new(
+        ExperimentId,
+        ExperimentVersion,
+        1,
+        [
+            new("BusVoltageVolts", "Bus voltage", "Ideal fixed-voltage electrical bus potential.", ExperimentParameterType.Number, unitSymbol: "V"),
+            new("ResistanceOhms", "Load resistance", "Constant resistive load.", ExperimentParameterType.Number, unitSymbol: "Ω"),
+            new("GenerationCapacityWatts", "Generation capacity", "Available electrical generation capacity.", ExperimentParameterType.Number, unitSymbol: "W"),
+            new("DurationSeconds", "Duration", "Experiment duration.", ExperimentParameterType.Number, unitSymbol: "s"),
+            new("AbsorbedPowerFraction", "Absorbed power fraction", "Declared fraction of electrical energy transferred to the lumped thermal body.", ExperimentParameterType.Number),
+            new("InitialMassKilograms", "Initial mass", "Mass of the lumped thermal body.", ExperimentParameterType.Number, unitSymbol: "kg"),
+            new("InitialTemperatureKelvin", "Initial temperature", "Initial lumped-body temperature.", ExperimentParameterType.Number, unitSymbol: "K"),
+            new("SpecificHeatCapacityJoulesPerKilogramKelvin", "Specific heat capacity", "Constant specific heat capacity used by the educational model.", ExperimentParameterType.Number, unitSymbol: "J/(kg·K)"),
+            new("ReferenceTemperatureKelvin", "Reference temperature", "Reference temperature for the lumped thermal state.", ExperimentParameterType.Number, unitSymbol: "K")
+        ]);
+
     public ValueTask<ExperimentModelOutput> ExecuteAsync(
         ExperimentConfiguration configuration,
         CancellationToken cancellationToken = default)
