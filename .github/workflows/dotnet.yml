@@ -55,10 +55,12 @@ jobs:
           dotnet-version: 10.0.x
       - name: Restore FSM_COS repository-source dependency graph
         run: dotnet restore dependencies/FSM_COS/src/FSM_COS/FSM_COS.csproj --property:WorkshopUseRepositorySources=true
+      - name: Build FSM_COS against repository-source contracts
+        run: dotnet build dependencies/FSM_COS/src/FSM_COS/FSM_COS.csproj --configuration Release --no-restore --property:WorkshopUseRepositorySources=true
       - name: Test the selected Physics experiment
         run: dotnet test dependencies/Physics/tests/TheSingularityWorkshop.Physics.Tests/TheSingularityWorkshop.Physics.Tests.csproj --configuration Release --filter FullyQualifiedName~ElectricalThermalCouplingExperimentTests
       - name: Test laboratory domain contracts and adapters
-        run: dotnet test tests/SingularityLaboratories.Tests/SingularityLaboratories.Tests.csproj --configuration Release
+        run: dotnet test tests/SingularityLaboratories.Tests/SingularityLaboratories.Tests.csproj --configuration Release --property:WorkshopUseRepositorySources=true
       - name: Build FSM_Execution workflow adapter
         run: dotnet build src/Laboratory.ExecutionAdapter/Laboratory.ExecutionAdapter.csproj --configuration Release
       - name: Build Physics adapter
