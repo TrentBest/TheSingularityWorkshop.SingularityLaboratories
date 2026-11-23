@@ -144,7 +144,7 @@ The goal is not to memorize a diagram. It is to build disciplined curiosity, tra
 
 Existing foundations include versioned experiment definitions, disclosed assumptions and limitations, scientific validation levels, version-bound validation assessments, run provenance, instrument channels, unit metadata, and replay lineage. These are useful pieces, not a complete scientific-investigation management system.
 
-Build concrete specimens before generalizing contracts: a controlled physics experiment, a field observation, a historical evidence study, a survey/qualitative investigation, a computational study, and a systematic evidence review. Their differences should shape the abstractions.
+Build concrete specimens before generalizing contracts. Current design specimens include a [field-observation watershed transect](specimens/field-observation-watershed.md), a [historical and archival inquiry](specimens/historical-archival-inquiry.md), and a [computational parameter-sensitivity study](specimens/computational-study.md). The existing electrical-to-thermal Physics experiment supplies the controlled-experiment counterpart. Survey/qualitative inquiry and systematic evidence review remain planned specimens. Their differences should shape the abstractions.
 
 ## Further reading
 
