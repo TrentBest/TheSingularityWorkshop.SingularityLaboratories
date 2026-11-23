@@ -16,14 +16,20 @@ public interface ILaboratoryCatalogProvider
     /// <summary>Gets the immutable facility manifests supplied by this capability.</summary>
     IReadOnlyList<LaboratoryFacility> Facilities { get; }
 
+    /// <summary>Gets the immutable campus compositions supplied by this capability.</summary>
+    IReadOnlyList<LaboratoryCampus> Campuses { get; }
+
     /// <summary>Attempts to resolve a laboratory by its stable identifier.</summary>
     bool TryGetLaboratory(string id, out LaboratoryDefinition? laboratory);
 
     /// <summary>Attempts to resolve a facility by its stable identifier.</summary>
     bool TryGetFacility(string id, out LaboratoryFacility? facility);
+
+    /// <summary>Attempts to resolve a campus by its stable identifier.</summary>
+    bool TryGetCampus(string id, out LaboratoryCampus? campus);
 }
 
-/// <summary>A host-neutral, immutable catalog of portable laboratory and facility definitions.</summary>
+/// <summary>A host-neutral, immutable catalog of portable laboratory, facility, and campus definitions.</summary>
 public sealed class LaboratoryCatalogMicroBundle : IMicroBundle, ILaboratoryCatalogProvider
 {
     /// <summary>Stable identity for the first laboratory catalog capability.</summary>
@@ -34,16 +40,20 @@ public sealed class LaboratoryCatalogMicroBundle : IMicroBundle, ILaboratoryCata
 
     private readonly IReadOnlyDictionary<string, LaboratoryDefinition> _laboratoriesById;
     private readonly IReadOnlyDictionary<string, LaboratoryFacility> _facilitiesById;
+    private readonly IReadOnlyDictionary<string, LaboratoryCampus> _campusesById;
 
-    /// <summary>Creates a catalog capability from portable definitions and facility manifests.</summary>
+    /// <summary>Creates a catalog capability from portable definitions, facility manifests, and optional campuses.</summary>
     public LaboratoryCatalogMicroBundle(
         IEnumerable<LaboratoryDefinition> laboratories,
-        IEnumerable<LaboratoryFacility> facilities)
+        IEnumerable<LaboratoryFacility> facilities,
+        IEnumerable<LaboratoryCampus>? campuses = null)
     {
         Laboratories = Snapshot(laboratories, nameof(laboratories));
         Facilities = Snapshot(facilities, nameof(facilities));
+        Campuses = Snapshot(campuses ?? [], nameof(campuses));
         _laboratoriesById = Index(Laboratories, x => x.Id, nameof(laboratories));
         _facilitiesById = Index(Facilities, x => x.Id, nameof(facilities));
+        _campusesById = Index(Campuses, x => x.Id, nameof(campuses));
     }
 
     /// <inheritdoc />
@@ -64,6 +74,9 @@ public sealed class LaboratoryCatalogMicroBundle : IMicroBundle, ILaboratoryCata
     public IReadOnlyList<LaboratoryFacility> Facilities { get; }
 
     /// <inheritdoc />
+    public IReadOnlyList<LaboratoryCampus> Campuses { get; }
+
+    /// <inheritdoc />
     public void Load(IMicroBundleLoadContext context) =>
         ArgumentNullException.ThrowIfNull(context);
 
@@ -82,6 +95,10 @@ public sealed class LaboratoryCatalogMicroBundle : IMicroBundle, ILaboratoryCata
     /// <inheritdoc />
     public bool TryGetFacility(string id, out LaboratoryFacility? facility) =>
         _facilitiesById.TryGetValue(id, out facility);
+
+    /// <inheritdoc />
+    public bool TryGetCampus(string id, out LaboratoryCampus? campus) =>
+        _campusesById.TryGetValue(id, out campus);
 
     private static IReadOnlyList<T> Snapshot<T>(IEnumerable<T> values, string parameterName)
     {
