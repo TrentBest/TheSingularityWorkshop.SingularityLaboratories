@@ -61,3 +61,15 @@ Bind the dashboard to a selected run identity. An authoring preview may have no 
 The ExperimentDefinition contract now carries typed Physics dependencies and required MicroBundle capabilities. The ExperimentSettingsDashboard contract combines those declarations with separately supplied MicroBundleExecutionObservation records and binds non-empty runtime observations to a concrete RunId. A null RunId is an authoring preview only. This gives every experiment a stable, host-neutral dashboard model without pretending the Laboratory currently sees the live FSM_COS assembly or execution lifecycle.
 
 The next integration step is for the composition/execution host to publish authoritative observations keyed to the experiment run. Then a UI can render the dashboard without guessing from package references or static manifests.
+
+## Host integration evidence checked
+
+The current host APIs have been inspected rather than inferred:
+
+- **FSM_COS:** a successful `FsmCos.Execute` returns a `RuntimeAssembly`. Its `LoadedBundles` collection is an authoritative snapshot of bundles loaded into that composition. Each bundle exposes its Domain identity and descriptor/version. This supports a host-reported `Loaded` observation after composition succeeds. It does not prove that a bundle is currently executing an experiment operation.
+- **FSM_Execution:** `WorkflowExecutionCoordinator.Submit` creates a `WorkflowRunSnapshot` with a concrete `RunId`; `StartAsync` moves the run into execution; `GetSnapshot` exposes accepted/running/terminal lifecycle state and timestamps. This provides workflow-level run identity and lifecycle, not per-MicroBundle execution evidence.
+- **Host adapter:** when a workflow handler actually invokes a composed provider, the host must emit a provider-specific observation with the same experiment `RunId`, exact bundle identity/version, provider identity, timestamp, and lifecycle result. The host must not infer `Executing` from membership in `RuntimeAssembly.LoadedBundles`.
+
+The practical integration sequence is therefore: submit/obtain the workflow RunId; compose the runtime; record the loaded-bundle snapshot against that RunId; instrument actual provider invocation in the host handler; then project both sources into the dashboard. Composition failures should be represented as failed resolution/loading evidence where the host can identify the phase, not as a fabricated loaded bundle.
+
+**Not implemented yet:** the cross-repository host adapter/event bridge and a live dashboard UI. The contract is deliberately ready for those facts without claiming they already exist.
