@@ -35,6 +35,28 @@ public sealed class LaboratoryCampusOverviewTests
     }
 
     [Test]
+    public void Create_ProducesReadOnlyCollectionsAtEveryProjectionLevel()
+    {
+        var overview = LaboratoryCampusOverview.Create(TeachingResearchCampusFixture.Create());
+
+        var workspaces = (IList<LaboratoryCampusWorkspaceOverview>)overview.Workspaces;
+        Assert.That(workspaces.IsReadOnly, Is.True);
+        Assert.Throws<NotSupportedException>(() => workspaces.RemoveAt(0));
+
+        var teaching = overview.Workspaces.Single(x => x.Id == "teaching-physics-workspace");
+        var apparatus = (IList<LaboratoryCampusApparatusOverview>)teaching.Apparatus;
+        var instruments = (IList<LaboratoryCampusInstrumentOverview>)teaching.Instruments;
+        var channels = (IList<LaboratoryCampusMeasurementChannelOverview>)instruments[0].MeasurementChannels;
+
+        Assert.That(apparatus.IsReadOnly, Is.True);
+        Assert.That(instruments.IsReadOnly, Is.True);
+        Assert.That(channels.IsReadOnly, Is.True);
+        Assert.Throws<NotSupportedException>(() => apparatus.RemoveAt(0));
+        Assert.Throws<NotSupportedException>(() => instruments.RemoveAt(0));
+        Assert.Throws<NotSupportedException>(() => channels.RemoveAt(0));
+    }
+
+    [Test]
     public void Create_DoesNotMutateOrReplaceTheSourceCampusDefinitions()
     {
         var campus = TeachingResearchCampusFixture.Create();
