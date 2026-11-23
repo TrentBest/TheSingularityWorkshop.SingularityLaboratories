@@ -41,6 +41,9 @@ public sealed class ElectricalThermalCouplingModelTests
         Assert.That(observation.FinalThermalState.TemperatureKelvin, Is.EqualTo(300.12d).Within(1e-10));
         Assert.That(model.Definition.ValidationLevel, Is.EqualTo(ScientificValidationLevel.EducationalModel));
         Assert.That(model.Definition.Limitations, Has.Count.GreaterThanOrEqualTo(4));
+        Assert.That(model.Definition.PhysicsDependencies, Has.Count.EqualTo(2));
+        Assert.That(model.Definition.PhysicsDependencies.Select(x => x.Domain),
+            Is.EquivalentTo(["Electrical engineering", "Thermodynamics"]));
     }
 
     [Test]
