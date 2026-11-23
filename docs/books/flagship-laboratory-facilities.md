@@ -63,7 +63,7 @@ A visual model is not evidence of physical accuracy. A real-world site profile m
 
 ### 4.1 Frankenstein's laboratory — the ethics of making life
 
-<badge>FICTIONAL SOURCE ADAPTATION</badge>
+**FICTIONAL SOURCE ADAPTATION**
 
 **Source anchor:** Mary Shelley's *Frankenstein; or, The Modern Prometheus* (1818). The novel is the literary source; modern film imagery is not automatically canonical.
 
@@ -89,7 +89,7 @@ A visual model is not evidence of physical accuracy. A real-world site profile m
 
 ### 4.2 Groom Lake / Area 51 — secrecy, aerospace testing, and evidence
 
-<badge>DOCUMENTED REAL FACILITY · PUBLIC-HISTORY PROFILE</badge>
+**DOCUMENTED REAL FACILITY · PUBLIC-HISTORY PROFILE**
 
 **Public-history anchor:** The CIA identifies Groom Lake / Area 51 as a remote Nevada test site used for highly classified U-2 and A-12 OXCART reconnaissance aircraft programs and pilot training. The CIA's public account describes the isolation, aircraft access, and the origin of the “Paradise Ranch” nickname. Public facts are not a license to invent current site details.
 
@@ -113,7 +113,7 @@ A visual model is not evidence of physical accuracy. A real-world site profile m
 
 ### 4.3 CERN and the Large Hadron Collider — a distributed instrument at planetary scale
 
-<badge>DOCUMENTED REAL FACILITY · SCIENCE CAMPUS PROFILE</badge>
+**DOCUMENTED REAL FACILITY · SCIENCE CAMPUS PROFILE**
 
 **Public anchors:** CERN describes the LHC as a 27-kilometre accelerator in a tunnel about 100 metres underground on the Franco-Swiss border near Geneva. It is part of a wider accelerator complex and serves major experiments including ATLAS, CMS, ALICE, and LHCb. These are separate collaborations and detector facilities, not decorative rooms around one machine.
 
@@ -139,7 +139,7 @@ A visual model is not evidence of physical accuracy. A real-world site profile m
 
 ### 4.4 Jet Propulsion Laboratory — a laboratory whose instruments travel
 
-<badge>DOCUMENTED REAL FACILITY · ROBOTIC EXPLORATION</badge>
+**DOCUMENTED REAL FACILITY · ROBOTIC EXPLORATION**
 
 **Public anchor:** NASA describes JPL as a federally funded research and development center managed by Caltech, based in Pasadena, and a leader in robotic space exploration. Its work includes spacecraft, rovers, Earth-observing instruments, and operation of the Deep Space Network.
 
@@ -157,7 +157,7 @@ A visual model is not evidence of physical accuracy. A real-world site profile m
 
 ### 4.5 European Molecular Biology Laboratory — one institution across multiple sites
 
-<badge>DOCUMENTED REAL FACILITY · DISTRIBUTED RESEARCH NETWORK</badge>
+**DOCUMENTED REAL FACILITY · DISTRIBUTED RESEARCH NETWORK**
 
 **Public anchor:** EMBL describes itself as one organization across six European sites: Barcelona, Grenoble, Hamburg, Heidelberg, Hinxton, and Rome. The sites host different research units, services, and facilities, spanning areas such as tissue biology, structural biology, infection biology, computational biology, epigenetics, and neurobiology.
 
@@ -175,7 +175,7 @@ A visual model is not evidence of physical accuracy. A real-world site profile m
 
 ### 4.6 Los Alamos National Laboratory — a multidisciplinary national laboratory
 
-<badge>DOCUMENTED REAL FACILITY · NATIONAL LABORATORY</badge>
+**DOCUMENTED REAL FACILITY · NATIONAL LABORATORY**
 
 **Public anchor:** Public Department of Energy material describes Los Alamos as a multidisciplinary laboratory founded in 1943, with broad capabilities across physics, materials, bioscience, computing, engineering, and national-security science. Its mission and history require careful treatment.
 
