@@ -11,7 +11,7 @@
 
 **The Workshop's laboratory, experimentation, education, and research platform — from the subatomic to the astronomical.**
 
-Singularity Laboratories provides abstractions, authoring tools, runtime workflows, instruments, and scientific services for creating and operating laboratories. It is where people configure experiments, investigate models, collect measurements, teach scientific methods, conduct research, and share reproducible work.
+Singularity Laboratories provides abstractions, authoring tools, runtime workflows, instruments, and scientific services for creating and operating laboratories. It is where people configure investigations, study models, collect measurements, teach scientific inquiry, conduct research, and share reproducible work.
 
 A laboratory is portable. It can appear directly in The Singularity Workshop, as a facility or campus inside Singularity City, in an online classroom, a private research workspace, or a game. The host provides navigation, social presence, world geometry, and presentation; the laboratory platform owns its scientific definitions, measurement semantics, and run provenance.
 
@@ -25,17 +25,20 @@ A laboratory is portable. It can appear directly in The Singularity Workshop, as
 - **Trusted hosts** own authentication, authorization, credentials, and enforcement.
 - **Renderer / Visualize** own presentation and visual manifestation.
 
-[Browse the laboratory sourcebook catalogue](docs/books/README.md). The sourcebook hierarchy now continues through three levels: [Laboratory NPCs — LOD 2](docs/books/laboratory-npcs.md) specializes the City people model for laboratory positions, qualifications, staffing, shifts, participant relationships, safety governance, and independent review; [Flagship Laboratory Facilities — LOD 3](docs/books/flagship-laboratory-facilities.md) composes complete institutions, campuses, infrastructure, programs, and operations. These levels extend the same domain rather than creating duplicate people or scientific models.
+[Browse the laboratory sourcebook catalogue](docs/books/README.md). The sourcebook hierarchy includes [Scientific Inquiry — LOD 1](docs/books/scientific-inquiry.md), [Laboratory NPCs — LOD 2](docs/books/laboratory-npcs.md), and [Flagship Laboratory Facilities — LOD 3](docs/books/flagship-laboratory-facilities.md). These extend the same domain rather than creating duplicate people or scientific models.
 
 ## 2. What this package owns
 
-- **Create and configure:** laboratories, facilities, experiment templates, instruments, apparatus, parameters, materials, environments, and workflows.
+- **Inquire:** frame questions, select methods, disclose assumptions, preserve evidence, assess uncertainty, and support criticism and correction.
+- **Create and configure:** laboratories, facilities, investigation templates, instruments, apparatus, parameters, materials, environments, and workflows.
 - **Operate:** initialize, validate, execute, pause, resume, cancel, checkpoint, and reproduce experiments.
 - **Measure:** instruments, sensors, sampling, observation channels, units, uncertainty, and data capture.
-- **Teach:** guided labs, assignments, instructor-led demonstrations, classroom sessions, and learner progression.
-- **Research:** hypotheses, runs, provenance, collaboration, analysis, comparison, and reproducible work.
+- **Teach:** guided investigations, assignments, instructor-led demonstrations, classroom sessions, and learner progression.
+- **Research:** hypotheses where appropriate, field observations, runs, provenance, collaboration, analysis, comparison, and reproducible work.
 - **Staff and govern:** laboratory-specific positions and responsibilities, qualification context, safety review, and auditable governance.
-- **Extend:** compose disciplines, instruments, models, lessons, and lab experiences from versioned reusable components.
+- **Extend:** compose disciplines, methods, instruments, models, lessons, and lab experiences from versioned reusable components.
+
+The scientific method is not a universal five-step recipe. Different disciplines use controlled experiments, observational and field methods, mathematical proof, computational studies, historical inference, qualitative research, and evidence synthesis. The common foundation is transparent reasoning, appropriate evidence, uncertainty, criticism, and correction. Start with the [Scientific Inquiry sourcebook](docs/books/scientific-inquiry.md).
 
 The laboratory layer must not duplicate core physics or invent unverified Physics APIs. A facility building is a possible City manifestation, not the laboratory domain object itself.
 
@@ -50,6 +53,9 @@ The laboratory layer must not duplicate core physics or invent unverified Physic
 | Engineering | Materials, structures, fluids, heat transfer, mechanical systems |
 | Earth and environmental science | Atmospheres, oceans, climate processes, impact and hazard scenarios |
 | Biology and ecology | Cells, populations, ecosystems, interacting biological systems |
+| Human and social sciences | Surveys, interviews, behavioral studies, longitudinal and comparative research |
+| History and archaeology | Archival evidence, material culture, dating, provenance, historical inference |
+| Mathematics and computing | Proof, formal methods, numerical experiments, statistical and computational studies |
 
 Hazardous phenomena may be explored as bounded educational simulations of processes and consequences, not as actionable construction or operational guidance. High-consequence claims require appropriate validation and expert review.
 
@@ -57,17 +63,17 @@ Hazardous phenomena may be explored as bounded educational simulations of proces
 
 The initial runtime is a host-neutral foundation with versioned laboratory/experiment definitions, configuration validation, authoring templates, Physics and FSM_Execution adapters, MicroBundle composition, immutable run records, persistence, replay, result views, safety metadata, validation assessments, admission policy, and resource-budget estimates.
 
-The `LaboratoryStaffAssignment` contract currently records a host-issued opaque principal reference, laboratory identity, responsibility, assigning principal, assignment time, and optional expiry. Its `PrincipalId` is a digital host principal reference, **not** a City NPC/person ID. It does not prove a qualification, define a stable institutional position, or grant digital permissions. A future character-to-principal mapping requires an explicit trusted identity-link contract.
+The LaboratoryStaffAssignment contract currently records a host-issued opaque principal reference, laboratory identity, responsibility, assigning principal, assignment time, and optional expiry. Its PrincipalId is a digital host principal reference, **not** a City NPC/person ID. It does not prove a qualification, define a stable institutional position, or grant digital permissions. A future character-to-principal mapping requires an explicit trusted identity-link contract.
 
 This is a foundation, not yet the complete authoring, instrument, classroom, research, or hosted runtime platform. The repository's Pages setting still needs to be enabled for the first deployment; the source and workflow are not proof of a live published site.
 
 ## 5. Development and release
 
-- Active work: `development`
-- Release-aligned branch: `master`
-- Pages workflow: `.github/workflows/pages.yml`
+- Active work: development
+- Release-aligned branch: master
+- Pages workflow: .github/workflows/pages.yml
 - No NuGet package is published by this repository workflow.
-- Changes are developed and validated on `development`; release synchronization and publication remain explicit gated activities.
+- Changes are developed and validated on development; release synchronization and publication remain explicit gated activities.
 
 ---
 
