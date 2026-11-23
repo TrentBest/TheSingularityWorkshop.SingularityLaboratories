@@ -28,7 +28,7 @@ The laboratory describes consumption. The Physics repository remains authoritati
 
 ### Physics MicroBundles
 
-Show required MicroBundle capabilities separately from runtime observations. For each bundle, display its stable bundle ID, version, provider ID, and purpose.
+Show required MicroBundle capabilities separately from runtime observations. For each bundle, display its stable bundle ID, version, provider ID, and purpose. MicroBundles are not limited to Physics: a security experiment may require a Gesture provider, identity-verification provider, or challenge-response provider. Those are distinct capability categories and must not be mislabeled as Physics dependencies.
 
 The runtime panel reports only host-supplied observations: resolved, loaded, executing, completed, failed, or skipped. An empty observation set means **not observed**, not “not required,” “not installed,” or “failed.” Include timestamps and host diagnostics when available. Show unexpected runtime bundles too; do not silently hide them because they were not declared by the experiment.
 
@@ -45,7 +45,7 @@ Do not invent controls that the underlying model does not expose. Distinguish ed
 
 ### Run and provenance
 
-Bind the dashboard to a selected run identity. Preserve exact experiment/model versions, configuration payload or canonical digest, MicroBundle versions and observed lifecycle, timestamps, outputs, and errors. A later settings change creates a new configuration/run; it must not rewrite history.
+Bind the dashboard to a selected run identity. An authoring preview may have no RunId and no runtime observations. Once observations exist, a concrete non-empty RunId is mandatory; observations without a run identity are rejected. Preserve exact experiment/model versions, configuration payload or canonical digest, MicroBundle versions and observed lifecycle, timestamps, outputs, and errors. A later settings change creates a new configuration/run; it must not rewrite history.
 
 ## Contract boundaries
 
@@ -58,6 +58,6 @@ Bind the dashboard to a selected run identity. Preserve exact experiment/model v
 
 ## Current implementation boundary
 
-The ExperimentDefinition contract now carries typed Physics dependencies and required MicroBundle capabilities. The ExperimentSettingsDashboard contract combines those declarations with separately supplied MicroBundleExecutionObservation records. This gives every experiment a stable, host-neutral dashboard model without pretending the Laboratory currently sees the live FSM_COS assembly or execution lifecycle.
+The ExperimentDefinition contract now carries typed Physics dependencies and required MicroBundle capabilities. The ExperimentSettingsDashboard contract combines those declarations with separately supplied MicroBundleExecutionObservation records and binds non-empty runtime observations to a concrete RunId. A null RunId is an authoring preview only. This gives every experiment a stable, host-neutral dashboard model without pretending the Laboratory currently sees the live FSM_COS assembly or execution lifecycle.
 
 The next integration step is for the composition/execution host to publish authoritative observations keyed to the experiment run. Then a UI can render the dashboard without guessing from package references or static manifests.
