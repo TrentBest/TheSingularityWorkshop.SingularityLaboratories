@@ -60,6 +60,8 @@ Bind the dashboard to a selected run identity. An authoring preview may have no 
 
 The ExperimentDefinition contract now carries typed Physics dependencies and required MicroBundle capabilities. The ExperimentSettingsDashboard contract combines those declarations with separately supplied MicroBundleExecutionObservation records and binds non-empty runtime observations to a concrete RunId. A null RunId is an authoring preview only. This gives every experiment a stable, host-neutral dashboard model without pretending the Laboratory currently sees the live FSM_COS assembly or execution lifecycle.
 
+`ObservedMicroBundles` is a **materialized dashboard snapshot**, not an append-only event log. Within one snapshot there is at most one current observation for each `(BundleId, Version, ProviderId)` tuple. The host/event bridge is responsible for ordering incoming lifecycle events and projecting the latest valid state into this snapshot; it must reject or quarantine stale/out-of-order transitions rather than allowing an older event to overwrite a newer state. Preserve the underlying timestamped event history in the host's event/audit stream. Do not overload this read model to serve as that history. If the UI needs a timeline, expose the host event history as a separate projection keyed by the same RunId.
+
 The next integration step is for the composition/execution host to publish authoritative observations keyed to the experiment run. Then a UI can render the dashboard without guessing from package references or static manifests.
 
 ## Host integration evidence checked
