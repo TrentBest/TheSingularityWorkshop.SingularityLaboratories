@@ -13,7 +13,9 @@ public sealed record ExperimentDefinition
         IEnumerable<string> assumptions,
         IEnumerable<string> limitations,
         ExperimentSafetyMetadata? safetyMetadata = null,
-        ExperimentValidationAssessment? validationAssessment = null)
+        ExperimentValidationAssessment? validationAssessment = null,
+        IEnumerable<ExperimentPhysicsDependency>? physicsDependencies = null,
+        IEnumerable<ExperimentMicroBundleRequirement>? microBundleRequirements = null)
     {
         Id = Required(id, nameof(id));
         Version = Required(version, nameof(version));
@@ -25,6 +27,8 @@ public sealed record ExperimentDefinition
         Limitations = Snapshot(limitations, nameof(limitations));
         SafetyMetadata = safetyMetadata;
         ValidationAssessment = validationAssessment;
+        PhysicsDependencies = Snapshot(physicsDependencies ?? [], nameof(physicsDependencies));
+        MicroBundleRequirements = Snapshot(microBundleRequirements ?? [], nameof(microBundleRequirements));
         if (validationAssessment is not null &&
             (validationAssessment.ExperimentId != Id ||
              validationAssessment.ExperimentVersion != Version ||
@@ -39,6 +43,10 @@ public sealed record ExperimentDefinition
             throw new ArgumentException("At least one model limitation must be disclosed.", nameof(limitations));
         if (!Enum.IsDefined(validationLevel))
             throw new ArgumentOutOfRangeException(nameof(validationLevel));
+        if (PhysicsDependencies.Select(x => x.CapabilityId).Distinct(StringComparer.Ordinal).Count() != PhysicsDependencies.Count)
+            throw new ArgumentException("Physics capability identifiers must be unique within an experiment.", nameof(physicsDependencies));
+        if (MicroBundleRequirements.Select(x => (x.BundleId, x.Version, x.ProviderId)).Distinct().Count() != MicroBundleRequirements.Count)
+            throw new ArgumentException("MicroBundle requirements must be unique.", nameof(microBundleRequirements));
     }
 
     public string Id { get; }
@@ -51,6 +59,10 @@ public sealed record ExperimentDefinition
     public IReadOnlyList<string> Limitations { get; }
     public ExperimentSafetyMetadata? SafetyMetadata { get; }
     public ExperimentValidationAssessment? ValidationAssessment { get; }
+    /// <summary>Physics capabilities declared by the experiment; declarations are not execution evidence.</summary>
+    public IReadOnlyList<ExperimentPhysicsDependency> PhysicsDependencies { get; }
+    /// <summary>MicroBundle capabilities required by the experiment; loaded or executing state is reported separately.</summary>
+    public IReadOnlyList<ExperimentMicroBundleRequirement> MicroBundleRequirements { get; }
 
     private static string Required(string value, string parameterName)
     {
@@ -58,12 +70,12 @@ public sealed record ExperimentDefinition
         return value.Trim();
     }
 
-    private static IReadOnlyList<string> Snapshot(IEnumerable<string> values, string parameterName)
+    private static IReadOnlyList<T> Snapshot<T>(IEnumerable<T> values, string parameterName)
     {
         ArgumentNullException.ThrowIfNull(values, parameterName);
-        var snapshot = values.Select(value => Required(value, parameterName)).ToArray();
-        if (snapshot.Distinct(StringComparer.Ordinal).Count() != snapshot.Length)
-            throw new ArgumentException("Disclosure entries must be unique.", parameterName);
+        var snapshot = values.ToArray();
+        if (snapshot.Any(value => value is null))
+            throw new ArgumentException("Entries cannot contain null values.", parameterName);
         return Array.AsReadOnly(snapshot);
     }
 }
