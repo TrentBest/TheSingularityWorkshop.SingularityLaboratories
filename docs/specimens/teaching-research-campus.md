@@ -157,7 +157,7 @@ For this first specimen, incident scenarios should focus on safe operational lea
 2. Add a host-neutral campus composition contract that keeps `LaboratoryDefinition` and `LaboratoryFacility` separate. **Completed:** `LaboratoryCampus` composes portable laboratories and facilities through explicit workspace-to-room placements.
 3. Add unit tests for composition invariants and invalid references before adding presentation. **Completed:** tests cover immutable snapshots, valid placement, unknown laboratory/room references, duplicate placement IDs, and catalog lookup.
 4. Compose one teaching lab and one research lab using existing laboratory definitions. **Completed:** an executable, fictional fixture now composes two laboratories, two facilities, and two workspace-to-room placements with unit-explicit instrument channels and clearly synthetic calibration references.
-5. Add a simple navigable Renderer/Visualize experience. **Next:** build the host presentation over the fixture without moving geometry or physics ownership into Laboratories.
+5. Add a simple navigable Renderer/Visualize experience. **In progress:** `LaboratoryCampusOverview` now resolves campus/workspace/facility/room/apparatus/instrument/channel relationships into a host-neutral semantic projection, with tests. The host Renderer/Visualize adapter and spatial layout remain separate integration work.
 6. Add synthetic provenance and instrument-status examples, clearly marked as fixtures.
 7. Integrate City character identity only through an explicit, reviewed boundary.
 8. Add resource-request workflows only when their owner and persistence semantics are established.
@@ -188,3 +188,10 @@ Do not add speculative references to these dependencies. If a required contract 
 ---
 
 **Implementation status:** The portable campus composition contract, catalog exposure, and executable fictional teaching/research fixture are implemented on `development`, with invariant and fixture tests. The fixture is test-project sample data, not a packaged production campus or live facility. Spatial/runtime presentation, booking, resource allocation, and interactive demo are not yet implemented. This remains an implementation specimen, not a claim of a completed campus experience.
+
+
+### Semantic presentation handoff
+
+The domain now exposes `LaboratoryCampusOverview.Create(campus)` as a read-only semantic projection. It resolves stable workspace, laboratory, facility, room, apparatus, instrument, and measurement-channel identities into labels and declared metadata suitable for a visitor or learner presentation. It intentionally contains no coordinates, geometry, camera, visual styling, navigation rules, measured readings, or access decisions. A host can consume this projection and independently construct its Renderer frame and Visualize resources. The existing Renderer → Visualize adapter remains owned by Visualize; Laboratories does not add a dependency on either renderer package.
+
+**Implementation status:** semantic projection and contract tests are implemented on `development`. No spatial scene, SVG, live measurement stream, visitor navigation controller, or deployed experience is claimed.
