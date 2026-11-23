@@ -1,8 +1,16 @@
 ![The Singularity Workshop animated moniker](https://raw.githubusercontent.com/TrentBest/TheSingularityWorkshop.Visualize/development/docs/assets/moniker.svg)
 
-# Scientific Inquiry — the methods and history of knowing
+# Scientific Inquiry
+
+*the methods and history of knowing*
+
+**Sourcebook ID:** `singularity-laboratories.domain.scientific-inquiry`  
+**Edition:** `0.1.0`  
+
 
 ![SURPS Rulebook LOD 1](../assets/sourcebook-lod-1.svg)
+
+![Scientific Inquiry cover](covers/scientific-inquiry.svg)
 
 **Domain owner:** Singularity Laboratories  
 **Level of detail:** LOD 1 — scientific foundations, inquiry methods, history, evidence, and reproducibility  
