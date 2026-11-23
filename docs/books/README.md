@@ -10,6 +10,10 @@ The living library for portable laboratory definitions, scientific experiences, 
 | LOD 2 | [Laboratory NPCs](laboratory-npcs.md) | People in laboratory contexts: positions, qualifications, staffing, shifts, governance |
 | LOD 3 | [Flagship Laboratory Facilities](flagship-laboratory-facilities.md) | Complete institutions, campuses, departments, infrastructure, operations, and experiences |
 
+## First facility specimen
+
+[Teaching and Research Campus — implementation specification](../specimens/teaching-research-campus.md) defines the first original, fictional campus to implement. It exercises visitor navigation, supervised learning, research review, instrument service, resource decisions, safety governance, and trusted-host boundaries without pretending those runtime capabilities already exist.
+
 ## LOD 3 facility gallery
 
 - **Frankenstein's laboratory** — fictional source adaptation; scientific ambition, personhood, consent, and responsibility.
