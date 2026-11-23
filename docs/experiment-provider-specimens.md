@@ -35,6 +35,16 @@ This is intentionally not another Physics model. It evaluates whether a fictiona
 
 No stable production bundle IDs or provider IDs are assigned by this specimen. They must be sourced from the actual provider registries and composition manifests before being added to a production experiment definition.
 
+
+The current Gestures repository already supplies useful primitives for this path:
+- `GestureDefinition` describes the reusable gesture procedure.
+- `GestureOffer` lets a provider declare required actor capabilities and semantic anchors.
+- `GestureOfferSelector.Evaluate` deterministically separates eligible offers from rejected offers and explains missing capabilities/anchors.
+- `GestureEvaluator` evaluates a gesture definition on a host-supplied timeline using deterministic samples.
+- `GestureObservationEvent` records a host-reported occurrence without asserting that the participant achieved a physical goal.
+
+These are good building blocks for a security-door gesture challenge. They are not an authentication system: an eligible offer is not proof that the gesture was performed, and a recognized gesture is not authorization. The trusted security policy must consume the resulting evidence, apply the configured access rule, and emit its own decision/audit event. The host must report which concrete Gesture provider/MicroBundle was actually selected and invoked for the experiment RunId.
+
 ### Example experiment progression
 
 1. **Basic lock:** only the abstract mechanical challenge is active. No Gesture or biometric provider is implied.
