@@ -53,10 +53,9 @@ public sealed class LaboratoryCampusOverview
                 .Select(x => new LaboratoryCampusApparatusOverview(
                     x.Id, x.Name, x.ApparatusType, x.Description))
                 .ToArray();
+            var apparatusIds = apparatus.Select(item => item.Id).ToHashSet(StringComparer.Ordinal);
             var instruments = facility.Instruments
-                .Where(instrument => apparatus.Any(item =>
-                    facility.Apparatus.Any(source => source.Id == item.Id &&
-                        source.Id == instrument.ApparatusId)))
+                .Where(instrument => apparatusIds.Contains(instrument.ApparatusId))
                 .Select(instrument => new LaboratoryCampusInstrumentOverview(
                     instrument.Id,
                     instrument.Name,
