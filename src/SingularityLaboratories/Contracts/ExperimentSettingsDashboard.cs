@@ -57,7 +57,7 @@ public sealed record ExperimentSettingsDashboard
         IEnumerable<MicroBundleExecutionObservation>? observedMicroBundles = null)
     {
         ArgumentNullException.ThrowIfNull(definition);
-        ArgumentNullException.ThrowIfNull(observedMicroBundles);
+        observedMicroBundles ??= [];
         ExperimentId = definition.Id;
         ExperimentVersion = definition.Version;
         ExperimentName = definition.Name;
