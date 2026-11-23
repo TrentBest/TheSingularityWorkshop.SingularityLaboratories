@@ -302,7 +302,7 @@ This sourcebook is a research-informed design and authoring artifact. It does no
 The next implementation stages should be incremental:
 
 1. Establish a sourcebook catalogue and validate the descriptor/cover/LOD badge convention.
-2. Create one original, fully fictional teaching/research campus as the first executable facility specimen.
+2. Build the [Teaching and Research Campus specimen](../specimens/teaching-research-campus.md) as the first facility implementation, using its visitor, lesson, research, instrument, resource, and security acceptance flows.
 3. Add a CERN-inspired public educational collider experience using documented public facts and synthetic data until a verified dataset adapter exists.
 4. Add facility composition and navigation only after checking current Laboratory and City contracts.
 5. Extend the staff/qualification/shift model only after reviewing the current assignment implementation and tests.
