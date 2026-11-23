@@ -1,6 +1,12 @@
 ![The Singularity Workshop animated moniker](https://raw.githubusercontent.com/TrentBest/TheSingularityWorkshop.Visualize/development/docs/assets/moniker.svg)
 
-# Flagship Laboratory Facilities — institutions at the edge of possibility
+# Flagship Laboratory Facilities
+
+*institutions at the edge of possibility*
+
+**Sourcebook ID:** `singularity-laboratories.domain.flagship-facilities`  
+**Edition:** `0.1.0`  
+
 
 ![Singularity Laboratories Sourcebook LOD 3](../assets/sourcebook-lod-3.svg)
 
