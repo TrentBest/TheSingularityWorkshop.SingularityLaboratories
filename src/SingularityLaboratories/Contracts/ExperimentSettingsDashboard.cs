@@ -46,31 +46,38 @@ public sealed record MicroBundleExecutionObservation
 }
 
 /// <summary>
-/// Read-only settings/runtime projection for one experiment. Declared requirements and host-observed
-/// bundle activity remain separate so a settings view never presents a dependency as executing
-/// merely because it was declared.
+/// Read-only settings/runtime projection for one experiment. A null RunId represents an authoring
+/// preview; runtime observations require a concrete run identity. Declarations and host observations
+/// remain separate so a dependency is never presented as executing merely because it was declared.
 /// </summary>
 public sealed record ExperimentSettingsDashboard
 {
     public ExperimentSettingsDashboard(
         ExperimentDefinition definition,
-        IEnumerable<MicroBundleExecutionObservation>? observedMicroBundles = null)
+        IEnumerable<MicroBundleExecutionObservation>? observedMicroBundles = null,
+        Guid? runId = null)
     {
         ArgumentNullException.ThrowIfNull(definition);
         observedMicroBundles ??= [];
+        if (runId == Guid.Empty) throw new ArgumentException("A run identity cannot be empty.", nameof(runId));
         ExperimentId = definition.Id;
         ExperimentVersion = definition.Version;
         ExperimentName = definition.Name;
+        RunId = runId;
         PhysicsDependencies = definition.PhysicsDependencies;
         RequiredMicroBundles = definition.MicroBundleRequirements;
         var observations = observedMicroBundles.ToArray();
         if (observations.Any(x => x is null))
             throw new ArgumentException("Runtime observations cannot contain null values.", nameof(observedMicroBundles));
+        if (observations.Length > 0 && runId is null)
+            throw new ArgumentException("Runtime observations must be associated with a concrete experiment run.", nameof(runId));
         if (observations.Select(x => (x.BundleId, x.Version, x.ProviderId)).Distinct().Count() != observations.Length)
             throw new ArgumentException("Runtime observations must be unique per bundle version and provider.", nameof(observedMicroBundles));
         ObservedMicroBundles = Array.AsReadOnly(observations);
     }
 
+    /// <summary>Null for an authoring preview; otherwise the exact run these observations describe.</summary>
+    public Guid? RunId { get; }
     public string ExperimentId { get; }
     public string ExperimentVersion { get; }
     public string ExperimentName { get; }
