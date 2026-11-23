@@ -23,9 +23,16 @@ public sealed class LaboratoryCatalogMicroBundleTests
                 [], [], [])
         };
 
-        var bundle = new LaboratoryCatalogMicroBundle(laboratories, facilities);
+        var campus = new LaboratoryCampus(
+            "teaching-campus", "1.0.0", "Teaching campus", "Original flagship research and teaching campus.",
+            laboratories,
+            facilities,
+            [new LaboratoryCampusWorkspace("thermal-workspace", "electrical-thermal", "teaching-facility", "bench")]);
+        var campuses = new List<LaboratoryCampus> { campus };
+        var bundle = new LaboratoryCatalogMicroBundle(laboratories, facilities, campuses);
         laboratories.Clear();
         facilities.Clear();
+        campuses.Clear();
 
         Assert.That(bundle, Is.InstanceOf<IMicroBundle>());
         Assert.That(bundle, Is.InstanceOf<ILaboratoryCatalogProvider>());
@@ -34,6 +41,9 @@ public sealed class LaboratoryCatalogMicroBundleTests
         Assert.That(bundle.Dependencies, Is.Empty);
         Assert.That(bundle.Laboratories, Has.Count.EqualTo(1));
         Assert.That(bundle.Facilities, Has.Count.EqualTo(1));
+        Assert.That(bundle.Campuses, Has.Count.EqualTo(1));
+        Assert.That(bundle.TryGetCampus("teaching-campus", out var resolvedCampus), Is.True);
+        Assert.That(resolvedCampus!.Workspaces[0].RoomId, Is.EqualTo("bench"));
         Assert.That(bundle.TryGetLaboratory("electrical-thermal", out var laboratory), Is.True);
         Assert.That(laboratory!.Version, Is.EqualTo("1.0.0"));
         Assert.That(bundle.TryGetFacility("teaching-facility", out var facility), Is.True);
