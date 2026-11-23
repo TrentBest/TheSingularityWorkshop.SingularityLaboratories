@@ -40,11 +40,13 @@ public sealed class ExperimentSettingsDashboardTests
         var definition = Definition();
         var configured = new ExperimentSettingsDashboard(definition);
 
+        Assert.That(configured.RunId, Is.Null, "An authoring preview has no selected run.");
         Assert.That(configured.PhysicsDependencies, Has.Count.EqualTo(1));
         Assert.That(configured.RequiredMicroBundles, Has.Count.EqualTo(1));
         Assert.That(configured.ObservedMicroBundles, Is.Empty,
             "A declaration alone must not imply that a MicroBundle was loaded or executed.");
 
+        var runId = Guid.NewGuid();
         var observed = new ExperimentSettingsDashboard(
             definition,
             [
@@ -52,11 +54,25 @@ public sealed class ExperimentSettingsDashboardTests
                     7301, "2.1.0", "physics.electrical-thermal.v1",
                     MicroBundleExecutionStatus.Executing,
                     new DateTimeOffset(2026, 11, 23, 5, 0, 0, TimeSpan.Zero))
-            ]);
+            ],
+            runId);
 
+        Assert.That(observed.RunId, Is.EqualTo(runId));
         Assert.That(observed.ObservedMicroBundles, Has.Count.EqualTo(1));
         Assert.That(observed.ObservedMicroBundles[0].Status, Is.EqualTo(MicroBundleExecutionStatus.Executing));
         Assert.That(observed.ObservedMicroBundles[0].BundleId, Is.EqualTo(7301));
+    }
+
+    [Test]
+    public void Dashboard_RejectsRuntimeObservationsWithoutRunIdentity()
+    {
+        var observation = new MicroBundleExecutionObservation(
+            7301, "2.1.0", "physics.electrical-thermal.v1",
+            MicroBundleExecutionStatus.Loaded,
+            new DateTimeOffset(2026, 11, 23, 5, 0, 0, TimeSpan.Zero));
+
+        Assert.Throws<ArgumentException>(() =>
+            new ExperimentSettingsDashboard(Definition(), [observation]));
     }
 
     [Test]
@@ -94,6 +110,6 @@ public sealed class ExperimentSettingsDashboardTests
             new DateTimeOffset(2026, 11, 23, 5, 0, 0, TimeSpan.Zero));
 
         Assert.Throws<ArgumentException>(() =>
-            new ExperimentSettingsDashboard(Definition(), [observation, observation]));
+            new ExperimentSettingsDashboard(Definition(), [observation, observation], Guid.NewGuid()));
     }
 }
