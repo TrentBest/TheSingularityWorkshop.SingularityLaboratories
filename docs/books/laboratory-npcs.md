@@ -1,8 +1,13 @@
 ![The Singularity Workshop animated moniker](https://raw.githubusercontent.com/TrentBest/TheSingularityWorkshop.Visualize/development/docs/assets/moniker.svg)
 
-# Laboratory NPCs — the people behind the science
+# Laboratory NPCs
 
-![The Singularity Workshop animated moniker](https://raw.githubusercontent.com/TrentBest/TheSingularityWorkshop.Visualize/development/docs/assets/moniker.svg)
+*the people behind the science*
+
+**Sourcebook ID:** `singularity-laboratories.domain.laboratory-npcs`  
+**Edition:** `0.1.0`  
+
+
 
 ![SURPS Rulebook LOD 2](../assets/sourcebook-lod-2.svg)
 
