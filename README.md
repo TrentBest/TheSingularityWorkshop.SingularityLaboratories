@@ -25,7 +25,7 @@ A laboratory is portable. It can appear directly in The Singularity Workshop, as
 - **Trusted hosts** own authentication, authorization, credentials, and enforcement.
 - **Renderer / Visualize** own presentation and visual manifestation.
 
-The sourcebook hierarchy now continues through three levels: [Laboratory NPCs — LOD 2](docs/books/laboratory-npcs.md) specializes the City people model for laboratory positions, qualifications, staffing, shifts, participant relationships, safety governance, and independent review; [Flagship Laboratory Facilities — LOD 3](docs/books/flagship-laboratory-facilities.md) composes complete institutions, campuses, infrastructure, programs, and operations. These levels extend the same domain rather than creating duplicate people or scientific models.
+[Browse the laboratory sourcebook catalogue](docs/books/README.md). The sourcebook hierarchy now continues through three levels: [Laboratory NPCs — LOD 2](docs/books/laboratory-npcs.md) specializes the City people model for laboratory positions, qualifications, staffing, shifts, participant relationships, safety governance, and independent review; [Flagship Laboratory Facilities — LOD 3](docs/books/flagship-laboratory-facilities.md) composes complete institutions, campuses, infrastructure, programs, and operations. These levels extend the same domain rather than creating duplicate people or scientific models.
 
 ## 2. What this package owns
 
