@@ -43,7 +43,7 @@ public sealed class ElectricalThermalCouplingModelTests
         Assert.That(model.Definition.Limitations, Has.Count.GreaterThanOrEqualTo(4));
         Assert.That(model.Definition.PhysicsDependencies, Has.Count.EqualTo(2));
         Assert.That(model.Definition.PhysicsDependencies.Select(x => x.Domain),
-            Is.EquivalentTo(["Electrical engineering", "Thermodynamics"]));
+            Is.EquivalentTo(new[] { "Electrical engineering", "Thermodynamics" }));
     }
 
     [Test]
