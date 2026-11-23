@@ -7,8 +7,13 @@ The living library for portable laboratory definitions, scientific experiences, 
 | Level | Sourcebook | Scope |
 |---|---|---|
 | LOD 1 | [Laboratory domain](../README.md) | Laboratory, experiment, apparatus, instrument, measurement, education, research, provenance |
+| LOD 1 | [Scientific Inquiry](scientific-inquiry.md) | Scientific method, global history, research methods, evidence, uncertainty, reproducibility |
 | LOD 2 | [Laboratory NPCs](laboratory-npcs.md) | People in laboratory contexts: positions, qualifications, staffing, shifts, governance |
 | LOD 3 | [Flagship Laboratory Facilities](flagship-laboratory-facilities.md) | Complete institutions, campuses, departments, infrastructure, operations, and experiences |
+
+## Scientific foundations
+
+The Scientific Inquiry sourcebook is the methodological and historical spine of this domain. It links the [scientific method](../scientific-method.md), [global history of science](../history-of-science.md), [research methods atlas](../research-methods-atlas.md), [reproducibility and open science](../reproducibility-and-open-science.md), and existing [scientific integrity and validation](../scientific-integrity.md) guide.
 
 ## First facility specimen
 
