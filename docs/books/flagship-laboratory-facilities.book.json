@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "id": "singularity-laboratories.domain.flagship-facilities",
+  "category": "Domain",
+  "lod": 3,
+  "title": "Flagship Laboratory Facilities",
+  "version": "0.1.0",
+  "cover": "docs/books/covers/flagship-laboratory-facilities.svg",
+  "lodBadge": "docs/assets/sourcebook-lod-3.svg",
+  "publisher": "The Singularity Workshop",
+  "publisherMoniker": "https://raw.githubusercontent.com/TrentBest/TheSingularityWorkshop.Visualize/development/docs/assets/moniker.svg"
+}
