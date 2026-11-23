@@ -55,6 +55,21 @@ public sealed class ElectricalThermalCouplingModel : IExperimentModel
             "The model does not represent thermal exchange with surroundings or spatial temperature gradients.",
             "The model excludes resistance variation, phase change, startup transients, and real appliance behavior.",
             "The specific heat capacity must be appropriate to the declared educational scenario and temperature range."
+        ],
+        physicsDependencies:
+        [
+            new(
+                "electrical.resistive-load",
+                "Electrical engineering",
+                PhysicsModelId,
+                PhysicsModelVersion,
+                "Resolve fixed-voltage resistive demand, current, generation capacity, and electrical energy."),
+            new(
+                "thermodynamics.lumped-state",
+                "Thermodynamics",
+                PhysicsModelId,
+                PhysicsModelVersion,
+                "Resolve the lumped thermal body's energy transfer and final temperature state.")
         ]);
 
     public ExperimentParameterSchema ParameterSchema { get; } = new(
