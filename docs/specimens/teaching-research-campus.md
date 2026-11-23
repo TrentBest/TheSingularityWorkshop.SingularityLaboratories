@@ -156,8 +156,8 @@ For this first specimen, incident scenarios should focus on safe operational lea
 1. Inspect and reuse current contract, persistence, execution, Physics, and MicroBundle adapters. **Completed:** the existing facility manifest and adapter boundaries were inspected.
 2. Add a host-neutral campus composition contract that keeps `LaboratoryDefinition` and `LaboratoryFacility` separate. **Completed:** `LaboratoryCampus` composes portable laboratories and facilities through explicit workspace-to-room placements.
 3. Add unit tests for composition invariants and invalid references before adding presentation. **Completed:** tests cover immutable snapshots, valid placement, unknown laboratory/room references, duplicate placement IDs, and catalog lookup.
-4. Compose one teaching lab and one research lab using existing laboratory/experiment definitions. **Next:** author the first campus data fixture against the new contract.
-5. Add the sample campus fixture and a simple navigable Renderer/Visualize experience.
+4. Compose one teaching lab and one research lab using existing laboratory definitions. **Completed:** an executable, fictional fixture now composes two laboratories, two facilities, and two workspace-to-room placements with unit-explicit instrument channels and clearly synthetic calibration references.
+5. Add a simple navigable Renderer/Visualize experience. **Next:** build the host presentation over the fixture without moving geometry or physics ownership into Laboratories.
 6. Add synthetic provenance and instrument-status examples, clearly marked as fixtures.
 7. Integrate City character identity only through an explicit, reviewed boundary.
 8. Add resource-request workflows only when their owner and persistence semantics are established.
@@ -187,4 +187,4 @@ Do not add speculative references to these dependencies. If a required contract 
 
 ---
 
-**Implementation status:** The portable campus composition contract and catalog exposure are implemented on `development`, with invariant tests added and CI running. The flagship campus data fixture, spatial/runtime presentation, booking, resource allocation, and interactive demo are not yet implemented. This remains an acceptance specification, not a claim of a completed campus experience.
+**Implementation status:** The portable campus composition contract, catalog exposure, and executable fictional teaching/research fixture are implemented on `development`, with invariant and fixture tests. The fixture is test-project sample data, not a packaged production campus or live facility. Spatial/runtime presentation, booking, resource allocation, and interactive demo are not yet implemented. This remains an implementation specimen, not a claim of a completed campus experience.
