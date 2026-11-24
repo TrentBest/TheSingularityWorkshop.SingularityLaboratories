@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+<title id="title">Laboratory people, responsibility, and authority</title>
+<desc id="desc">A person may have a qualification, a laboratory assignment, and a host permission, but these are separate records. Positions define responsibilities; the trusted host enforces digital access.</desc>
+<defs><style>
+.box{fill:#10202e;stroke:#3c6477;stroke-width:2}.person{fill:#15384a;stroke:#83e2c2;stroke-width:3}.t{fill:#edf6fb;font:700 22px system-ui,sans-serif}.s{fill:#a9bdca;font:15px system-ui,sans-serif}.line{fill:none;stroke:#83e2c2;stroke-width:3}.warn{fill:none;stroke:#f0c77b;stroke-width:3;stroke-dasharray:8 7}
+</style></defs>
+<rect width="1200" height="520" rx="24" fill="#07111d"/>
+<rect class="person" x="60" y="175" width="220" height="130" rx="18"/>
+<text class="t" x="170" y="225" text-anchor="middle">Person / agent</text><text class="s" x="170" y="255" text-anchor="middle">Identity and agency</text>
+<path class="line" d="M280 240H390M390 240V105H470M390 240V375H470"/>
+<rect class="box" x="470" y="55" width="260" height="105" rx="15"/><text class="t" x="600" y="98" text-anchor="middle">Qualification</text><text class="s" x="600" y="128" text-anchor="middle">Evidence of competence</text>
+<rect class="box" x="470" y="325" width="260" height="105" rx="15"/><text class="t" x="600" y="368" text-anchor="middle">Assignment</text><text class="s" x="600" y="398" text-anchor="middle">Responsibility in a lab</text>
+<path class="warn" d="M730 107H850V240H930M730 377H850V240"/>
+<rect class="box" x="930" y="175" width="220" height="130" rx="18"/><text class="t" x="1040" y="225" text-anchor="middle">Host permission</text><text class="s" x="1040" y="255" text-anchor="middle">Enforced access</text>
+<text x="600" y="485" fill="#f0c77b" font="17px system-ui,sans-serif" text-anchor="middle">None of these records implies the others. A title is not a qualification; an assignment is not authorization.</text>
+</svg>
