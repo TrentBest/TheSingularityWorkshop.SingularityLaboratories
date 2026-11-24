@@ -132,14 +132,37 @@ public sealed class NarrativeCampaignStateMachine
         ValidateActiveAttempt(definition, attempt);
         ArgumentException.ThrowIfNullOrWhiteSpace(routeReference);
 
-        var missingOrUnverified = definition.RequiredSafeEscapeEvidence
-            .Where(required => attempt.Evidence.LastOrDefault(record => record.Kind == required)?.State
-                != NarrativeEvidenceState.VerifiedCurrent)
+        var latestEvidence = definition.RequiredSafeEscapeEvidence
+            .Select(required => new
+            {
+                Kind = required,
+                Record = attempt.Evidence.LastOrDefault(record => record.Kind == required)
+            })
             .ToArray();
+        var missingOrUnverified = latestEvidence
+            .Where(item => item.Record?.State != NarrativeEvidenceState.VerifiedCurrent)
+            .Select(item => item.Kind)
+            .ToArray();
+        var duplicatedSources = latestEvidence
+            .Where(item => item.Record?.State == NarrativeEvidenceState.VerifiedCurrent)
+            .GroupBy(item => item.Record!.SourceId, StringComparer.Ordinal)
+            .Where(group => group.Count() > 1)
+            .Select(group => group.Key)
+            .ToArray();
+        var egressRecord = latestEvidence
+            .Single(item => item.Kind == NarrativeEvidenceKind.EgressRecord)
+            .Record;
+        var routeMatchesEvidence = string.Equals(
+            egressRecord?.EvidenceReference,
+            routeReference.Trim(),
+            StringComparison.Ordinal);
 
-        if (missingOrUnverified.Length > 0)
+        if (missingOrUnverified.Length > 0 || duplicatedSources.Length > 0 || !routeMatchesEvidence)
         {
-            var details = $"Safe escape denied for route '{routeReference.Trim()}'; missing or unverified evidence: {string.Join(", ", missingOrUnverified)}.";
+            var details = $"Safe escape denied for route '{routeReference.Trim()}'; " +
+                $"missing or unverified evidence: {string.Join(", ", missingOrUnverified)}; " +
+                $"duplicated evidence sources: {string.Join(", ", duplicatedSources)}; " +
+                $"egress record route match: {routeMatchesEvidence}.";
             var deniedEvents = AppendEvent(
                 attempt,
                 NarrativeCampaignEventKind.SafeEscapeDenied,
