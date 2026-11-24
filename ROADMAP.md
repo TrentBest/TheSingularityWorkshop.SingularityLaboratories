@@ -16,7 +16,7 @@ Each phase should produce a working capability and verifiable evidence. The plat
 ## Phase 1 — First living laboratory vertical slice
 
 - [x] Establish initial versioned laboratory/experiment/configuration contracts, model adapter boundary, run provenance, and portable facility/instrument manifest contracts.
-- [x] Implement and verify one end-to-end Physics-backed experiment through FSM_Execution. The actual Physics adapter runs through the registered FSM_Execution workflow handler; CI passed 5 focused Physics tests and 19 laboratory tests, with all three adapter builds clean.
+- [x] Implement and verify one end-to-end Physics-backed experiment through FSM_Execution. The actual Physics adapter runs through the registered FSM_Execution workflow handler; laboratory integration tests execute the selected Physics model. Physics' own test suite remains owned and validated by the Physics repository.
 - [x] Implement a typed laboratory catalog MicroBundle exposing immutable laboratory and facility definitions through its loaded provider instance.
 - [x] Integrate the laboratory MicroBundle through an FSM_COS composition manifest and verify provider resolution from the resulting RuntimeAssembly. CI explicitly builds FSM_COS against the repository-source dependency graph and exercises the composition test.
 - [x] Add durable run-record storage and retrieval. `Laboratory.Persistence` supplies an atomic filesystem implementation of `IExperimentRunStore`; the FSM_Execution adapter can persist each completed run when a host supplies the store. Round-trip, duplicate-ID protection, missing-run, and identity validation tests cover the storage contract.
