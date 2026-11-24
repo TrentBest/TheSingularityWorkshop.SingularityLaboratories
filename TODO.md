@@ -90,12 +90,12 @@ Keep these states separate. A feature may be implemented but unverified. Never c
 **Latest observed CI snapshot (2026-11-24 UTC):**
 
 - **.NET:** full workflow passed — [run #433](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45330297830), commit `702ae7110bb4b39c034f8df1d3fa62032ffb0ac9`. This includes narrative persistence round-trip and identity checks, FSM_Execution safe-escape/death/cancellation tests, version-bound facility room/apparatus/instrument/channel mapping tests, and successful persistence, workflow, Physics, and MicroBundle builds.
-- **Documentation/SURPS:** passed after the facility room mapping and work-queue validator changes — [run #59](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45329870377), commit `a14d3cdc`. The validator now checks the canonical work-queue sections and README/docs-index links; the instrument/channel documentation update is awaiting a fresh run.
-- **Pages deployment:** latest attempt failed on commit `e765159b` — [run #111](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45330034179). The failure details were not exposed by the available job-log endpoint. The site is not verified live; the repository Pages setting still requires owner enablement and a successful deployment.
+- **Documentation/SURPS:** passed after the instrument/channel documentation, README, roadmap, and task-ledger updates — [run #67](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45330474076), commit `457b6274`. The validator checks the canonical work-queue sections and README/docs-index links, and the workflow runs when `TODO.md` changes.
+- **Pages deployment:** latest attempt failed on commit `bcd13886` — [run #112](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45330459451). The failure details were not exposed by the available job-log endpoint. The site is not verified live; the repository Pages setting still requires owner enablement and a successful deployment.
 - **Branches:** last inventory returned exactly `development` and `master`.
 
 - [x] .NET tests and all adapter builds passed in run #404.
-- [ ] Documentation/SURPS validation after apparatus-binding documentation update.
+- [x] Documentation/SURPS validation passed after instrument/channel and task-ledger updates (run #67).
 - [ ] Pages deployment verified after Pages is enabled.
 - [x] Exactly two active branches remain: `development` and `master` (last checked 2026-11-24 UTC).
 - [x] No promotion to `master`, NuGet publication, or release action performed in this workstream.
