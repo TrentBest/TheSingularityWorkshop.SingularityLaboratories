@@ -23,6 +23,7 @@ public sealed class FileSystemExperimentCampaignExecutionStoreTests
             Assert.That(actual!.ExecutionId, Is.EqualTo(expected.ExecutionId));
             Assert.That(actual.CampaignId, Is.EqualTo(expected.CampaignId));
             Assert.That(actual.CampaignVersion, Is.EqualTo(expected.CampaignVersion));
+            Assert.That(actual.CampaignDefinition.Scenarios[1].Configuration.Payload, Is.EqualTo("{\\"voltageV\\":15}"));
             Assert.That(actual.LaboratoryId, Is.EqualTo(expected.LaboratoryId));
             Assert.That(actual.LaboratoryVersion, Is.EqualTo(expected.LaboratoryVersion));
             Assert.That(actual.Status, Is.EqualTo(ExperimentCampaignExecutionStatus.PartiallyCompleted));
@@ -115,6 +116,7 @@ public sealed class FileSystemExperimentCampaignExecutionStoreTests
             Guid.NewGuid(),
             "thermal-campaign",
             "1.0.0",
+            CreateCampaignDefinition(),
             "thermal-lab",
             "1.0.0",
             "electrical-thermal",
@@ -130,6 +132,23 @@ public sealed class FileSystemExperimentCampaignExecutionStoreTests
                     "System.InvalidOperationException", "The declared model range was exceeded.")
             ]);
     }
+
+    private static ExperimentCampaignDefinition CreateCampaignDefinition() =>
+        new(
+            "thermal-campaign",
+            "1.0.0",
+            "Compare the baseline with the upper boundary.",
+            "electrical-thermal",
+            "1.2.0",
+            "electrical-thermal-model",
+            "2.1.0",
+            ["Temperature remains within the declared envelope."],
+            [
+                new("baseline", "Baseline", ExperimentScenarioKind.Baseline, "Reference condition.",
+                    new ExperimentConfiguration("electrical-thermal", "1.2.0", 1, "application/json", "{\\"voltageV\\":12}")),
+                new("boundary", "Boundary", ExperimentScenarioKind.Boundary, "Upper operating condition.",
+                    new ExperimentConfiguration("electrical-thermal", "1.2.0", 1, "application/json", "{\\"voltageV\\":15}"))
+            ]);
 
     private static string CreateTemporaryDirectory()
     {
