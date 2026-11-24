@@ -44,6 +44,8 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Compile documentation validators
+        run: python -m py_compile scripts/validate_documentation.py scripts/validate_surps_participation.py
       - name: Validate laboratory books, links, and Pages entry point
         run: python scripts/validate_documentation.py
       - name: Validate SURPS sourcebook declaration
