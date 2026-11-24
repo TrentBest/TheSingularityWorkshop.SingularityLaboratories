@@ -5,7 +5,7 @@
 **Domain:** Singularity Laboratories  
 **Experience:** First-person laboratory survival / systems investigation  
 **Fidelity:** Original fictional scenario; abstract containment simulation  
-**Status:** Campaign specimen and browser-playable proof of concept; not a validated biological model or operational biosafety procedure
+**Status:** Browser-playable proof of concept plus typed narrative campaign contract/state machine; not yet persisted or host-workflow-backed, and not a validated biological model or operational biosafety procedure
 
 > The alarm is already sounding when the player wakes at their workstation. The facility is sealed. The incident has begun. There is no character creator, loadout screen, or alternate opening. The only question is whether the player can understand the facility well enough to leave it safely.
 
@@ -113,7 +113,7 @@ A door opening, an animation, or a player reaching the map boundary cannot indep
 | Host composition | Rooms, navigation, identity, presentation | Laboratory semantics remain portable |
 | Analysis | Compare collected evidence to safe-escape gate | Pass, fail, or not-evaluable; no hidden assumptions |
 
-The current campaign runner executes experiment scenarios. It does not yet execute this full narrative state machine. The browser experience is a separate proof of concept and must not be represented as a runtime-backed campaign.
+The scientific `ExperimentCampaignRunner` continues to execute experiment scenarios; it is not the narrative runner. The repository now has a separate typed `NarrativeCampaignDefinition` and `NarrativeCampaignStateMachine` with immutable attempt snapshots, evidence-source references, terminal death/safe-escape outcomes, and an append-only event sequence. NUnit tests cover the fixed opening, evidence gate, stale/contradicted evidence, terminal behavior, restart history, and campaign identity. The browser experience remains a separate local proof of concept: it does not invoke this C# state machine, persist attempts, or dispatch an FSM_Execution workflow.
 
 ## 9. Acceptance tests
 
@@ -131,7 +131,7 @@ The current campaign runner executes experiment scenarios. It does not yet execu
 ## 10. Implementation sequence
 
 1. **Browser scenario:** playable state machine, fixed opening, evidence retrieval, terminal outcomes, and downloadable local event log.
-2. **Typed campaign definition:** fixed role, start state, evidence requirements, state transitions, terminal criteria, and scenario version binding.
+2. **Typed campaign definition and domain state machine — implemented:** fixed role/start, required evidence categories, source-backed evidence records, immutable attempt snapshots, terminal outcomes, and append-only events; NUnit invariant tests added.
 3. **Execution adapter:** route narrative events through the host workflow lifecycle while retaining the laboratory campaign runner for scientific sub-experiments.
 4. **Facility adapter:** bind rooms, instruments, staff, and status snapshots to stable facility identities.
 5. **Analysis and replay:** evaluate terminal criteria from recorded evidence; replay attempts without rewriting history.
