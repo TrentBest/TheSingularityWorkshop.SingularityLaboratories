@@ -46,10 +46,11 @@ Keep these states separate. A feature may be implemented but unverified. Never c
 
 1. **Restore a green .NET gate.** The latest run on commit `79d58b5d3545e5cd1e4c7ba269ddc0645e3f697c` failed compiling `FileSystemExperimentCampaignExecutionStoreTests.cs` at line 150 due to incorrectly escaped JSON string literals. The literals have been corrected in the current work; rerun CI and fix any subsequent failures before treating the branch as verified.
 2. **NIGHT SIGNAL durable attempt persistence — implemented and CI verified.** The store round-trips campaign definition, immutable attempt state, evidence history, and ordered event history; rejects duplicate and mismatched identities; and validates terminal restoration. The full .NET workflow passed in run #388. Do not wire the browser prototype directly to the store.
-3. **NIGHT SIGNAL FSM_Execution adapter.** Add a narrative-specific workflow handler now that persistence exists. Keep it distinct from `ExperimentCampaignRunner`; define terminal and cancellation semantics explicitly and test them against the actual workflow contracts.
-4. **Host dashboard observation projection — [Issue #5](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/issues/5).** Project trustworthy host observations into the existing dashboard and separate timeline. ServerApp has an optional RunId/RuntimeId-correlated observer seam in PR #22; its CI was reported passing by the host repository. Loaded membership is not provider invocation. Per-provider dispatch instrumentation remains a separate evidence gate. Keep the Laboratories core free of ServerApp dependencies.
-5. **SURPS living-book adoption — [Issue #6](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/issues/6).** Finish the dual-adapter authoring standard, authoritative domain ownership/provenance, worked mechanics, meaningful living illustrations, and independent SURPS review. Current books are authored and structured; do not call the repository enrolled or independently approved.
-6. **Pages activation.** Once the owner enables GitHub Pages with GitHub Actions as source, verify a successful deployment and update the site status. Do not change repository Pages settings without explicit owner authorization.
+3. **NIGHT SIGNAL FSM_Execution adapter — implemented and CI verified.** The narrative-specific handler remains distinct from `ExperimentCampaignRunner`; safe escape, death, and cancellation persistence are covered by workflow tests.
+4. **NIGHT SIGNAL facility adapter.** Bind fictional rooms, instruments, staff, and status snapshots to stable facility identities without moving laboratory semantics into the host.
+5. **Host dashboard observation projection — [Issue #5](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/issues/5).** Project trustworthy host observations into the existing dashboard and separate timeline. ServerApp has an optional RunId/RuntimeId-correlated observer seam in PR #22; its CI was reported passing by the host repository. Loaded membership is not provider invocation. Per-provider dispatch instrumentation remains a separate evidence gate. Keep the Laboratories core free of ServerApp dependencies.
+6. **SURPS living-book adoption — [Issue #6](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/issues/6).** Finish the dual-adapter authoring standard, authoritative domain ownership/provenance, worked mechanics, meaningful living illustrations, and independent SURPS review. Current books are authored and structured; do not call the repository enrolled or independently approved.
+7. **Pages activation.** Once the owner enables GitHub Pages with GitHub Actions as source, verify a successful deployment and update the site status. Do not change repository Pages settings without explicit owner authorization.
 
 ## Planned platform work
 
@@ -89,15 +90,15 @@ Keep these states separate. A feature may be implemented but unverified. Never c
 
 **Latest observed CI snapshot (2026-11-24 UTC):**
 
-- **.NET:** full workflow passed — [run #388](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45328240263), commit `242b39229bca200740f5946c3120e1bc4368242a`. This includes all 130 domain/adapter tests and successful persistence, FSM_Execution, Physics, and MicroBundle builds. The narrative persistence tests passed as part of that run. Subsequent commits through the current work-queue update contain documentation/status changes only; a follow-up run is queued for the newest head.
-- **Documentation/SURPS:** passed — [run #111](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45328299497), commit `84c9c0a5`; the NIGHT SIGNAL technical-spec update also passed in [run #110](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45328291293), commit `1ceaf6e2`.
+- **.NET:** full workflow passed — [run #404](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45329086362), commit `f1024175f42e09f5bc47729d2677e1a406a8a20e`. This includes domain/adapter tests, narrative persistence round-trip and identity checks, narrative FSM_Execution safe-escape/death/cancellation tests, and successful persistence, workflow, Physics, and MicroBundle builds.
+- **Documentation/SURPS:** most recent pass was [run #111](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45328299497), commit `84c9c0a5`; the NIGHT SIGNAL specimen update passed in [run #110](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45328291293), commit `1ceaf6e2`. The latest specimen/README/roadmap changes require a fresh validator run.
 - **Pages deployment:** failed on commit `1ceaf6e2` — [run #108](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45328291264). The failure details were not exposed by the available job-log endpoint. The site is not verified live; the repository Pages setting still requires owner enablement and a successful deployment.
-- **Branches:** inventory returned exactly `development` and `master` after the implementation work.
+- **Branches:** last inventory returned exactly `development` and `master`.
 
-- [x] .NET tests and all adapter builds passed in run #388.
-- [x] Documentation/SURPS validation passed after the latest sourcebook/specimen updates.
+- [x] .NET tests and all adapter builds passed in run #404.
+- [ ] Documentation/SURPS validation green after the latest specimen and README updates.
 - [ ] Pages deployment verified after Pages is enabled.
-- [x] Exactly two active branches remain: `development` and `master` (checked 2026-11-24 UTC).
+- [x] Exactly two active branches remain: `development` and `master` (last checked 2026-11-24 UTC).
 - [x] No promotion to `master`, NuGet publication, or release action performed in this workstream.
 
 ## Maintenance rule
