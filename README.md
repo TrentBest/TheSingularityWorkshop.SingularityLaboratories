@@ -7,7 +7,7 @@
 
 # Singularity Laboratories
 
-[Singularity Laboratories Pages preview](https://trentbest.github.io/TheSingularityWorkshop.SingularityLaboratories/) — the site source and Actions deployment are in place; the repository's Pages setting still needs to be enabled for the first deployment.
+[Explore the interactive Singularity Laboratories experience](https://trentbest.github.io/TheSingularityWorkshop.SingularityLaboratories/) — capability atlas, campaign-design workbench, evidence boundaries, and research sourcebooks. The site source and Actions deployment are in place; the repository's Pages setting still needs to be enabled for the first deployment.
 
 **The Workshop's laboratory, experimentation, education, and research platform — from the subatomic to the astronomical.**
 
