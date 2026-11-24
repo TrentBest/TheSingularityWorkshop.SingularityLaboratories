@@ -19,6 +19,7 @@ public sealed class NarrativeCampaignFacilityAdapterTests
         Assert.That(projection.StartingLocationId, Is.EqualTo("research-workroom"));
         Assert.That(projection.StartingRoomId, Is.EqualTo("room-research"));
         Assert.That(projection.ResolveRoomId("records-room"), Is.EqualTo("room-records"));
+        Assert.That(projection.ResolveApparatusIds("research-workroom"), Is.EqualTo(new[] { "workstation" }));
         Assert.That(projection.ResolveRoomId("exterior-checkpoint"), Is.EqualTo("room-exterior"));
         Assert.Throws<KeyNotFoundException>(() => projection.ResolveRoomId("unknown-area"));
     }
@@ -72,6 +73,17 @@ public sealed class NarrativeCampaignFacilityAdapterTests
     }
 
     [Test]
+    public void Bind_RejectsApparatusMappedToTheWrongRoom()
+    {
+        var binding = new NarrativeCampaignFacilityBinding(
+            "night-signal", "1.0.0", "northstar-annex", "1.0.0", "research-workroom",
+            [new("research-workroom", "Research workroom", "room-research", ["archive-terminal"])]);
+
+        Assert.Throws<ArgumentException>(() =>
+            new NarrativeCampaignFacilityAdapter().Bind(CreateCampaign(), CreateFacility(), binding));
+    }
+
+    [Test]
     public void FacilityBinding_RejectsDuplicateNarrativeLocationsAndRoomAssignments()
     {
         Assert.Throws<ArgumentException>(() => new NarrativeCampaignFacilityBinding(
@@ -114,7 +126,14 @@ public sealed class NarrativeCampaignFacilityAdapterTests
                 new("room-transit", "Transit junction", "Route decision and egress record."),
                 new("room-exterior", "Exterior checkpoint", "Terminal campaign review.")
             ],
-            [],
+            [
+                new("workstation", "Workstation", "workstation", "room-research", "Fictional campaign interface."),
+                new("observation-station", "Observation station", "observation-console", "room-observation", "Fictional campaign interface."),
+                new("archive-terminal", "Archive terminal", "archive-console", "room-records", "Fictional campaign interface."),
+                new("operations-console", "Operations console", "status-console", "room-operations", "Fictional campaign interface."),
+                new("route-terminal", "Route terminal", "route-console", "room-transit", "Fictional campaign interface."),
+                new("evidence-review", "Evidence review station", "review-console", "room-exterior", "Fictional campaign interface.")
+            ],
             [],
             []);
 
@@ -126,11 +145,11 @@ public sealed class NarrativeCampaignFacilityAdapterTests
             "1.0.0",
             "research-workroom",
             [
-                new("research-workroom", "Research workroom", "room-research"),
-                new("observation-gallery", "Observation gallery", "room-observation"),
-                new("records-room", "Records room", "room-records"),
-                new("facility-operations", "Facility operations", "room-operations"),
-                new("transit-junction", "Transit junction", "room-transit"),
-                new("exterior-checkpoint", "Exterior checkpoint", "room-exterior")
+                new("research-workroom", "Research workroom", "room-research", ["workstation"]),
+                new("observation-gallery", "Observation gallery", "room-observation", ["observation-station"]),
+                new("records-room", "Records room", "room-records", ["archive-terminal"]),
+                new("facility-operations", "Facility operations", "room-operations", ["operations-console"]),
+                new("transit-junction", "Transit junction", "room-transit", ["route-terminal"]),
+                new("exterior-checkpoint", "Exterior checkpoint", "room-exterior", ["evidence-review"])
             ]);
 }
