@@ -29,6 +29,8 @@ public sealed class NarrativeCampaignFacilityAdapter
 
         var roomIds = facility.Rooms.Select(room => room.Id).ToHashSet(StringComparer.Ordinal);
         var apparatusById = facility.Apparatus.ToDictionary(item => item.Id, StringComparer.Ordinal);
+        var instrumentsById = facility.Instruments.ToDictionary(item => item.Id, StringComparer.Ordinal);
+        var channelsById = facility.MeasurementChannels.ToDictionary(item => item.Id, StringComparer.Ordinal);
         var missingRooms = binding.Locations
             .Where(location => !roomIds.Contains(location.RoomId))
             .Select(location => location.RoomId)
@@ -46,6 +48,22 @@ public sealed class NarrativeCampaignFacilityAdapter
                     throw new ArgumentException($"The facility binding references unknown apparatus '{apparatusId}'.", nameof(binding));
                 if (!string.Equals(apparatus.RoomId, location.RoomId, StringComparison.Ordinal))
                     throw new ArgumentException($"Apparatus '{apparatusId}' is not installed in the room mapped to narrative location '{location.LocationId}'.", nameof(binding));
+            }
+
+            foreach (var instrumentId in location.InstrumentIds)
+            {
+                if (!instrumentsById.TryGetValue(instrumentId, out var instrument))
+                    throw new ArgumentException($"The facility binding references unknown instrument '{instrumentId}'.", nameof(binding));
+                if (!location.ApparatusIds.Contains(instrument.ApparatusId, StringComparer.Ordinal))
+                    throw new ArgumentException($"Instrument '{instrumentId}' is not attached to apparatus mapped to narrative location '{location.LocationId}'.", nameof(binding));
+            }
+
+            foreach (var channelId in location.MeasurementChannelIds)
+            {
+                if (!channelsById.TryGetValue(channelId, out var channel))
+                    throw new ArgumentException($"The facility binding references unknown measurement channel '{channelId}'.", nameof(binding));
+                if (!location.InstrumentIds.Contains(channel.InstrumentId, StringComparer.Ordinal))
+                    throw new ArgumentException($"Measurement channel '{channelId}' is not exposed by an instrument mapped to narrative location '{location.LocationId}'.", nameof(binding));
             }
         }
 
@@ -70,6 +88,8 @@ public sealed class NarrativeCampaignFacilityProjection
 {
     private readonly IReadOnlyDictionary<string, string> _roomIdsByLocation;
     private readonly IReadOnlyDictionary<string, IReadOnlyList<string>> _apparatusIdsByLocation;
+    private readonly IReadOnlyDictionary<string, IReadOnlyList<string>> _instrumentIdsByLocation;
+    private readonly IReadOnlyDictionary<string, IReadOnlyList<string>> _channelIdsByLocation;
 
     internal NarrativeCampaignFacilityProjection(
         string campaignId,
@@ -91,6 +111,10 @@ public sealed class NarrativeCampaignFacilityProjection
             Locations.ToDictionary(location => location.LocationId, location => location.RoomId, StringComparer.Ordinal));
         _apparatusIdsByLocation = new ReadOnlyDictionary<string, IReadOnlyList<string>>(
             Locations.ToDictionary(location => location.LocationId, location => (IReadOnlyList<string>)Array.AsReadOnly(location.ApparatusIds.ToArray()), StringComparer.Ordinal));
+        _instrumentIdsByLocation = new ReadOnlyDictionary<string, IReadOnlyList<string>>(
+            Locations.ToDictionary(location => location.LocationId, location => (IReadOnlyList<string>)Array.AsReadOnly(location.InstrumentIds.ToArray()), StringComparer.Ordinal));
+        _channelIdsByLocation = new ReadOnlyDictionary<string, IReadOnlyList<string>>(
+            Locations.ToDictionary(location => location.LocationId, location => (IReadOnlyList<string>)Array.AsReadOnly(location.MeasurementChannelIds.ToArray()), StringComparer.Ordinal));
     }
 
     public string CampaignId { get; }
@@ -107,6 +131,24 @@ public sealed class NarrativeCampaignFacilityProjection
         ArgumentException.ThrowIfNullOrWhiteSpace(locationId);
         return _apparatusIdsByLocation.TryGetValue(locationId, out var apparatusIds)
             ? apparatusIds
+            : throw new KeyNotFoundException($"No facility room is bound to narrative location '{locationId}'.");
+    }
+
+    /// <summary>Resolves the instrument identities available in a validated narrative location.</summary>
+    public IReadOnlyList<string> ResolveInstrumentIds(string locationId) =>
+        ResolveIds(_instrumentIdsByLocation, locationId);
+
+    /// <summary>Resolves the measurement channel identities exposed in a validated narrative location.</summary>
+    public IReadOnlyList<string> ResolveMeasurementChannelIds(string locationId) =>
+        ResolveIds(_channelIdsByLocation, locationId);
+
+    private static IReadOnlyList<string> ResolveIds(
+        IReadOnlyDictionary<string, IReadOnlyList<string>> source,
+        string locationId)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(locationId);
+        return source.TryGetValue(locationId, out var ids)
+            ? ids
             : throw new KeyNotFoundException($"No facility room is bound to narrative location '{locationId}'.");
     }
 
