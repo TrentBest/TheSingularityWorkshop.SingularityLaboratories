@@ -20,6 +20,8 @@ public sealed class NarrativeCampaignFacilityAdapterTests
         Assert.That(projection.StartingRoomId, Is.EqualTo("room-research"));
         Assert.That(projection.ResolveRoomId("records-room"), Is.EqualTo("room-records"));
         Assert.That(projection.ResolveApparatusIds("research-workroom"), Is.EqualTo(new[] { "workstation" }));
+        Assert.That(projection.ResolveInstrumentIds("observation-gallery"), Is.EqualTo(new[] { "observation-monitor" }));
+        Assert.That(projection.ResolveMeasurementChannelIds("transit-junction"), Is.EqualTo(new[] { "egress-state" }));
         Assert.That(projection.ResolveRoomId("exterior-checkpoint"), Is.EqualTo("room-exterior"));
         Assert.Throws<KeyNotFoundException>(() => projection.ResolveRoomId("unknown-area"));
     }
@@ -84,6 +86,17 @@ public sealed class NarrativeCampaignFacilityAdapterTests
     }
 
     [Test]
+    public void Bind_RejectsInstrumentOrChannelNotAttachedToMappedLocation()
+    {
+        var binding = new NarrativeCampaignFacilityBinding(
+            "night-signal", "1.0.0", "northstar-annex", "1.0.0", "research-workroom",
+            [new("research-workroom", "Research workroom", "room-research", ["workstation"], ["observation-monitor"])]);
+
+        Assert.Throws<ArgumentException>(() =>
+            new NarrativeCampaignFacilityAdapter().Bind(CreateCampaign(), CreateFacility(), binding));
+    }
+
+    [Test]
     public void FacilityBinding_RejectsDuplicateNarrativeLocationsAndRoomAssignments()
     {
         Assert.Throws<ArgumentException>(() => new NarrativeCampaignFacilityBinding(
@@ -134,8 +147,16 @@ public sealed class NarrativeCampaignFacilityAdapterTests
                 new("route-terminal", "Route terminal", "route-console", "room-transit", "Fictional campaign interface."),
                 new("evidence-review", "Evidence review station", "review-console", "room-exterior", "Fictional campaign interface.")
             ],
-            [],
-            []);
+            [
+                new("observation-monitor", "Observation state monitor", "fictional-state-monitor", "observation-station", "fictional-observation-state-v1"),
+                new("operations-state", "Facility state monitor", "fictional-state-monitor", "operations-console", "fictional-facility-state-v1"),
+                new("egress-state", "Egress state monitor", "fictional-state-monitor", "route-terminal", "fictional-egress-state-v1")
+            ],
+            [
+                new("observation-state", "Observation state", "observation-monitor", "fictional-observation-state", "state", MeasurementSamplingMode.OnDemand),
+                new("facility-state", "Facility state", "operations-state", "fictional-facility-state", "state", MeasurementSamplingMode.OnDemand),
+                new("egress-state", "Egress state", "egress-state", "fictional-egress-state", "state", MeasurementSamplingMode.OnDemand)
+            ]);
 
     private static NarrativeCampaignFacilityBinding CreateBinding() =>
         new(
@@ -146,10 +167,10 @@ public sealed class NarrativeCampaignFacilityAdapterTests
             "research-workroom",
             [
                 new("research-workroom", "Research workroom", "room-research", ["workstation"]),
-                new("observation-gallery", "Observation gallery", "room-observation", ["observation-station"]),
+                new("observation-gallery", "Observation gallery", "room-observation", ["observation-station"], ["observation-monitor"], ["observation-state"]),
                 new("records-room", "Records room", "room-records", ["archive-terminal"]),
-                new("facility-operations", "Facility operations", "room-operations", ["operations-console"]),
-                new("transit-junction", "Transit junction", "room-transit", ["route-terminal"]),
+                new("facility-operations", "Facility operations", "room-operations", ["operations-console"], ["operations-state"], ["facility-state"]),
+                new("transit-junction", "Transit junction", "room-transit", ["route-terminal"], ["egress-state"], ["egress-state"]),
                 new("exterior-checkpoint", "Exterior checkpoint", "room-exterior", ["evidence-review"])
             ]);
 }
