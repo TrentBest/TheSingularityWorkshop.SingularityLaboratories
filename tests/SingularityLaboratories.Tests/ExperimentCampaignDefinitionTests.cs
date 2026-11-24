@@ -82,8 +82,8 @@ public sealed class ExperimentCampaignDefinitionTests
     }
 
     private static ExperimentCampaignDefinition CreateCampaign(
-        IEnumerable<string>? criteria = null,
-        IEnumerable<ExperimentCampaignScenario>? scenarios = null) =>
+        IReadOnlyList<string>? criteria = null,
+        IReadOnlyList<ExperimentCampaignScenario>? scenarios = null) =>
         new(
             "electrical-thermal-study",
             "1.0.0",
