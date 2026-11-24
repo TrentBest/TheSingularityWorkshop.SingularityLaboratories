@@ -43,6 +43,7 @@ Each phase should produce a working capability and verifiable evidence. The plat
 - [x] Assemble the complete `docs/` experience into a clean Pages artifact and validate local files, fragment navigation, and SVG well-formedness before upload. The build/validation job passed in Pages workflow run [#116](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45333577162); the separate deploy job failed and requires Pages configuration/host-side diagnosis.
 - [ ] Enable GitHub Pages for this repository with **GitHub Actions** as the build/deployment source and verify the first live deployment.
 - [ ] Expand the landing page into a live laboratory catalog, authoring, and experiment surface as host adapters become available.
+- [x] Expand the fictional campus into a navigable facility-interior directory with categorized spaces, instrument concepts, research programs, and staff responsibilities. The browser records remain illustrative until backed by trusted host data.
 - [x] Establish the reader-facing Core Manual and technical companion, with SURPS-aligned reading paths across the three declared domain sourcebooks.
 - [x] Add a browser-only campaign-draft workbench and a fictional campus explorer; both label their prototype status and do not claim runtime execution or live facility services.
 - [x] Make the capability atlas searchable and filterable by implementation status, with accessible controls, live result counts, and explicit prototype/runtime boundaries.
