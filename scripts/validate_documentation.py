@@ -17,6 +17,10 @@ COMPANION = DOCS / "laboratory-technical-companion.md"
 CATALOGUE = DOCS / "books" / "index.md"
 PAGE = DOCS / "index.html"
 CONTAINMENT_CAMPAIGN = DOCS / "specimens" / "night-signal-containment-campaign.md"
+WORK_QUEUE = ROOT / "TODO.md"
+README = ROOT / "README.md"
+ROADMAP = ROOT / "ROADMAP.md"
+DOCS_INDEX = DOCS / "index.md"
 VISUALS = [
     DOCS / "assets" / "laboratory-manual-cover.svg",
     DOCS / "assets" / "laboratory-lifecycle.svg",
@@ -73,7 +77,7 @@ def check_markdown_links(path: Path, errors: list[str]) -> int:
 
 def main() -> int:
     errors: list[str] = []
-    for path in (MANUAL, COMPANION, CATALOGUE, PAGE, CONTAINMENT_CAMPAIGN, *VISUALS):
+    for path in (MANUAL, COMPANION, CATALOGUE, PAGE, CONTAINMENT_CAMPAIGN, WORK_QUEUE, README, ROADMAP, DOCS_INDEX, *VISUALS):
         require(errors, path.is_file(), f"required publication asset is missing: {path.relative_to(ROOT)}")
     if errors:
         print("\n".join(errors))
@@ -83,7 +87,29 @@ def main() -> int:
     companion = COMPANION.read_text(encoding="utf-8")
     catalogue = CATALOGUE.read_text(encoding="utf-8")
     containment_campaign = CONTAINMENT_CAMPAIGN.read_text(encoding="utf-8")
+    work_queue = WORK_QUEUE.read_text(encoding="utf-8")
+    readme = README.read_text(encoding="utf-8")
+    roadmap = ROADMAP.read_text(encoding="utf-8")
+    docs_index = DOCS_INDEX.read_text(encoding="utf-8")
     page = PAGE.read_text(encoding="utf-8")
+
+    work_queue_requirements = [
+        "## Status vocabulary",
+        "## Current implementation",
+        "## Active work — next in execution order",
+        "## Planned platform work",
+        "## Cross-repository coordination",
+        "## Verification and release gates",
+        "## Maintenance rule",
+    ]
+    for marker in work_queue_requirements:
+        require(errors, marker in work_queue, f"repository work queue is missing required section: {marker}")
+    require(errors, "Implemented" in work_queue and "Verified" in work_queue,
+            "repository work queue must distinguish implementation from verification")
+    require(errors, "[Repository work queue](TODO.md)" in readme,
+            "README must link to the canonical repository work queue")
+    require(errors, "[repository work queue](../TODO.md)" in docs_index,
+            "documentation index must link to the canonical repository work queue")
 
     manual_requirements = [
         "# Singularity Laboratories",
@@ -180,7 +206,7 @@ def main() -> int:
                 f"{visual.relative_to(ROOT)}: accessible title and description are required")
 
     link_count = 0
-    for path in (MANUAL, COMPANION, CATALOGUE, CONTAINMENT_CAMPAIGN, *(item[0] for item in sourcebooks)):
+    for path in (MANUAL, COMPANION, CATALOGUE, CONTAINMENT_CAMPAIGN, WORK_QUEUE, README, ROADMAP, DOCS_INDEX, *(item[0] for item in sourcebooks)):
         link_count += check_markdown_links(path, errors)
 
     require(errors, "laboratory-manual.md" in page and "laboratory-technical-companion.md" in page,
