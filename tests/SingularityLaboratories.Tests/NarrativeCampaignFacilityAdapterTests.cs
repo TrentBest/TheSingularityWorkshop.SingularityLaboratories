@@ -148,9 +148,9 @@ public sealed class NarrativeCampaignFacilityAdapterTests
                 new("evidence-review", "Evidence review station", "review-console", "room-exterior", "Fictional campaign interface.")
             ],
             [
-                new("observation-monitor", "Observation state monitor", "fictional-state-monitor", "observation-station", "fictional-observation-state-v1"),
-                new("operations-state", "Facility state monitor", "fictional-state-monitor", "operations-console", "fictional-facility-state-v1"),
-                new("egress-state", "Egress state monitor", "fictional-state-monitor", "route-terminal", "fictional-egress-state-v1")
+                new("observation-monitor", "Observation state monitor", "fictional-state-monitor", "observation-station", "1.0.0", "fictional-observation-state-v1"),
+                new("operations-state", "Facility state monitor", "fictional-state-monitor", "operations-console", "1.0.0", "fictional-facility-state-v1"),
+                new("egress-state", "Egress state monitor", "fictional-state-monitor", "route-terminal", "1.0.0", "fictional-egress-state-v1")
             ],
             [
                 new("observation-state", "Observation state", "observation-monitor", "fictional-observation-state", "state", MeasurementSamplingMode.OnDemand),
