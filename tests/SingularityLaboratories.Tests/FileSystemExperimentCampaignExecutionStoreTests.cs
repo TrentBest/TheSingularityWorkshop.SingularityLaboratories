@@ -23,6 +23,8 @@ public sealed class FileSystemExperimentCampaignExecutionStoreTests
             Assert.That(actual!.ExecutionId, Is.EqualTo(expected.ExecutionId));
             Assert.That(actual.CampaignId, Is.EqualTo(expected.CampaignId));
             Assert.That(actual.CampaignVersion, Is.EqualTo(expected.CampaignVersion));
+            Assert.That(actual.LaboratoryId, Is.EqualTo(expected.LaboratoryId));
+            Assert.That(actual.LaboratoryVersion, Is.EqualTo(expected.LaboratoryVersion));
             Assert.That(actual.Status, Is.EqualTo(ExperimentCampaignExecutionStatus.PartiallyCompleted));
             Assert.That(actual.Scenarios, Has.Count.EqualTo(2));
             Assert.That(actual.Scenarios[0].Run!.RunId, Is.EqualTo(expected.Scenarios[0].Run!.RunId));
@@ -112,6 +114,8 @@ public sealed class FileSystemExperimentCampaignExecutionStoreTests
         return new ExperimentCampaignExecutionRecord(
             Guid.NewGuid(),
             "thermal-campaign",
+            "1.0.0",
+            "thermal-lab",
             "1.0.0",
             "electrical-thermal",
             "1.2.0",
