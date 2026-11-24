@@ -3,7 +3,7 @@ namespace TheSingularityWorkshop.SingularityLaboratories.Contracts;
 /// <summary>Maps one stable narrative location identity to a portable laboratory room identity.</summary>
 public sealed record NarrativeCampaignLocationBinding
 {
-    public NarrativeCampaignLocationBinding(string locationId, string displayName, string roomId, IReadOnlyList<string>? apparatusIds = null)
+    public NarrativeCampaignLocationBinding(string locationId, string displayName, string roomId, IReadOnlyList<string>? apparatusIds = null, IReadOnlyList<string>? instrumentIds = null, IReadOnlyList<string>? measurementChannelIds = null)
     {
         LocationId = Required(locationId, nameof(locationId));
         DisplayName = Required(displayName, nameof(displayName));
@@ -12,12 +12,24 @@ public sealed record NarrativeCampaignLocationBinding
         if (apparatus.Distinct(StringComparer.Ordinal).Count() != apparatus.Length)
             throw new ArgumentException("Apparatus identifiers must be unique within a location.", nameof(apparatusIds));
         ApparatusIds = Array.AsReadOnly(apparatus);
+        InstrumentIds = SnapshotIds(instrumentIds, nameof(instrumentIds));
+        MeasurementChannelIds = SnapshotIds(measurementChannelIds, nameof(measurementChannelIds));
     }
 
     public string LocationId { get; }
     public string DisplayName { get; }
     public string RoomId { get; }
     public IReadOnlyList<string> ApparatusIds { get; }
+    public IReadOnlyList<string> InstrumentIds { get; }
+    public IReadOnlyList<string> MeasurementChannelIds { get; }
+
+    private static IReadOnlyList<string> SnapshotIds(IReadOnlyList<string>? values, string parameterName)
+    {
+        var snapshot = (values ?? Array.Empty<string>()).Select(value => Required(value, parameterName)).ToArray();
+        if (snapshot.Distinct(StringComparer.Ordinal).Count() != snapshot.Length)
+            throw new ArgumentException("Identifiers must be unique within a location.", parameterName);
+        return Array.AsReadOnly(snapshot);
+    }
 
     private static string Required(string value, string parameterName)
     {
@@ -57,6 +69,12 @@ public sealed record NarrativeCampaignFacilityBinding
         var apparatusIds = snapshot.SelectMany(item => item.ApparatusIds).ToArray();
         if (apparatusIds.Distinct(StringComparer.Ordinal).Count() != apparatusIds.Length)
             throw new ArgumentException("Each apparatus item may be mapped to only one narrative location.", nameof(locations));
+        var instrumentIds = snapshot.SelectMany(item => item.InstrumentIds).ToArray();
+        if (instrumentIds.Distinct(StringComparer.Ordinal).Count() != instrumentIds.Length)
+            throw new ArgumentException("Each instrument may be mapped to only one narrative location.", nameof(locations));
+        var channelIds = snapshot.SelectMany(item => item.MeasurementChannelIds).ToArray();
+        if (channelIds.Distinct(StringComparer.Ordinal).Count() != channelIds.Length)
+            throw new ArgumentException("Each measurement channel may be mapped to only one narrative location.", nameof(locations));
         if (!snapshot.Any(item => string.Equals(item.LocationId, StartingLocationId, StringComparison.Ordinal)))
             throw new ArgumentException("The starting location must be present in the facility mapping.", nameof(startingLocationId));
 
