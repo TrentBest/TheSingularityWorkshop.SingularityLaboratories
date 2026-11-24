@@ -69,6 +69,10 @@ The LaboratoryStaffAssignment contract currently records a host-issued opaque pr
 
 This is a foundation, not yet the complete authoring, instrument, classroom, research, or hosted runtime platform. The repository's Pages setting still needs to be enabled for the first deployment; the source and workflow are not proof of a live published site.
 
+The publication set now includes the reader-facing [Core Manual](docs/laboratory-manual.md), [Technical Companion](docs/laboratory-technical-companion.md), and [SURPS sourcebook catalogue](docs/books/index.md). The three declared sourcebooks follow the shared living-book reading paths; their ownership claims remain pending independent SURPS review.
+
+The Pages source now contains a browser-only campaign-draft workbench and a fictional campus explorer, backed by authored diagrams. These are teaching prototypes, not live Physics execution, instrument telemetry, reservations, or a hosted facility. A documentation CI gate checks the book structure, local links, in-page navigation, and accessible SVG metadata.
+
 ## 5. Development and release
 
 - Active work: development
