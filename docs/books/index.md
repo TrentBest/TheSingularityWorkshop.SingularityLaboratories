@@ -23,7 +23,7 @@ The standard is the target for new work; full conformance remains in progress un
 
 ## First facility specimen
 
-The [Teaching and Research Campus](../specimens/teaching-research-campus.md) is the first fictional facility composition target. Its status is an implementation specification with selected domain contracts and tests; it is not a packaged production campus, live instrument service, booking system, or deployed spatial experience.
+The [Teaching and Research Campus](../specimens/teaching-research-campus.md) is the first fictional facility composition target. The [NIGHT SIGNAL containment campaign](../specimens/night-signal-containment-campaign.md) uses a wing of that fictional institution as a playable systems test: fixed player role, evidence retrieval, facility-state inspection, and a verified-escape terminal gate. Its status is an implementation specification with selected domain contracts and tests; it is not a packaged production campus, live instrument service, booking system, or deployed spatial experience.
 
 ## Ownership boundaries
 
