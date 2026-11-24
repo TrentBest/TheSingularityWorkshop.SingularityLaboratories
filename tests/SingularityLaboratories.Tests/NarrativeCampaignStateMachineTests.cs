@@ -10,6 +10,17 @@ public sealed class NarrativeCampaignStateMachineTests
     private static readonly DateTimeOffset StartTime = new(2026, 11, 24, 2, 0, 0, TimeSpan.Zero);
 
     [Test]
+    public void CampaignDefinition_RequiresEgressEvidenceForSafeEscape()
+    {
+        Assert.Throws<ArgumentException>(() => new NarrativeCampaignDefinition(
+            "invalid-campaign",
+            "1.0.0",
+            "Fixed role",
+            "Fixed start",
+            [NarrativeEvidenceKind.IncidentTimeline, NarrativeEvidenceKind.FacilityState]));
+    }
+
+    [Test]
     public void Start_AssignsFixedRoleAndLocationWithoutCharacterCreation()
     {
         var definition = CreateDefinition();
