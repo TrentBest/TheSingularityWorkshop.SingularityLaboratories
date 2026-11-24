@@ -111,6 +111,8 @@ public sealed class ExperimentCampaignRunner
             Guid.NewGuid(),
             campaign.Id,
             campaign.Version,
+            laboratory.Id,
+            laboratory.Version,
             campaign.ExperimentId,
             campaign.ExperimentVersion,
             campaign.ModelId,
