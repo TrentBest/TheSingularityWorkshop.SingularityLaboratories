@@ -30,7 +30,7 @@ Keep these states separate. A feature may be implemented but unverified. Never c
 - [x] Authoring templates, schema validation, comparison, compatibility assessment, and integrity-checked export/import.
 - [x] Host-neutral experiment settings dashboard contract. Runtime observations require a concrete RunId and remain separate from declared dependencies.
 - [x] Typed NIGHT SIGNAL narrative definition and immutable state machine, including fixed opening, source-backed evidence, current-evidence gate, route/evidence consistency, terminal outcomes, and append-only event history.
-- [x] Durable NIGHT SIGNAL attempt persistence: atomic filesystem store, exact definition/evidence/event round-trip, duplicate-ID protection, identity checks, and validated terminal restoration. New NUnit persistence tests are awaiting the current CI run.
+- [x] Durable NIGHT SIGNAL attempt persistence: atomic filesystem store, exact definition/evidence/event round-trip, duplicate-ID protection, identity checks, and validated terminal restoration. The new NUnit persistence tests passed in .NET workflow run #388 (commit `242b39229bca200740f5946c3120e1bc4368242a`).
 - [x] Browser-only NIGHT SIGNAL playable specimen and local event export. This is a prototype, not a runtime-backed execution.
 
 ### Documentation and experience
@@ -45,7 +45,7 @@ Keep these states separate. A feature may be implemented but unverified. Never c
 ## Active work — next in execution order
 
 1. **Restore a green .NET gate.** The latest run on commit `79d58b5d3545e5cd1e4c7ba269ddc0645e3f697c` failed compiling `FileSystemExperimentCampaignExecutionStoreTests.cs` at line 150 due to incorrectly escaped JSON string literals. The literals have been corrected in the current work; rerun CI and fix any subsequent failures before treating the branch as verified.
-2. **NIGHT SIGNAL durable attempt persistence — implemented; CI pending.** The store round-trips campaign definition, immutable attempt state, evidence history, and ordered event history; rejects duplicate and mismatched identities; and validates terminal restoration. Do not wire the browser prototype directly to the store.
+2. **NIGHT SIGNAL durable attempt persistence — implemented and CI verified.** The store round-trips campaign definition, immutable attempt state, evidence history, and ordered event history; rejects duplicate and mismatched identities; and validates terminal restoration. The full .NET workflow passed in run #388. Do not wire the browser prototype directly to the store.
 3. **NIGHT SIGNAL FSM_Execution adapter.** Add a narrative-specific workflow handler now that persistence exists. Keep it distinct from `ExperimentCampaignRunner`; define terminal and cancellation semantics explicitly and test them against the actual workflow contracts.
 4. **Host dashboard observation projection — [Issue #5](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/issues/5).** Project trustworthy host observations into the existing dashboard and separate timeline. ServerApp has an optional RunId/RuntimeId-correlated observer seam in PR #22; its CI was reported passing by the host repository. Loaded membership is not provider invocation. Per-provider dispatch instrumentation remains a separate evidence gate. Keep the Laboratories core free of ServerApp dependencies.
 5. **SURPS living-book adoption — [Issue #6](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/issues/6).** Finish the dual-adapter authoring standard, authoritative domain ownership/provenance, worked mechanics, meaningful living illustrations, and independent SURPS review. Current books are authored and structured; do not call the repository enrolled or independently approved.
@@ -89,15 +89,15 @@ Keep these states separate. A feature may be implemented but unverified. Never c
 
 **Latest observed CI snapshot (2026-11-24 UTC):**
 
-- **.NET:** running on commit `fe3b6d2a7ac3bdfec9e002e04bba3ac1b1da08b7` — [run #380](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45327985987). The prior run exposed a constructor-order defect in `ExperimentCampaignExecutionRecord`: identity properties were validated before assignment. The validation now runs after normalized identities are assigned; this run is the verification gate for that fix.
-- **Documentation/SURPS:** passed on commit `14164f3b9bb8a5843a36576aebbf8cf91c807eb8` — [run #109](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45327907362). The only failure was malformed XML in the campus SVG; all ampersands are now escaped. This documentation-only result remains applicable to the current code change.
-- **Pages deployment:** failed on commit `14164f3b9bb8a5843a36576aebbf8cf91c807eb8` — [run #107](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45327907394). The failure details were not exposed by the available job-log endpoint. The site is not verified live; the repository Pages setting still requires owner enablement and a successful deployment.
-- **Branches:** last inventory check returned exactly `development` and `master`.
+- **.NET:** full workflow passed — [run #388](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45328240263), commit `242b39229bca200740f5946c3120e1bc4368242a`. This includes all 130 domain/adapter tests and successful persistence, FSM_Execution, Physics, and MicroBundle builds. The narrative persistence tests passed as part of that run. Subsequent commits through the current work-queue update contain documentation/status changes only; a follow-up run is queued for the newest head.
+- **Documentation/SURPS:** passed — [run #111](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45328299497), commit `84c9c0a5`; the NIGHT SIGNAL technical-spec update also passed in [run #110](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45328291293), commit `1ceaf6e2`.
+- **Pages deployment:** failed on commit `1ceaf6e2` — [run #108](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45328291264). The failure details were not exposed by the available job-log endpoint. The site is not verified live; the repository Pages setting still requires owner enablement and a successful deployment.
+- **Branches:** inventory returned exactly `development` and `master` after the implementation work.
 
-- [ ] Latest .NET workflow green on current `development` head.
-- [x] Documentation/SURPS validator passed; rerun on later documentation changes.
+- [x] .NET tests and all adapter builds passed in run #388.
+- [x] Documentation/SURPS validation passed after the latest sourcebook/specimen updates.
 - [ ] Pages deployment verified after Pages is enabled.
-- [x] Exactly two active branches remain: `development` and `master` (last checked 2026-11-24 UTC).
+- [x] Exactly two active branches remain: `development` and `master` (checked 2026-11-24 UTC).
 - [x] No promotion to `master`, NuGet publication, or release action performed in this workstream.
 
 ## Maintenance rule
