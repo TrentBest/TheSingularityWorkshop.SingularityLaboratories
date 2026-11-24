@@ -184,6 +184,12 @@ def main() -> int:
             "Pages entry point must expose the living domain and research lifecycle diagrams")
     require(errors, "assets/teaching-research-campus-map.svg" in page and "data-facility=" in page,
             "Pages entry point must expose the campus map and interactive facility selector")
+    require(errors, 'href="#campus">Campus explorer' in page,
+            "Pages primary navigation must expose the campus explorer")
+    facility_keys = set(re.findall(r'data-facility="([^"]+)"', page))
+    facility_record_keys = set(re.findall(r'\b(welcome|teaching|physics|instruments|research|data|operations|archive):\{title:', page))
+    require(errors, facility_keys == facility_record_keys and len(facility_keys) == 8,
+            "campus selector buttons and facility detail records must have the same eight stable keys")
     require(errors, "campaign workbench" in page.lower() and "evidence" in page.lower(),
             "Pages entry point must retain its interactive workbench and evidence surfaces")
 
