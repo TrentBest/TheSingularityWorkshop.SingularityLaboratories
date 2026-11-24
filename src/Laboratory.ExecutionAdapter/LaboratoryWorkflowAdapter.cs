@@ -21,6 +21,45 @@ public static class LaboratoryWorkflowAdapter
     public const string ConfigurationInputKey = "laboratory.configuration";
     public const string RunRecordOutputKey = "laboratory.runRecord";
 
+    public const string CampaignHandlerKey = "laboratory.executeCampaign";
+    public const string CampaignDefinitionInputKey = "laboratory.campaign";
+    public const string CampaignExecutionOutputKey = "laboratory.campaignExecution";
+
+    /// <summary>
+    /// Registers version-bound campaign execution with FSM_Execution and atomically persists the
+    /// complete campaign outcome. Successful scenario run records remain embedded in that outcome.
+    /// </summary>
+    public static void RegisterCampaign(
+        WorkflowHandlerRegistry handlers,
+        LaboratoryDefinition laboratory,
+        IExperimentModelCatalog models,
+        IExperimentCampaignExecutionStore campaignStore,
+        ExperimentExecutionPolicy? executionPolicy = null)
+    {
+        ArgumentNullException.ThrowIfNull(handlers);
+        ArgumentNullException.ThrowIfNull(laboratory);
+        ArgumentNullException.ThrowIfNull(models);
+        ArgumentNullException.ThrowIfNull(campaignStore);
+
+        handlers.Register(CampaignHandlerKey, async (context, cancellationToken) =>
+        {
+            var campaign = context.GetInput<ExperimentCampaignDefinition>(CampaignDefinitionInputKey);
+            if (campaign is null)
+                throw new InvalidOperationException("The workflow did not supply an experiment campaign.");
+
+            var execution = await new ExperimentCampaignRunner().RunAsync(
+                laboratory,
+                campaign,
+                (experimentId, version) =>
+                    models.TryResolve(experimentId, version, out var model) ? model : null,
+                cancellationToken,
+                executionPolicy).ConfigureAwait(false);
+
+            await campaignStore.SaveAsync(execution, cancellationToken).ConfigureAwait(false);
+            context.SetOutput(CampaignExecutionOutputKey, execution);
+        });
+    }
+
     public static void Register(
         WorkflowHandlerRegistry handlers,
         LaboratoryDefinition laboratory,
