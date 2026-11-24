@@ -47,7 +47,7 @@ public sealed class NarrativeCampaignStateMachineTests
         var definition = CreateDefinition();
         var attempt = machine.Start(definition, Guid.NewGuid(), StartTime);
         foreach (var kind in definition.RequiredSafeEscapeEvidence)
-            attempt = machine.RecordEvidence(definition, attempt, Evidence(kind, NarrativeEvidenceState.VerifiedCurrent, kind.ToString()), StartTime.AddMinutes(2));
+            attempt = machine.RecordEvidence(definition, attempt, Evidence(kind, NarrativeEvidenceState.VerifiedCurrent, kind == NarrativeEvidenceKind.EgressRecord ? "route-A" : kind.ToString()), StartTime.AddMinutes(2));
 
         var escaped = machine.AttemptSafeEscape(definition, attempt, "route-A", StartTime.AddMinutes(4));
 
@@ -68,12 +68,51 @@ public sealed class NarrativeCampaignStateMachineTests
             attempt = machine.RecordEvidence(definition, attempt, Evidence(
                 kind,
                 kind == NarrativeEvidenceKind.FacilityState ? state : NarrativeEvidenceState.VerifiedCurrent,
-                kind.ToString()), StartTime.AddMinutes(2));
+                kind == NarrativeEvidenceKind.EgressRecord ? "route-A" : kind.ToString()), StartTime.AddMinutes(2));
 
         var result = machine.AttemptSafeEscape(definition, attempt, "route-A", StartTime.AddMinutes(5));
 
         Assert.That(result.Outcome, Is.EqualTo(NarrativeCampaignOutcome.Active));
         Assert.That(result.Events[^1].Kind, Is.EqualTo(NarrativeCampaignEventKind.SafeEscapeDenied));
+    }
+
+    [Test]
+    public void SafeEscape_RejectsReusedEvidenceSourcesAcrossRequiredCategories()
+    {
+        var machine = new NarrativeCampaignStateMachine();
+        var definition = CreateDefinition();
+        var attempt = machine.Start(definition, Guid.NewGuid(), StartTime);
+        attempt = machine.RecordEvidence(definition, attempt, new NarrativeEvidenceRecord(
+            NarrativeEvidenceKind.IncidentTimeline, "shared-source", "timeline", NarrativeEvidenceState.VerifiedCurrent,
+            StartTime.AddMinutes(1)), StartTime.AddMinutes(2));
+        attempt = machine.RecordEvidence(definition, attempt, new NarrativeEvidenceRecord(
+            NarrativeEvidenceKind.FacilityState, "shared-source", "facility", NarrativeEvidenceState.VerifiedCurrent,
+            StartTime.AddMinutes(1)), StartTime.AddMinutes(2));
+        attempt = machine.RecordEvidence(definition, attempt, Evidence(
+            NarrativeEvidenceKind.EgressRecord, NarrativeEvidenceState.VerifiedCurrent, "route-A"), StartTime.AddMinutes(2));
+
+        var result = machine.AttemptSafeEscape(definition, attempt, "route-A", StartTime.AddMinutes(3));
+
+        Assert.That(result.Outcome, Is.EqualTo(NarrativeCampaignOutcome.Active));
+        Assert.That(result.Events[^1].Details, Does.Contain("duplicated evidence sources"));
+    }
+
+    [Test]
+    public void SafeEscape_RequiresAttemptedRouteToMatchCurrentEgressEvidence()
+    {
+        var machine = new NarrativeCampaignStateMachine();
+        var definition = CreateDefinition();
+        var attempt = machine.Start(definition, Guid.NewGuid(), StartTime);
+        foreach (var kind in definition.RequiredSafeEscapeEvidence)
+            attempt = machine.RecordEvidence(definition, attempt, Evidence(
+                kind,
+                NarrativeEvidenceState.VerifiedCurrent,
+                kind == NarrativeEvidenceKind.EgressRecord ? "route-A" : kind.ToString()), StartTime.AddMinutes(2));
+
+        var result = machine.AttemptSafeEscape(definition, attempt, "route-B", StartTime.AddMinutes(3));
+
+        Assert.That(result.Outcome, Is.EqualTo(NarrativeCampaignOutcome.Active));
+        Assert.That(result.Events[^1].Details, Does.Contain("egress record route match: False"));
     }
 
     [Test]
@@ -119,7 +158,7 @@ public sealed class NarrativeCampaignStateMachineTests
         attempt = machine.RecordEvidence(definition, attempt, Evidence(
             NarrativeEvidenceKind.FacilityState, NarrativeEvidenceState.VerifiedCurrent, "facility"), StartTime.AddMinutes(2));
         attempt = machine.RecordEvidence(definition, attempt, Evidence(
-            NarrativeEvidenceKind.EgressRecord, NarrativeEvidenceState.VerifiedCurrent, "egress"), StartTime.AddMinutes(2));
+            NarrativeEvidenceKind.EgressRecord, NarrativeEvidenceState.VerifiedCurrent, "route-A"), StartTime.AddMinutes(2));
 
         attempt = machine.RecordEvidence(definition, attempt, Evidence(
             NarrativeEvidenceKind.IncidentTimeline, NarrativeEvidenceState.Stale, "timeline-refresh"), StartTime.AddMinutes(3));
