@@ -1,37 +1,66 @@
-name: Deploy Singularity Laboratories Pages
+name: Build and deploy Singularity Laboratories Pages
 
 on:
   push:
     branches: [development]
     paths:
       - "docs/**"
+      - "scripts/validate-pages.py"
+      - ".github/workflows/pages.yml"
+  pull_request:
+    branches: [development]
+    paths:
+      - "docs/**"
+      - "scripts/validate-pages.py"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
-  cancel-in-progress: true
+  group: singularity-laboratories-pages
+  cancel-in-progress: false
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
+    name: Assemble and validate site
     runs-on: ubuntu-latest
     steps:
       - name: Check out development
-        uses: actions/checkout@v4
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-      - name: Upload static site
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # pinned commit SHA
+
+      - name: Assemble the complete static experience
+        run: |
+          set -euo pipefail
+          mkdir -p _site
+          cp -R docs/. _site/
+          touch _site/.nojekyll
+          test -s _site/index.html
+          test -s _site/assets/laboratory-lifecycle.svg
+          test -s _site/assets/teaching-research-campus-map.svg
+          test -s _site/assets/laboratory-domain-map.svg
+
+      - name: Validate local navigation, anchors, and authored SVG assets
+        run: python3 scripts/validate-pages.py --root _site
+
+      - name: Upload validated Pages artifact
+        uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # pinned commit SHA
         with:
-          path: docs
-      - name: Deploy Pages
+          path: _site
+
+  deploy:
+    name: Publish to GitHub Pages
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy validated laboratory experience
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # pinned commit SHA
