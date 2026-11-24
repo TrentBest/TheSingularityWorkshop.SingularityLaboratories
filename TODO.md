@@ -91,13 +91,13 @@ Keep these states separate. A feature may be implemented but unverified. Never c
 
 **Latest observed CI snapshot (2026-11-24 UTC):**
 
-- **.NET:** full workflow passed — [run #451](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45331116264), commit `3083c579fb34665757de45b3e86f06454a250bd2`. This includes narrative persistence round-trip and identity checks, FSM_Execution safe-escape/death/cancellation tests, version-bound room/apparatus/instrument/channel mapping, active/expired/wrong-role staff assignment tests, facility status projection validation, and successful persistence, workflow, Physics, and MicroBundle builds. Subsequent commits are documentation/status updates.
-- **Documentation/SURPS:** passed after the staff-role documentation, README, roadmap, and task-ledger updates — [run #72](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45330984857), commit `56087c60`. The validator checks the canonical work-queue sections and README/docs-index links, and the workflow runs when `TODO.md` changes.
-- **Pages deployment:** latest attempt failed on commit `e888c7bc` — [run #113](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45330969356). The failure details were not exposed by the available job-log endpoint. The site is not verified live; the repository Pages setting still requires owner enablement and a successful deployment.
+- **.NET:** full workflow passed — [run #451](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45331116264), commit `3083c579fb34665757de45b3e86f06454a250bd2`. This includes narrative persistence round-trip and identity checks, FSM_Execution safe-escape/death/cancellation tests, version-bound room/apparatus/instrument/channel mapping, active/expired/wrong-role staff assignment tests, complete facility status projection validation, and successful persistence, workflow, Physics, and MicroBundle builds. Subsequent commits update documentation and task status only. Subsequent commits are documentation/status updates.
+- **Documentation/SURPS:** passed after the facility-status projection documentation, README, roadmap, and task-ledger updates — [run #77](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45331302230), commit `64b6e54d`. The validator checks the canonical work-queue sections and README/docs-index links, and the workflow runs when `TODO.md` changes.
+- **Pages deployment:** latest attempt failed on commit `64817451` — [run #114](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45331289489). The failure details were not exposed by the available job-log endpoint. The site is not verified live; the repository Pages setting still requires owner enablement and a successful deployment.
 - **Branches:** last inventory returned exactly `development` and `master`.
 
-- [x] .NET tests and all adapter builds passed in run #443.
-- [x] Documentation/SURPS validation passed after staff-role and task-ledger updates (run #72).
+- [x] .NET tests and all adapter builds passed in run #451.
+- [x] Documentation/SURPS validation passed after facility-status projection and task-ledger updates (run #77).
 - [ ] Pages deployment verified after Pages is enabled.
 - [x] Exactly two active branches remain: `development` and `master` (last checked 2026-11-24 UTC).
 - [x] No promotion to `master`, NuGet publication, or release action performed in this workstream.
