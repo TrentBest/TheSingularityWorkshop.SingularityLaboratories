@@ -67,7 +67,7 @@ public static class NarrativeCampaignWorkflowAdapter
                 throw;
             }
 
-            context.SetOutput(AttemptOutputKey, attempt);
+            context.SetOutput(AttemptOutputKey, NarrativeCampaignAttemptSnapshot.FromAttempt(attempt));
         });
     }
 }
