@@ -50,13 +50,16 @@ public sealed record NarrativeCampaignFacilityBinding
         string facilityId,
         string facilityVersion,
         string startingLocationId,
-        IReadOnlyList<NarrativeCampaignLocationBinding> locations)
+        IReadOnlyList<NarrativeCampaignLocationBinding> locations,
+        string? laboratoryId = null,
+        IReadOnlyList<NarrativeCampaignStaffBinding>? staffBindings = null)
     {
         CampaignId = Required(campaignId, nameof(campaignId));
         CampaignVersion = Required(campaignVersion, nameof(campaignVersion));
         FacilityId = Required(facilityId, nameof(facilityId));
         FacilityVersion = Required(facilityVersion, nameof(facilityVersion));
         StartingLocationId = Required(startingLocationId, nameof(startingLocationId));
+        LaboratoryId = string.IsNullOrWhiteSpace(laboratoryId) ? null : Required(laboratoryId, nameof(laboratoryId));
 
         ArgumentNullException.ThrowIfNull(locations);
         var snapshot = locations.ToArray();
@@ -79,6 +82,16 @@ public sealed record NarrativeCampaignFacilityBinding
             throw new ArgumentException("The starting location must be present in the facility mapping.", nameof(startingLocationId));
 
         Locations = Array.AsReadOnly(snapshot);
+
+        var staffSnapshot = (staffBindings ?? Array.Empty<NarrativeCampaignStaffBinding>()).ToArray();
+        if (staffSnapshot.Any(item => item is null))
+            throw new ArgumentException("Staff bindings cannot contain null entries.", nameof(staffBindings));
+        if (staffSnapshot.Length > 0 && LaboratoryId is null)
+            throw new ArgumentException("Staff bindings require a laboratory identity.", nameof(laboratoryId));
+        if (staffSnapshot.Select(item => item.CampaignRoleDisplayName).Distinct(StringComparer.Ordinal).Count() != staffSnapshot.Length ||
+            staffSnapshot.Select(item => item.AssignmentId).Distinct(StringComparer.Ordinal).Count() != staffSnapshot.Length)
+            throw new ArgumentException("Campaign role and assignment IDs must be unique within staff bindings.", nameof(staffBindings));
+        StaffBindings = Array.AsReadOnly(staffSnapshot);
     }
 
     public string CampaignId { get; }
@@ -86,11 +99,32 @@ public sealed record NarrativeCampaignFacilityBinding
     public string FacilityId { get; }
     public string FacilityVersion { get; }
     public string StartingLocationId { get; }
+    public string? LaboratoryId { get; }
     public IReadOnlyList<NarrativeCampaignLocationBinding> Locations { get; }
+    public IReadOnlyList<NarrativeCampaignStaffBinding> StaffBindings { get; }
 
     private static string Required(string value, string parameterName)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(value, parameterName);
         return value.Trim();
     }
+}
+
+/// <summary>Maps a fixed campaign role to a host-supplied laboratory responsibility assignment.</summary>
+public sealed record NarrativeCampaignStaffBinding
+{
+    public NarrativeCampaignStaffBinding(string campaignRoleDisplayName, string assignmentId, LaboratoryStaffRole requiredRole)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(campaignRoleDisplayName);
+        ArgumentException.ThrowIfNullOrWhiteSpace(assignmentId);
+        if (!Enum.IsDefined(requiredRole))
+            throw new ArgumentOutOfRangeException(nameof(requiredRole));
+        CampaignRoleDisplayName = campaignRoleDisplayName.Trim();
+        AssignmentId = assignmentId.Trim();
+        RequiredRole = requiredRole;
+    }
+
+    public string CampaignRoleDisplayName { get; }
+    public string AssignmentId { get; }
+    public LaboratoryStaffRole RequiredRole { get; }
 }
