@@ -23,7 +23,7 @@ public sealed class FileSystemExperimentCampaignExecutionStoreTests
             Assert.That(actual!.ExecutionId, Is.EqualTo(expected.ExecutionId));
             Assert.That(actual.CampaignId, Is.EqualTo(expected.CampaignId));
             Assert.That(actual.CampaignVersion, Is.EqualTo(expected.CampaignVersion));
-            Assert.That(actual.CampaignDefinition.Scenarios[1].Configuration.Payload, Is.EqualTo("{\\"voltageV\\":15}"));
+            Assert.That(actual.CampaignDefinition.Scenarios[1].Configuration.Payload, Is.EqualTo("""{"voltageV":15}"""));
             Assert.That(actual.LaboratoryId, Is.EqualTo(expected.LaboratoryId));
             Assert.That(actual.LaboratoryVersion, Is.EqualTo(expected.LaboratoryVersion));
             Assert.That(actual.Status, Is.EqualTo(ExperimentCampaignExecutionStatus.PartiallyCompleted));
@@ -145,9 +145,9 @@ public sealed class FileSystemExperimentCampaignExecutionStoreTests
             ["Temperature remains within the declared envelope."],
             [
                 new("baseline", "Baseline", ExperimentScenarioKind.Baseline, "Reference condition.",
-                    new ExperimentConfiguration("electrical-thermal", "1.2.0", 1, "application/json", "{\\"voltageV\\":12}")),
+                    new ExperimentConfiguration("electrical-thermal", "1.2.0", 1, "application/json", """{"voltageV":12}""")),
                 new("boundary", "Boundary", ExperimentScenarioKind.Boundary, "Upper operating condition.",
-                    new ExperimentConfiguration("electrical-thermal", "1.2.0", 1, "application/json", "{\\"voltageV\\":15}"))
+                    new ExperimentConfiguration("electrical-thermal", "1.2.0", 1, "application/json", """{"voltageV":15}"""))
             ]);
 
     private static string CreateTemporaryDirectory()
