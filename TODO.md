@@ -90,12 +90,12 @@ Keep these states separate. A feature may be implemented but unverified. Never c
 **Latest observed CI snapshot (2026-11-24 UTC):**
 
 - **.NET:** full workflow passed — [run #414](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45329484875), commit `ab31efbe524d3f49737733df4e0760ea3b2605fc`. This includes narrative persistence round-trip and identity checks, FSM_Execution safe-escape/death/cancellation tests, version-bound facility room mapping tests, and successful persistence, workflow, Physics, and MicroBundle builds.
-- **Documentation/SURPS:** passed after the narrative workflow/README/roadmap updates — [run #52](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45329260682), commit `69caa88c`. The new facility mapping text is awaiting the next validator run.
-- **Pages deployment:** failed on commit `1ceaf6e2` — [run #108](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45328291264). The failure details were not exposed by the available job-log endpoint. The site is not verified live; the repository Pages setting still requires owner enablement and a successful deployment.
+- **Documentation/SURPS:** passed after the facility mapping documentation and work-queue validator changes — [run #58](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45329752806), commit `fd04aca4`. The validator now checks the canonical work-queue sections and README/docs-index links; the workflow runs when `TODO.md` changes.
+- **Pages deployment:** latest attempt failed on commit `c1fb8085` — [run #110](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45329652292). The failure details were not exposed by the available job-log endpoint. The site is not verified live; the repository Pages setting still requires owner enablement and a successful deployment.
 - **Branches:** last inventory returned exactly `development` and `master`.
 
 - [x] .NET tests and all adapter builds passed in run #404.
-- [ ] Documentation/SURPS validation green after the latest facility mapping documentation update.
+- [x] Documentation/SURPS validation passed after facility mapping and work-queue validator updates (run #58).
 - [ ] Pages deployment verified after Pages is enabled.
 - [x] Exactly two active branches remain: `development` and `master` (last checked 2026-11-24 UTC).
 - [x] No promotion to `master`, NuGet publication, or release action performed in this workstream.
