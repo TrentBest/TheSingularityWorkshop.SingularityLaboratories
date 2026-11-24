@@ -40,7 +40,7 @@ public sealed class NarrativeCampaignWorkflowAdapterTests
             var result = await coordinator.StartAsync(accepted.RunId);
 
             Assert.That(result.Status, Is.EqualTo(WorkflowStatus.Succeeded));
-            var output = context.GetOutput<NarrativeCampaignAttempt>(NarrativeCampaignWorkflowAdapter.AttemptOutputKey);
+            var output = context.GetOutput<NarrativeCampaignAttemptSnapshot>(NarrativeCampaignWorkflowAdapter.AttemptOutputKey);
             Assert.That(output, Is.Not.Null);
             Assert.That(output!.Outcome, Is.EqualTo(NarrativeCampaignOutcome.VerifiedSafeEscape));
             Assert.That(output.Events[^1].Kind, Is.EqualTo(NarrativeCampaignEventKind.SafeEscapeVerified));
