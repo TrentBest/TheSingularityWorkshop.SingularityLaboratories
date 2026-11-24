@@ -61,13 +61,13 @@ else:
     for source, parser in documents.items():
         for _tag, raw in parser.links:
             parsed = urlsplit(raw)
-            if parsed.scheme or parsed.netloc or raw.startswith(("#", "//")):
+            if parsed.scheme or parsed.netloc or raw.startswith("//"):
                 continue
             target_text = unquote(parsed.path)
             if not target_text:
                 target = source
             else:
-                target = (source.parent / target_text).resolve()
+                target = ((ROOT / target_text.lstrip("/")) if parsed.path.startswith("/") else (source.parent / target_text)).resolve()
             if not target.is_relative_to(ROOT):
                 fail(f"{source.relative_to(ROOT)}: local target escapes the site root: {raw}")
                 continue
