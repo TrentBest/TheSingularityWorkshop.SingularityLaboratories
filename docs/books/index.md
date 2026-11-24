@@ -6,6 +6,12 @@ This is the canonical local catalogue for Laboratory-owned SURPS sourcebooks. Th
 
 **Repository status:** integrated, not enrolled. The three sourcebooks below are draft declarations awaiting independent SURPS ownership review. Their presence does not claim that every described capability has a completed runtime implementation.
 
+## SURPS living rulebook and behavior-adapter standard
+
+This repository adopts the shared SURPS [Living Rulebook and Experience Standard](https://github.com/TrentBest/TheSingularityWorkshop.SingularityUniversalRoleplayingSystem/blob/development/docs/living-rulebook-standard.md) and [Behavior Model and Adapters](https://github.com/TrentBest/TheSingularityWorkshop.SingularityUniversalRoleplayingSystem/blob/development/docs/behavior-and-adapters.md). Laboratories owns experiments, apparatus, research procedures, and educational experience data. Illustrations should show the experiment and its observable state; distinguish a teaching model from a tested physical evaluator.
+
+The standard requires a big-picture-first guide, concise Player path, deep Game Master/Workshop path, living pictures for major concepts, worked demonstrations for mechanics, and honest status labels. The tabletop adapter is derived from underlying behavior during workshop calibration; the digital adapter uses compiled behavior with live state. Neither is a separate source of truth. Adoption work: [repository issue](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/issues/6).
+
 | Sourcebook | LOD | Descriptor | Cover | Domain |
 |---|---:|---|---|---|
 | [Scientific Inquiry](scientific-inquiry.md) | 1 | [Descriptor](scientific-inquiry.book.json) | [Cover](covers/scientific-inquiry.svg) | Scientific methods, research history, evidence, uncertainty, reproducibility |
