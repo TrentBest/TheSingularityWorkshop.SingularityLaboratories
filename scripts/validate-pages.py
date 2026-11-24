@@ -33,6 +33,9 @@ class Document(HTMLParser):
 def fail(message: str) -> None:
     errors.append(message)
 
+documents: dict[Path, Document] = {}
+svg_files: list[Path] = []
+
 if not ROOT.is_dir():
     fail(f"site root does not exist: {ROOT}")
 else:
@@ -46,7 +49,6 @@ else:
     if not html_files:
         fail("site contains no HTML documents")
 
-    documents: dict[Path, Document] = {}
     for path in html_files:
         parser = Document()
         try:
@@ -66,6 +68,9 @@ else:
                 target = source
             else:
                 target = (source.parent / target_text).resolve()
+            if not target.is_relative_to(ROOT):
+                fail(f"{source.relative_to(ROOT)}: local target escapes the site root: {raw}")
+                continue
             if target.is_dir():
                 target = target / "index.html"
             if not target.is_file():
