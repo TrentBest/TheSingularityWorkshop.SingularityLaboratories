@@ -92,21 +92,21 @@ public sealed class NarrativeCampaignStateMachine
     public NarrativeCampaignAttempt RecordEvidence(
         NarrativeCampaignDefinition definition,
         NarrativeCampaignAttempt attempt,
-        NarrativeEvidenceRecord evidence)
+        NarrativeEvidenceRecord evidence,
+        DateTimeOffset recordedAtUtc)
     {
         ValidateActiveAttempt(definition, attempt);
         ArgumentNullException.ThrowIfNull(evidence);
         if (!definition.RequiredSafeEscapeEvidence.Contains(evidence.Kind))
             throw new ArgumentException("The evidence category is not part of this campaign's safe-escape gate.", nameof(evidence));
-        if (attempt.Evidence.Any(item => item.Kind == evidence.Kind))
-            throw new InvalidOperationException("Evidence for this category has already been recorded in the attempt.");
-
+        // Re-inspection is allowed: retain every source observation, and let the latest record
+        // for a category determine whether that category currently satisfies the gate.
         var evidenceSnapshot = attempt.Evidence.Append(evidence).ToArray();
         var eventSnapshot = AppendEvent(
             attempt,
             NarrativeCampaignEventKind.EvidenceRecorded,
-            evidence.ObservedAtUtc,
-            $"{evidence.Kind}: {evidence.State} from {evidence.SourceId} ({evidence.EvidenceReference}).");
+            recordedAtUtc,
+            $"{evidence.Kind}: {evidence.State} from {evidence.SourceId} ({evidence.EvidenceReference}); source observed {evidence.ObservedAtUtc:O}.");
 
         return Copy(attempt, NarrativeCampaignOutcome.Active, evidenceSnapshot, eventSnapshot);
     }
@@ -137,8 +137,8 @@ public sealed class NarrativeCampaignStateMachine
         ArgumentException.ThrowIfNullOrWhiteSpace(routeReference);
 
         var missingOrUnverified = definition.RequiredSafeEscapeEvidence
-            .Where(required => !attempt.Evidence.Any(record =>
-                record.Kind == required && record.State == NarrativeEvidenceState.VerifiedCurrent))
+            .Where(required => attempt.Evidence.LastOrDefault(record => record.Kind == required)?.State
+                != NarrativeEvidenceState.VerifiedCurrent)
             .ToArray();
 
         if (missingOrUnverified.Length > 0)
