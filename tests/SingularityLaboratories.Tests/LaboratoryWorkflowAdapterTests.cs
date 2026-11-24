@@ -4,6 +4,7 @@ using TheSingularityWorkshop.Execution;
 using TheSingularityWorkshop.SingularityLaboratories.Contracts;
 using TheSingularityWorkshop.SingularityLaboratories.Execution;
 using TheSingularityWorkshop.SingularityLaboratories.ExecutionAdapter;
+using TheSingularityWorkshop.SingularityLaboratories.Persistence;
 
 namespace TheSingularityWorkshop.SingularityLaboratories.Tests;
 
@@ -95,6 +96,66 @@ public sealed class LaboratoryWorkflowAdapterTests
         Assert.That(observation!.ElectricalEnergyJoules, Is.EqualTo(240d).Within(1e-12));
         Assert.That(observation.ThermalEnergyTransferJoules, Is.EqualTo(120d).Within(1e-12));
         Assert.That(observation.FinalThermalState.TemperatureKelvin, Is.EqualTo(300.12d).Within(1e-10));
+    }
+
+    [Test]
+    public async Task CampaignWorkflow_ExecutesAndPersistsCompleteScenarioLineage()
+    {
+        var directory = Path.Combine(Path.GetTempPath(), "singularity-campaign-workflow", Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(directory);
+        try
+        {
+            var laboratory = new LaboratoryDefinition("thermal-lab", "1.0.0", "Thermal Lab", "Energy transfer study.");
+            var definition = new ExperimentDefinition(
+                "electrical-thermal-coupling", "1.0.0", "Electrical to thermal coupling",
+                "physics.electrical-thermal-coupling", "0.1.0-alpha.1",
+                ScientificValidationLevel.EducationalModel,
+                ["Ideal fixed-voltage DC bus."],
+                ["No spatial gradients; absorbed fraction is a declared input."]);
+            var campaign = new ExperimentCampaignDefinition(
+                "thermal-campaign", "1.0.0", "Compare nominal and boundary conditions.",
+                definition.Id, definition.Version, definition.ModelId, definition.ModelVersion,
+                ["Temperature remains within the declared operating envelope."],
+                [
+                    new("baseline", "Baseline", ExperimentScenarioKind.Baseline, "Reference condition.",
+                        new ExperimentConfiguration(definition.Id, definition.Version, 1, "application/json", "{\"voltageV\":12}")),
+                    new("boundary", "Boundary", ExperimentScenarioKind.Boundary, "Probe the upper declared condition.",
+                        new ExperimentConfiguration(definition.Id, definition.Version, 1, "application/json", "{\"voltageV\":15}"))
+                ]);
+            var model = new StubModel(definition);
+            var registry = new WorkflowHandlerRegistry();
+            var store = new FileSystemExperimentCampaignExecutionStore(directory);
+            LaboratoryWorkflowAdapter.RegisterCampaign(registry, laboratory, new StubCatalog(model), store);
+            await using var coordinator = new WorkflowExecutionCoordinator(registry);
+
+            var context = new WorkflowExecutionContext(new Dictionary<string, JsonElement>
+            {
+                [LaboratoryWorkflowAdapter.CampaignDefinitionInputKey] = JsonSerializer.SerializeToElement(campaign)
+            });
+            var workflow = new WorkflowDefinition(
+                "laboratory.campaign.v1", "Execute laboratory campaign", 1,
+                [new WorkflowStep("run-campaign", LaboratoryWorkflowAdapter.CampaignHandlerKey)]);
+            var accepted = coordinator.Submit(workflow, context);
+            var result = await coordinator.StartAsync(accepted.RunId);
+
+            Assert.That(result.Status, Is.EqualTo(WorkflowStatus.Succeeded));
+            var execution = context.GetOutput<ExperimentCampaignExecutionRecord>(
+                LaboratoryWorkflowAdapter.CampaignExecutionOutputKey);
+            Assert.That(execution, Is.Not.Null);
+            Assert.That(execution!.Status, Is.EqualTo(ExperimentCampaignExecutionStatus.Completed));
+            Assert.That(execution.Scenarios, Has.Count.EqualTo(2));
+            Assert.That(execution.Scenarios.All(scenario => scenario.Run is not null), Is.True);
+            Assert.That(model.InvocationCount, Is.EqualTo(2));
+
+            var persisted = await store.GetAsync(execution.ExecutionId);
+            Assert.That(persisted, Is.Not.Null);
+            Assert.That(persisted!.Scenarios.Select(scenario => scenario.Run!.RunId),
+                Is.EqualTo(execution.Scenarios.Select(scenario => scenario.Run!.RunId)));
+        }
+        finally
+        {
+            Directory.Delete(directory, recursive: true);
+        }
     }
 
     private sealed class SingleModelCatalog(IExperimentModel model) : IExperimentModelCatalog
