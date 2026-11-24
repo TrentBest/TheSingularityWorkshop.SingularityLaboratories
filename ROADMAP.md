@@ -46,6 +46,7 @@ Each phase should produce a working capability and verifiable evidence. The plat
 - [x] Establish the reader-facing Core Manual and technical companion, with SURPS-aligned reading paths across the three declared domain sourcebooks.
 - [x] Add a browser-only campaign-draft workbench and a fictional campus explorer; both label their prototype status and do not claim runtime execution or live facility services.
 - [x] Make the capability atlas searchable and filterable by implementation status, with accessible controls, live result counts, and explicit prototype/runtime boundaries.
+- [x] Add a guided mission navigator that routes visitors by intent (learn, design, investigate, audit) into the relevant interactive surfaces and source material.
 - [x] Add a documentation CI gate for book structure, local links, Pages anchors, and accessible SVG metadata.
 
 - [x] Establish versioned laboratory, facility, instrument, apparatus, measurement-channel, and experiment definitions.
