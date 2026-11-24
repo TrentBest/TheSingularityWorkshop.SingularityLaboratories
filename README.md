@@ -15,9 +15,11 @@
 
 Singularity Laboratories provides abstractions, authoring tools, runtime workflows, instruments, and scientific services for creating and operating laboratories. It is where people configure investigations, study models, collect measurements, teach scientific inquiry, conduct research, and share reproducible work.
 
+Scientific work can lose its meaning when the original question, method, model version, configuration, execution, and result are separated. Singularity Laboratories keeps those identities connected so that a host can change the experience without silently changing the scientific basis of the investigation.
+
 A laboratory is portable. It can appear directly in The Singularity Workshop, as a facility or campus inside Singularity City, in an online classroom, a private research workspace, or a game. The host provides navigation, social presence, world geometry, and presentation; the laboratory platform owns its scientific definitions, measurement semantics, and run provenance.
 
-## 1. Domain ownership
+## 1. What — domain ownership and scope
 
 - **Singularity City** owns general character, resident (Digiten), visitor, and NPC identity and agency. See [Nonplayer Characters — LOD 1](https://github.com/TrentBest/TheSingularityWorkshop.SingularityCity/blob/development/docs/books/nonplayer-characters.md).
 - **Singularity Laboratories** owns portable laboratory and experiment semantics, facility and instrument definitions, scientific workflows, and laboratory-specific staffing and governance.
@@ -29,7 +31,7 @@ A laboratory is portable. It can appear directly in The Singularity Workshop, as
 
 [Explore the virtual laboratory service concept](docs/virtual-laboratory-service.md), including rentable virtual workspaces and preflight experiment campaigns. [Browse the laboratory sourcebook catalogue](docs/books/index.md). The sourcebook hierarchy includes [Scientific Inquiry — LOD 1](docs/books/scientific-inquiry.md), [Laboratory NPCs — LOD 2](docs/books/laboratory-npcs.md), and [Flagship Laboratory Facilities — LOD 3](docs/books/flagship-laboratory-facilities.md). These extend the same domain rather than creating duplicate people or scientific models.
 
-## 2. What this package owns
+## 2. Why — a portable research lifecycle
 
 - **Inquire:** frame questions, select methods, disclose assumptions, preserve evidence, assess uncertainty, and support criticism and correction.
 - **Create and configure:** laboratories, facilities, investigation templates, instruments, apparatus, parameters, materials, environments, and workflows.
@@ -44,7 +46,7 @@ The scientific method is not a universal five-step recipe. Different disciplines
 
 The laboratory layer must not duplicate core physics or invent unverified Physics APIs. A facility building is a possible City manifestation, not the laboratory domain object itself.
 
-## 3. Scientific domains
+## 3. How — methods and scientific domains
 
 | Domain | Example capabilities |
 |---|---|
@@ -61,7 +63,7 @@ The laboratory layer must not duplicate core physics or invent unverified Physic
 
 Hazardous phenomena may be explored as bounded educational simulations of processes and consequences, not as actionable construction or operational guidance. High-consequence claims require appropriate validation and expert review.
 
-## 4. Current implementation
+## 4. See it — current implementation and evidence
 
 The runtime includes versioned laboratory/experiment and campaign definitions, configuration validation, authoring templates, Physics and FSM_Execution adapters, MicroBundle composition, immutable run records, replay, result views, safety metadata, validation assessments, admission policy, and resource-budget estimates. Campaigns execute baseline and scenario configurations through the ordinary experiment runner, preserve per-scenario outcomes and run provenance, and can be submitted as FSM_Execution workflows with atomic campaign-execution persistence.
 
@@ -73,7 +75,7 @@ The publication set now includes the reader-facing [Core Manual](docs/laboratory
 
 The Pages source now contains a browser-only campaign-draft workbench and a fictional campus explorer, backed by authored diagrams. These are teaching prototypes, not live Physics execution, instrument telemetry, reservations, or a hosted facility. A documentation CI gate checks the book structure, local links, in-page navigation, and accessible SVG metadata.
 
-## 5. Development and release
+## 5. Choose your next step — develop and contribute
 
 - Active work: development
 - Release-aligned branch: master
