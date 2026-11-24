@@ -1,4 +1,4 @@
-using TheSingularityWorkshop.SingularityLaboratories.Execution;
+using TheSingularityWorkshop.SingularityLaboratories.Contracts;
 
 namespace TheSingularityWorkshop.SingularityLaboratories.Execution;
 
