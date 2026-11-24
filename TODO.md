@@ -41,7 +41,7 @@ Keep these states separate. A feature may be implemented but unverified. Never c
 - [x] Core Laboratory Manual and Technical Companion.
 - [x] Three declared SURPS-oriented sourcebooks with book metadata, reading paths, cover art, and living diagrams.
 - [x] Pages source with capability atlas, campaign-draft workbench, fictional campus explorer, and NIGHT SIGNAL browser prototype.
-- [x] Documentation validator for sourcebook structure, local links, HTML anchors, diagrams, and SVG accessibility metadata.
+- [x] Documentation validator for sourcebook structure, local links, HTML anchors, diagrams, SVG accessibility metadata, canonical work-queue sections, and README/docs-index work-queue links.
 - [x] GitHub Actions workflows for .NET validation, documentation validation, and Pages deployment source.
 - [ ] First live Pages deployment — workflow/source exists; repository Pages setting still needs enabling and deployment verification.
 
@@ -90,13 +90,13 @@ Keep these states separate. A feature may be implemented but unverified. Never c
 
 **Latest observed CI snapshot (2026-11-24 UTC):**
 
-- **.NET:** full workflow passed — [run #443](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45330787760), commit `5f0ed3d0fed81b3d4490a040c188394fec09304d`. This includes narrative persistence round-trip and identity checks, FSM_Execution safe-escape/death/cancellation tests, version-bound room/apparatus/instrument/channel mapping, active/expired/wrong-role staff assignment tests, and successful persistence, workflow, Physics, and MicroBundle builds.
-- **Documentation/SURPS:** passed after the instrument/channel documentation, README, roadmap, and task-ledger updates — [run #67](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45330474076), commit `457b6274`. The validator checks the canonical work-queue sections and README/docs-index links, and the workflow runs when `TODO.md` changes.
-- **Pages deployment:** latest attempt failed on commit `bcd13886` — [run #112](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45330459451). The failure details were not exposed by the available job-log endpoint. The site is not verified live; the repository Pages setting still requires owner enablement and a successful deployment.
+- **.NET:** full workflow passed — [run #443](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45330787760), commit `5f0ed3d0fed81b3d4490a040c188394fec09304d`. This includes narrative persistence round-trip and identity checks, FSM_Execution safe-escape/death/cancellation tests, version-bound room/apparatus/instrument/channel mapping, active/expired/wrong-role staff assignment tests, and successful persistence, workflow, Physics, and MicroBundle builds. Subsequent commits are documentation/status updates.
+- **Documentation/SURPS:** passed after the staff-role documentation, README, roadmap, and task-ledger updates — [run #72](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45330984857), commit `56087c60`. The validator checks the canonical work-queue sections and README/docs-index links, and the workflow runs when `TODO.md` changes.
+- **Pages deployment:** latest attempt failed on commit `e888c7bc` — [run #113](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45330969356). The failure details were not exposed by the available job-log endpoint. The site is not verified live; the repository Pages setting still requires owner enablement and a successful deployment.
 - **Branches:** last inventory returned exactly `development` and `master`.
 
-- [x] .NET tests and all adapter builds passed in run #404.
-- [x] Documentation/SURPS validation passed after instrument/channel and task-ledger updates (run #67).
+- [x] .NET tests and all adapter builds passed in run #443.
+- [x] Documentation/SURPS validation passed after staff-role and task-ledger updates (run #72).
 - [ ] Pages deployment verified after Pages is enabled.
 - [x] Exactly two active branches remain: `development` and `master` (last checked 2026-11-24 UTC).
 - [x] No promotion to `master`, NuGet publication, or release action performed in this workstream.
