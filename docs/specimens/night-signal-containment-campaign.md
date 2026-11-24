@@ -82,7 +82,7 @@ The browser proof of concept uses three deliberately abstract evidence tokens:
 | Facility state | Operations console | The declared state of relevant zones and whether the snapshot is current |
 | Egress record | Transit junction | A route is explicitly marked available for this scenario |
 
-The safe-escape terminal gate requires all three tokens and a final consistency check. If any is missing, stale, or contradictory, the route remains unverified. A player may still choose to gamble, but that is a deliberate unsafe ending—not a safe escape.
+The safe-escape terminal gate requires all three tokens and a final consistency check. If any is missing, stale, or contradictory, the route remains unverified. The typed state machine additionally requires independent source identifiers for the required evidence categories and checks that the route being attempted matches the latest verified egress record. A player may still choose to gamble, but that is a deliberate unsafe ending—not a safe escape.
 
 This is game logic only. These tokens are not a real-world checklist, procedure, or biosafety standard.
 
