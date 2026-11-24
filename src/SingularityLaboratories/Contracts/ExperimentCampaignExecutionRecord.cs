@@ -75,7 +75,7 @@ public sealed record ExperimentCampaignExecutionRecord
         DateTimeOffset startedAtUtc,
         DateTimeOffset completedAtUtc,
         ExperimentCampaignExecutionStatus status,
-        IEnumerable<ExperimentCampaignScenarioResult> scenarios)
+        IReadOnlyList<ExperimentCampaignScenarioResult> scenarios)
     {
         if (executionId == Guid.Empty)
             throw new ArgumentException("An execution identity is required.", nameof(executionId));
