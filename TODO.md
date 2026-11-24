@@ -42,6 +42,7 @@ Keep these states separate. A feature may be implemented but unverified. Never c
 - [x] Core Laboratory Manual and Technical Companion.
 - [x] Three declared SURPS-oriented sourcebooks with book metadata, reading paths, cover art, and living diagrams.
 - [x] Pages source with capability atlas, campaign-draft workbench, fictional campus explorer, and NIGHT SIGNAL browser prototype.
+- [x] Upgrade the capability atlas into an accessible client-side explorer with full-text search, implementation-status filters, live result counts, empty-state feedback, keyboard focus treatment, and reduced-motion support. This filters authored repository descriptions only; it does not imply live host telemetry.
 - [x] Documentation validator for sourcebook structure, local links, HTML anchors, diagrams, SVG accessibility metadata, canonical work-queue sections, and README/docs-index work-queue links.
 - [x] GitHub Actions workflows for .NET validation, documentation validation, and Pages deployment source.
 - [x] Pages build pipeline now assembles the complete `docs/` experience into `_site`, adds `.nojekyll`, and runs a dedicated validator for root entry point, local files/fragments, and SVG well-formedness before artifact upload. Implementation is committed; first CI verification is pending.
