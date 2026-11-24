@@ -53,7 +53,7 @@ class PageParser(HTMLParser):
 def check_markdown_links(path: Path, errors: list[str]) -> int:
     source = path.read_text(encoding="utf-8")
     checked = 0
-    pattern = re.compile(r"!??\[[^\]]*\]\(([^)]+)\")
+    pattern = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
     for raw in pattern.findall(source):
         target = raw.strip().split()[0].strip("<>")
         parts = urlsplit(target)
