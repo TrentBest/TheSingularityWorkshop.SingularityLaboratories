@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 960" role="img" aria-labelledby="title desc">
+<title id="title">The Living Laboratory — Singularity Laboratories</title>
+<desc id="desc">A luminous research chamber with connected instrument nodes, a central experimental vessel, and concentric evidence rings, representing portable scientific inquiry.</desc>
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#061321"/><stop offset=".55" stop-color="#12374b"/><stop offset="1" stop-color="#1c2140"/></linearGradient>
+ <radialGradient id="core"><stop stop-color="#f0c77b" stop-opacity=".95"/><stop offset=".35" stop-color="#83e2c2" stop-opacity=".35"/><stop offset="1" stop-color="#83e2c2" stop-opacity="0"/></radialGradient>
+ <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#8bd8f0" stop-opacity=".65"/><stop offset="1" stop-color="#83e2c2" stop-opacity=".08"/></linearGradient>
+</defs>
+<rect width="720" height="960" fill="url(#bg)"/>
+<circle cx="360" cy="420" r="300" fill="url(#core)"/>
+<g fill="none" stroke="#8bd8f0" stroke-opacity=".65" stroke-width="3">
+ <circle cx="360" cy="420" r="245"/><circle cx="360" cy="420" r="195" stroke-dasharray="8 13"/><circle cx="360" cy="420" r="145"/>
+ <path d="M115 420H605M360 175V665M187 247l346 346M533 247 187 593"/>
+</g>
+<g fill="#83e2c2" stroke="#d8fff3" stroke-width="2">
+ <circle cx="360" cy="175" r="10"/><circle cx="605" cy="420" r="10"/><circle cx="360" cy="665" r="10"/><circle cx="115" cy="420" r="10"/>
+ <circle cx="187" cy="247" r="8"/><circle cx="533" cy="247" r="8"/><circle cx="187" cy="593" r="8"/><circle cx="533" cy="593" r="8"/>
+</g>
+<g stroke="#d9f7f5" stroke-width="4" fill="url(#glass)">
+ <path d="M300 300h120v45l-22 35v135q0 35-38 35t-38-35V380l-22-35z"/>
+ <path d="M322 430q38 22 76 0v85q0 18-38 18t-38-18z" fill="#83e2c2" fill-opacity=".25"/>
+ <path d="M280 300h160M320 275h80" fill="none"/>
+</g>
+<g fill="none" stroke="#f0c77b" stroke-width="3"><path d="M360 240v35M255 420h45M420 420h45M360 550v38"/></g>
+<g fill="#edf6fb" font-family="Georgia,serif" text-anchor="middle">
+ <text x="360" y="760" font-size="25" letter-spacing="8" fill="#83e2c2">SINGULARITY LABORATORIES</text>
+ <text x="360" y="830" font-size="54" letter-spacing="2">THE LIVING</text>
+ <text x="360" y="892" font-size="54" letter-spacing="2">LABORATORY</text>
+</g>
+</svg>
