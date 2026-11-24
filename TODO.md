@@ -30,7 +30,8 @@ Keep these states separate. A feature may be implemented but unverified. Never c
 - [x] Authoring templates, schema validation, comparison, compatibility assessment, and integrity-checked export/import.
 - [x] Host-neutral experiment settings dashboard contract. Runtime observations require a concrete RunId and remain separate from declared dependencies.
 - [x] Typed NIGHT SIGNAL narrative definition and immutable state machine, including fixed opening, source-backed evidence, current-evidence gate, route/evidence consistency, terminal outcomes, and append-only event history.
-- [x] Durable NIGHT SIGNAL attempt persistence: atomic filesystem store, exact definition/evidence/event round-trip, duplicate-ID protection, identity checks, and validated terminal restoration. The new NUnit persistence tests passed in .NET workflow run #388 (commit `242b39229bca200740f5946c3120e1bc4368242a`).
+- [x] Durable NIGHT SIGNAL attempt persistence: atomic filesystem store, exact definition/evidence/event round-trip, duplicate-ID protection, identity checks, and validated terminal restoration. The NUnit persistence tests passed in .NET workflow run #388.
+- [x] NIGHT SIGNAL FSM_Execution adapter: timestamped evidence/death/escape commands, JSON-safe attempt output, persisted terminal state, and active-snapshot preservation on cancellation. Workflow integration tests and all adapter builds passed in .NET workflow run #404.
 - [x] Browser-only NIGHT SIGNAL playable specimen and local event export. This is a prototype, not a runtime-backed execution.
 
 ### Documentation and experience
@@ -44,13 +45,10 @@ Keep these states separate. A feature may be implemented but unverified. Never c
 
 ## Active work — next in execution order
 
-1. **Restore a green .NET gate.** The latest run on commit `79d58b5d3545e5cd1e4c7ba269ddc0645e3f697c` failed compiling `FileSystemExperimentCampaignExecutionStoreTests.cs` at line 150 due to incorrectly escaped JSON string literals. The literals have been corrected in the current work; rerun CI and fix any subsequent failures before treating the branch as verified.
-2. **NIGHT SIGNAL durable attempt persistence — implemented and CI verified.** The store round-trips campaign definition, immutable attempt state, evidence history, and ordered event history; rejects duplicate and mismatched identities; and validates terminal restoration. The full .NET workflow passed in run #388. Do not wire the browser prototype directly to the store.
-3. **NIGHT SIGNAL FSM_Execution adapter — implemented and CI verified.** The narrative-specific handler remains distinct from `ExperimentCampaignRunner`; safe escape, death, and cancellation persistence are covered by workflow tests.
-4. **NIGHT SIGNAL facility adapter.** Bind fictional rooms, instruments, staff, and status snapshots to stable facility identities without moving laboratory semantics into the host.
-5. **Host dashboard observation projection — [Issue #5](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/issues/5).** Project trustworthy host observations into the existing dashboard and separate timeline. ServerApp has an optional RunId/RuntimeId-correlated observer seam in PR #22; its CI was reported passing by the host repository. Loaded membership is not provider invocation. Per-provider dispatch instrumentation remains a separate evidence gate. Keep the Laboratories core free of ServerApp dependencies.
-6. **SURPS living-book adoption — [Issue #6](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/issues/6).** Finish the dual-adapter authoring standard, authoritative domain ownership/provenance, worked mechanics, meaningful living illustrations, and independent SURPS review. Current books are authored and structured; do not call the repository enrolled or independently approved.
-7. **Pages activation.** Once the owner enables GitHub Pages with GitHub Actions as source, verify a successful deployment and update the site status. Do not change repository Pages settings without explicit owner authorization.
+1. **NIGHT SIGNAL facility adapter.** Bind fictional rooms, instruments, staff, and status snapshots to stable facility identities without moving laboratory semantics into the host.
+2. **Host dashboard observation projection — [Issue #5](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/issues/5).** Project trustworthy host observations into the existing dashboard and separate timeline. ServerApp has an optional RunId/RuntimeId-correlated observer seam in PR #22; its CI was reported passing by the host repository. Loaded membership is not provider invocation. Per-provider dispatch instrumentation remains a separate evidence gate. Keep the Laboratories core free of ServerApp dependencies.
+3. **SURPS living-book adoption — [Issue #6](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/issues/6).** Finish the dual-adapter authoring standard, authoritative domain ownership/provenance, worked mechanics, meaningful living illustrations, and independent SURPS review. Current books are authored and structured; do not call the repository enrolled or independently approved.
+4. **Pages activation.** Once the owner enables GitHub Pages with GitHub Actions as source, verify a successful deployment and update the site status. Do not change repository Pages settings without explicit owner authorization.
 
 ## Planned platform work
 
