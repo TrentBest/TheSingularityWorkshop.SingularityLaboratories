@@ -77,7 +77,7 @@ public sealed class NarrativeCampaignFacilityAdapter
             var assignmentsById = staffAssignments.ToDictionary(item => item.AssignmentId, StringComparer.Ordinal);
             foreach (var staffBinding in binding.StaffBindings)
             {
-                if (!string.Equals(staffBinding.CampaignRoleDisplayName, campaign.PlayerRole, StringComparison.Ordinal))
+                if (!string.Equals(staffBinding.CampaignRoleDisplayName, campaign.FixedPlayerRole, StringComparison.Ordinal))
                     throw new ArgumentException("A narrative staff binding must match the campaign's fixed player role.", nameof(binding));
                 if (!assignmentsById.TryGetValue(staffBinding.AssignmentId, out var assignment))
                     throw new ArgumentException($"The host did not supply staff assignment '{staffBinding.AssignmentId}'.", nameof(staffAssignments));
