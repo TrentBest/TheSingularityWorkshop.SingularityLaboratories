@@ -24,6 +24,7 @@ on:
     branches: [development]
     paths:
       - ".surps/participation.json"
+      - "TODO.md"
       - "docs/books/**"
       - "docs/books/covers/**"
       - "docs/laboratory-manual.md"
