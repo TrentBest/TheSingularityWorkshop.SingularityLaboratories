@@ -21,6 +21,42 @@ A laboratory at this level is more than a room containing equipment. It is a liv
 
 The purpose of this book is to make such institutions composable and explorable. A learner should be able to walk into a teaching laboratory; a researcher should be able to follow a reproducible experiment; a visitor should understand why a collider needs an underground ring and detector caverns; a storyteller should be able to explore a gothic fictional laboratory without mistaking it for a historical one.
 
+## How to use this book
+
+- **Visitors and learners:** follow a facility profile to understand its mission, public purpose, and scientific context.
+- **Researchers:** inspect how programs, instruments, infrastructure, and evidence fit together.
+- **Game Masters and experience authors:** use the truth labels to distinguish documented facilities, reconstructions, adaptations, and original speculative institutions.
+- **Institution designers:** use the composition and operations sections to build a facility that can be explored without claiming unverified details.
+
+## Player / visitor overview
+
+A visitor experiences a facility through its public mission, spaces, people, instruments, demonstrations, and history. A useful tour explains why a facility exists and what its instruments make possible. It does not pretend that every room is accessible or that a visual reconstruction is a verified floor plan.
+
+## Game Master / Workshop overview
+
+The author composes the institution from its mission, site, buildings, zones, scientific programs, instruments, utilities, people, operations, governance, archives, and public experience. Each element should carry a truth label and a source or assumption. The Workshop view can expose hidden dependencies and operational consequences without implying that every facility service is implemented.
+
+## Living domain map
+
+![Laboratory institution composition](../assets/laboratory-facility-system.svg)
+
+A facility is a composition of scientific and institutional systems. The host may supply the surrounding city, land, navigation, social presence, and enforcement; the laboratory domain owns the portable institution and its scientific meaning.
+
+## Facility composition in action
+
+Imagine adding a new instrument suite to a research campus. The author first identifies the research program it serves, then the building and controlled zone, utilities and environmental needs, instrument and measurement channels, operator responsibilities, data stewardship, maintenance, and review. If one dependency is missing, the facility description should expose the gap rather than invent a working service.
+
+This is a composition exercise, not a claim that the repository currently simulates campus operations or connects physical instruments.
+
+## Adapter views
+
+A digital host may render the facility as rooms, paths, and interactive equipment. A SURPS experience may place the same facility into a world and add character-facing exploration. Both consume the same facility identity and declared facts. A visual scene is not proof of an instrument connection, a verified reconstruction, or permission to enter a real facility.
+
+## Authoring and reference
+
+Use the profiles below as examples of documented real facilities, literary adaptations, and original speculative designs. Their truth labels govern what can be asserted. The [Core Manual](../laboratory-manual.md) explains the shared laboratory model; the [Technical Companion](../laboratory-technical-companion.md) explains the implementation boundary.
+
+
 ## 1. LOD inheritance and ownership
 
 LOD 3 inherits rather than duplicates:
