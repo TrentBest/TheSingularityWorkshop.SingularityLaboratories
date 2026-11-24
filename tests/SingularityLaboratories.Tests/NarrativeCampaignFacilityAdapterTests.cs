@@ -12,12 +12,14 @@ public sealed class NarrativeCampaignFacilityAdapterTests
     {
         var campaign = CreateCampaign();
         var facility = CreateFacility();
-        var projection = new NarrativeCampaignFacilityAdapter().Bind(campaign, facility, CreateBinding());
+        var projection = new NarrativeCampaignFacilityAdapter().Bind(campaign, facility, CreateBinding(), CreateStaffAssignments(), StartTime);
 
         Assert.That(projection.CampaignId, Is.EqualTo(campaign.Id));
         Assert.That(projection.FacilityId, Is.EqualTo(facility.Id));
         Assert.That(projection.StartingLocationId, Is.EqualTo("research-workroom"));
         Assert.That(projection.StartingRoomId, Is.EqualTo("room-research"));
+        Assert.That(projection.StaffAssignments, Has.Count.EqualTo(1));
+        Assert.That(projection.StaffAssignments[0].Role, Is.EqualTo(LaboratoryStaffRole.Technician));
         Assert.That(projection.ResolveRoomId("records-room"), Is.EqualTo("room-records"));
         Assert.That(projection.ResolveApparatusIds("research-workroom"), Is.EqualTo(new[] { "workstation" }));
         Assert.That(projection.ResolveInstrumentIds("observation-gallery"), Is.EqualTo(new[] { "observation-monitor" }));
@@ -97,6 +99,25 @@ public sealed class NarrativeCampaignFacilityAdapterTests
     }
 
     [Test]
+    public void Bind_RejectsMissingExpiredOrWrongRoleStaffAssignments()
+    {
+        var adapter = new NarrativeCampaignFacilityAdapter();
+        var campaign = CreateCampaign();
+        var facility = CreateFacility();
+        var binding = CreateBinding();
+
+        Assert.Throws<ArgumentException>(() => adapter.Bind(campaign, facility, binding, [], StartTime));
+        Assert.Throws<ArgumentException>(() => adapter.Bind(
+            campaign, facility, binding,
+            [new LaboratoryStaffAssignment("player-tech-assignment", "northstar-lab", "opaque-principal", LaboratoryStaffRole.Technician, StartTime.AddMinutes(-10), expiresAtUtc: StartTime.AddMinutes(-1))],
+            StartTime));
+        Assert.Throws<ArgumentException>(() => adapter.Bind(
+            campaign, facility, binding,
+            [new LaboratoryStaffAssignment("player-tech-assignment", "northstar-lab", "opaque-principal", LaboratoryStaffRole.Researcher, StartTime.AddMinutes(-1))],
+            StartTime));
+    }
+
+    [Test]
     public void FacilityBinding_RejectsDuplicateNarrativeLocationsAndRoomAssignments()
     {
         Assert.Throws<ArgumentException>(() => new NarrativeCampaignFacilityBinding(
@@ -158,6 +179,9 @@ public sealed class NarrativeCampaignFacilityAdapterTests
                 new("egress-state", "Egress state", "egress-state", "fictional-egress-state", "state", MeasurementSamplingMode.OnDemand)
             ]);
 
+    private static IReadOnlyList<LaboratoryStaffAssignment> CreateStaffAssignments() =>
+        [new("player-tech-assignment", "northstar-lab", "opaque-host-principal", LaboratoryStaffRole.Technician, StartTime.AddMinutes(-1))];
+
     private static NarrativeCampaignFacilityBinding CreateBinding() =>
         new(
             "night-signal",
@@ -172,5 +196,7 @@ public sealed class NarrativeCampaignFacilityAdapterTests
                 new("facility-operations", "Facility operations", "room-operations", ["operations-console"], ["operations-state"], ["facility-state"]),
                 new("transit-junction", "Transit junction", "room-transit", ["route-terminal"], ["egress-state"], ["egress-state"]),
                 new("exterior-checkpoint", "Exterior checkpoint", "room-exterior", ["evidence-review"])
-            ]);
+            ],
+            "northstar-lab",
+            [new("On-duty research technician", "player-tech-assignment", LaboratoryStaffRole.Technician)]);
 }
