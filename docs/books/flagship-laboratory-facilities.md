@@ -54,7 +54,7 @@ A digital host may render the facility as rooms, paths, and interactive equipmen
 
 ## Authoring and reference
 
-Use the profiles below as examples of documented real facilities, literary adaptations, and original speculative designs. Their truth labels govern what can be asserted. The [Core Manual](../laboratory-manual.md) explains the shared laboratory model; the [Technical Companion](../laboratory-technical-companion.md) explains the implementation boundary.
+Use the profiles below as examples of documented real facilities, literary adaptations, and original speculative designs. Their truth labels govern what can be asserted. The [Core Manual](../laboratory-manual.md) explains the shared laboratory model; the [Technical Companion](../laboratory-technical-companion.md) explains the implementation boundary. The first fictional implementation target is the [Teaching and Research Campus specimen](../specimens/teaching-research-campus.md), which records its own implementation status and non-goals.
 
 
 ## 1. LOD inheritance and ownership
