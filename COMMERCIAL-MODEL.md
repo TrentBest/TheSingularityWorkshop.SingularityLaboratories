@@ -44,6 +44,18 @@ A future creator ecosystem can let researchers, educators, and developers publis
 
 Marketplace settlement, identity, entitlements, and hosted compute should integrate through ServerApp and Economy boundaries, not embed in scientific models.
 
+## Virtual laboratory rental and preflight campaigns
+
+The long-term commercial product is access to a scientific capability that a customer can reserve and use in a private virtual workspace. The core value is to test assumptions, expose failure modes, and narrow uncertainty before committing to physical prototypes, scarce instrument time, or operational trials.
+
+A rentable offering must disclose whether it is a pure simulation, a model calibrated against physical evidence, a remotely operated physical instrument, or a hybrid service. These categories are not interchangeable. Each listing should expose model/version, validation level, evidence, assumptions, limitations, supported ranges, resource profile, dependencies, safety metadata, and intended use.
+
+A customer journey should progress through discover → evaluate → reserve → prepare → preflight → challenge → analyze → decide → export. A campaign organizes a baseline and deliberate nominal, boundary, sensitivity, tolerance, disturbance, and supported failure scenarios. Every scenario and run retains its exact configuration and version lineage; out-of-domain results are rejected or labeled as exploratory extrapolation.
+
+Reservations, tenancy, identity, access enforcement, payment, metering, and infrastructure isolation belong to trusted platform services and Economy—not to scientific model contracts. A reservation does not grant execution admission, and neither admission nor a reviewer decision certifies physical safety. The handoff to physical testing remains advisory and requires the physical facility's own qualified review and authorization.
+
+See [Virtual Laboratory Service](docs/virtual-laboratory-service.md) for the domain contract, customer journey, campaign model, offering types, and acceptance gates.
+
 ## Phases
 
 1. Prove a useful local laboratory.
