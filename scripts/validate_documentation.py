@@ -179,6 +179,8 @@ def main() -> int:
 
     require(errors, "laboratory-manual.md" in page and "laboratory-technical-companion.md" in page,
             "Pages entry point must link to both primary manuals")
+    require(errors, "assets/laboratory-domain-map.svg" in page and "assets/laboratory-lifecycle.svg" in page,
+            "Pages entry point must expose the living domain and research lifecycle diagrams")
     require(errors, "campaign workbench" in page.lower() and "evidence" in page.lower(),
             "Pages entry point must retain its interactive workbench and evidence surfaces")
 
