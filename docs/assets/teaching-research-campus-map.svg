@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+<title id="title">Teaching and Research Campus — illustrative site map</title>
+<desc id="desc">A fictional campus map showing a welcome centre, teaching laboratory, physics and materials laboratory, instrument hall, research offices, data centre, safety and operations office, and archive.</desc>
+<defs>
+ <linearGradient id="ground" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0b2634"/><stop offset="1" stop-color="#112b36"/></linearGradient>
+ <style>
+ .site{fill:url(#ground);stroke:#3c6477;stroke-width:3}.building{fill:#163c4c;stroke:#83e2c2;stroke-width:3}.support{fill:#202b43;stroke:#b6a6ff;stroke-width:2}.road{fill:none;stroke:#577284;stroke-width:18;stroke-linecap:round;stroke-linejoin:round}.walk{fill:none;stroke:#83e2c2;stroke-width:3;stroke-dasharray:8 9}.t{fill:#edf6fb;font:700 20px system-ui,sans-serif}.s{fill:#b5c8d4;font:14px system-ui,sans-serif}.tag{fill:#f0c77b;font:700 13px system-ui,sans-serif;letter-spacing:2px}
+ </style>
+</defs>
+<rect width="1200" height="620" rx="24" fill="#07111d"/>
+<rect class="site" x="35" y="35" width="1130" height="550" rx="22"/>
+<text class="tag" x="65" y="75">FICTIONAL SPECIMEN · NOT A REAL SITE PLAN</text>
+<path class="road" d="M85 500H1115M600 500V135M260 500V170M930 500V170"/>
+<path class="walk" d="M260 220H600V145M600 220H930M260 370H600V430H930M600 220V370"/>
+<g>
+ <rect class="building" x="95" y="120" width="250" height="105" rx="14"/><text class="t" x="220" y="165" text-anchor="middle">Welcome centre</text><text class="s" x="220" y="191" text-anchor="middle">Public entry · interpretation</text>
+ <rect class="building" x="470" y="105" width="260" height="115" rx="14"/><text class="t" x="600" y="153" text-anchor="middle">Teaching laboratory</text><text class="s" x="600" y="181" text-anchor="middle">Supervised learning</text>
+ <rect class="building" x="855" y="120" width="250" height="105" rx="14"/><text class="t" x="980" y="165" text-anchor="middle">Physics & materials</text><text class="s" x="980" y="191" text-anchor="middle">Model-backed studies</text>
+ <rect class="support" x="100" y="300" width="260" height="100" rx="14"/><text class="t" x="230" y="342" text-anchor="middle">Instrument hall</text><text class="s" x="230" y="370" text-anchor="middle">Service · calibration context</text>
+ <rect class="support" x="470" y="300" width="260" height="100" rx="14"/><text class="t" x="600" y="342" text-anchor="middle">Data centre</text><text class="s" x="600" y="370" text-anchor="middle">Provenance · visualization</text>
+ <rect class="support" x="840" y="300" width="260" height="100" rx="14"/><text class="t" x="970" y="342" text-anchor="middle">Research offices</text><text class="s" x="970" y="370" text-anchor="middle">Planning · collaboration</text>
+ <rect class="building" x="285" y="435" width="250" height="85" rx="14"/><text class="t" x="410" y="470" text-anchor="middle">Archive & library</text><text class="s" x="410" y="495" text-anchor="middle">Methods · records</text>
+ <rect class="support" x="665" y="435" width="250" height="85" rx="14"/><text class="t" x="790" y="470" text-anchor="middle">Safety & operations</text><text class="s" x="790" y="495" text-anchor="middle">Review · coordination</text>
+</g>
+<text class="s" x="600" y="560" text-anchor="middle">Conceptual campus composition · zones are descriptive, not authorization controls</text>
+</svg>
