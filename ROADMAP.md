@@ -86,6 +86,18 @@ Each phase should produce a working capability and verifiable evidence. The plat
 
 ## Phase 6 — Hosted laboratories and monetization
 
+- [x] Define the virtual laboratory rental concept, customer journey, offering categories, and separation between virtual simulation, calibrated digital models, remote physical instruments, and hybrid services.
+- [x] Define the experiment campaign concept: objective, baseline, factors, scenario set, acceptance criteria, constraints, run matrix, analysis, and disposition.
+- [x] Document scenario classes (nominal, boundary, sensitivity, tolerance, disturbance, supported failure, and adversarial) with explicit model-domain and evidence boundaries.
+- [ ] Implement versioned campaign and scenario contracts with immutable run lineage and reproducibility tests.
+- [ ] Build a customer-facing capability catalog with model fidelity, validation evidence, assumptions, limitations, supported ranges, dependencies, and resource estimates.
+- [ ] Implement reservation lifecycle independently from scientific run lifecycle and execution admission.
+- [ ] Add tenant-scoped workspaces and enforce isolation and authorization in trusted host services.
+- [ ] Add transparent reservation estimates, quotas, runtime metering, cancellation, and billing reconciliation.
+- [ ] Add campaign comparison and exportable evidence packages.
+- [ ] Define an advisory virtual-to-physical handoff requiring independent facility and qualified-person approval.
+- [ ] Pilot one discipline-specific campaign with baseline, boundary, sensitivity, and failure-oriented scenarios before offering paid access.
+
 - [ ] Define compute metering, budgets, quotas, and pre-run estimates.
 - [ ] Integrate identity, authentication, authorization, entitlements, persistence, and hosted sessions through platform boundaries.
 - [ ] Implement host-backed security controls: tenant isolation, encryption/key management, data retention/deletion, protected audit events, and incident response.
