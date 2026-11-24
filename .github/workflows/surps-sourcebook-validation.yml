@@ -25,6 +25,7 @@ on:
       - "docs/laboratory-technical-companion.md"
       - "docs/index.html"
       - "docs/assets/laboratory-*.svg"
+      - "docs/assets/teaching-research-campus-map.svg"
       - "scripts/validate_documentation.py"
       - "scripts/validate_surps_participation.py"
       - ".github/workflows/surps-sourcebook-validation.yml"
