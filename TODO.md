@@ -32,6 +32,7 @@ Keep these states separate. A feature may be implemented but unverified. Never c
 - [x] Typed NIGHT SIGNAL narrative definition and immutable state machine, including fixed opening, source-backed evidence, current-evidence gate, route/evidence consistency, terminal outcomes, and append-only event history.
 - [x] Durable NIGHT SIGNAL attempt persistence: atomic filesystem store, exact definition/evidence/event round-trip, duplicate-ID protection, identity checks, and validated terminal restoration. The NUnit persistence tests passed in .NET workflow run #388.
 - [x] NIGHT SIGNAL FSM_Execution adapter: timestamped evidence/death/escape commands, JSON-safe attempt output, persisted terminal state, and active-snapshot preservation on cancellation. Workflow integration tests and all adapter builds passed in .NET workflow run #404.
+- [x] NIGHT SIGNAL facility room binding: all six stable narrative location IDs map to unique version-bound `LaboratoryRoom` IDs; campaign/facility identity, room existence, and fixed-start consistency are tested.
 - [x] Browser-only NIGHT SIGNAL playable specimen and local event export. This is a prototype, not a runtime-backed execution.
 
 ### Documentation and experience
@@ -45,7 +46,7 @@ Keep these states separate. A feature may be implemented but unverified. Never c
 
 ## Active work — next in execution order
 
-1. **NIGHT SIGNAL facility adapter.** Bind fictional rooms, instruments, staff, and status snapshots to stable facility identities without moving laboratory semantics into the host.
+1. **NIGHT SIGNAL facility capability adapter — in progress.** Stable narrative-to-room identity binding is implemented and CI verified. Next bind apparatus/instruments and staff responsibilities, then project host-owned facility status snapshots without moving access control or geometry into Laboratories.
 2. **Host dashboard observation projection — [Issue #5](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/issues/5).** Project trustworthy host observations into the existing dashboard and separate timeline. ServerApp has an optional RunId/RuntimeId-correlated observer seam in PR #22; its CI was reported passing by the host repository. Loaded membership is not provider invocation. Per-provider dispatch instrumentation remains a separate evidence gate. Keep the Laboratories core free of ServerApp dependencies.
 3. **SURPS living-book adoption — [Issue #6](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/issues/6).** Finish the dual-adapter authoring standard, authoritative domain ownership/provenance, worked mechanics, meaningful living illustrations, and independent SURPS review. Current books are authored and structured; do not call the repository enrolled or independently approved.
 4. **Pages activation.** Once the owner enables GitHub Pages with GitHub Actions as source, verify a successful deployment and update the site status. Do not change repository Pages settings without explicit owner authorization.
@@ -88,13 +89,13 @@ Keep these states separate. A feature may be implemented but unverified. Never c
 
 **Latest observed CI snapshot (2026-11-24 UTC):**
 
-- **.NET:** full workflow passed — [run #404](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45329086362), commit `f1024175f42e09f5bc47729d2677e1a406a8a20e`. This includes domain/adapter tests, narrative persistence round-trip and identity checks, narrative FSM_Execution safe-escape/death/cancellation tests, and successful persistence, workflow, Physics, and MicroBundle builds.
-- **Documentation/SURPS:** passed after the latest specimen, README, and roadmap updates — [run #52](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45329260682), commit `69caa88c`. Earlier passes on the specimen and README commits also succeeded (runs #50 and #51).
+- **.NET:** full workflow passed — [run #414](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45329484875), commit `ab31efbe524d3f49737733df4e0760ea3b2605fc`. This includes narrative persistence round-trip and identity checks, FSM_Execution safe-escape/death/cancellation tests, version-bound facility room mapping tests, and successful persistence, workflow, Physics, and MicroBundle builds.
+- **Documentation/SURPS:** passed after the narrative workflow/README/roadmap updates — [run #52](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45329260682), commit `69caa88c`. The new facility mapping text is awaiting the next validator run.
 - **Pages deployment:** failed on commit `1ceaf6e2` — [run #108](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45328291264). The failure details were not exposed by the available job-log endpoint. The site is not verified live; the repository Pages setting still requires owner enablement and a successful deployment.
 - **Branches:** last inventory returned exactly `development` and `master`.
 
 - [x] .NET tests and all adapter builds passed in run #404.
-- [x] Documentation/SURPS validation green after the latest specimen and README updates (run #52).
+- [ ] Documentation/SURPS validation green after the latest facility mapping documentation update.
 - [ ] Pages deployment verified after Pages is enabled.
 - [x] Exactly two active branches remain: `development` and `master` (last checked 2026-11-24 UTC).
 - [x] No promotion to `master`, NuGet publication, or release action performed in this workstream.
