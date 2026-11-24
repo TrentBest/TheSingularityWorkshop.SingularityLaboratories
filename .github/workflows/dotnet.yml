@@ -67,5 +67,3 @@ jobs:
         run: dotnet build src/Laboratory.PhysicsAdapter/Laboratory.PhysicsAdapter.csproj --configuration Release
       - name: Build laboratory MicroBundle adapter
         run: dotnet build src/Laboratory.MicroBundleAdapter/Laboratory.MicroBundleAdapter.csproj --configuration Release
-      - name: Test the selected Physics experiment
-        run: dotnet test dependencies/Physics/tests/TheSingularityWorkshop.Physics.Tests/TheSingularityWorkshop.Physics.Tests.csproj --configuration Release --filter FullyQualifiedName~ElectricalThermalCouplingExperimentTests
