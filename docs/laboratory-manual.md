@@ -347,7 +347,7 @@ LOD communicates depth and specialization, not maturity, quality, or automatic p
 - [History of Science](history-of-science.md) — knowledge traditions and institutions.
 - [Research Methods Atlas](research-methods-atlas.md) — method families and their limitations.
 - [Scientific Integrity](scientific-integrity.md) — validation, uncertainty, and responsible claims.
-- [ROADMAP](ROADMAP.md) — implementation phases and exit gates.
+- [ROADMAP](../ROADMAP.md) — implementation phases and exit gates.
 - [Technical Companion](laboratory-technical-companion.md) — contracts, adapters, persistence, and integration boundaries.
 
 ---
