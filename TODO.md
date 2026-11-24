@@ -86,11 +86,18 @@ Keep these states separate. A feature may be implemented but unverified. Never c
 
 ## Verification and release gates
 
+**Latest observed CI snapshot (2026-11-24 UTC):**
+
+- **.NET:** running on commit `fe3b6d2a7ac3bdfec9e002e04bba3ac1b1da08b7` — [run #380](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45327985987). The prior run exposed a constructor-order defect in `ExperimentCampaignExecutionRecord`: identity properties were validated before assignment. The validation now runs after normalized identities are assigned; this run is the verification gate for that fix.
+- **Documentation/SURPS:** passed on commit `14164f3b9bb8a5843a36576aebbf8cf91c807eb8` — [run #109](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45327907362). The only failure was malformed XML in the campus SVG; all ampersands are now escaped. This documentation-only result remains applicable to the current code change.
+- **Pages deployment:** failed on commit `14164f3b9bb8a5843a36576aebbf8cf91c807eb8` — [run #107](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45327907394). The failure details were not exposed by the available job-log endpoint. The site is not verified live; the repository Pages setting still requires owner enablement and a successful deployment.
+- **Branches:** last inventory check returned exactly `development` and `master`.
+
 - [ ] Latest .NET workflow green on current `development` head.
-- [ ] Documentation/SURPS validation green on current `development` head.
+- [x] Documentation/SURPS validator passed; rerun on later documentation changes.
 - [ ] Pages deployment verified after Pages is enabled.
-- [ ] Exactly two active branches remain: `development` and `master`.
-- [ ] No promotion to `master`, NuGet publication, or release action without explicit owner authorization.
+- [x] Exactly two active branches remain: `development` and `master` (last checked 2026-11-24 UTC).
+- [x] No promotion to `master`, NuGet publication, or release action performed in this workstream.
 
 ## Maintenance rule
 
