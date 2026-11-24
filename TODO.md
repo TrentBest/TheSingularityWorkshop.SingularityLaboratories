@@ -45,8 +45,8 @@ Keep these states separate. A feature may be implemented but unverified. Never c
 - [x] Upgrade the capability atlas into an accessible client-side explorer with full-text search, implementation-status filters, live result counts, empty-state feedback, keyboard focus treatment, and reduced-motion support. This filters authored repository descriptions only; it does not imply live host telemetry.
 - [x] Documentation validator for sourcebook structure, local links, HTML anchors, diagrams, SVG accessibility metadata, canonical work-queue sections, and README/docs-index work-queue links.
 - [x] GitHub Actions workflows for .NET validation, documentation validation, and Pages deployment source.
-- [x] Pages build pipeline now assembles the complete `docs/` experience into `_site`, adds `.nojekyll`, and runs a dedicated validator for root entry point, local files/fragments, and SVG well-formedness before artifact upload. Implementation is committed; first CI verification is pending.
-- [ ] First live Pages deployment — repository Pages setting still needs enabling and deployment verification.
+- [x] Pages build pipeline assembles the complete `docs/` experience into `_site`, adds `.nojekyll`, and validates the root entry point, local files/fragments, and SVG well-formedness before artifact upload. Build and validation passed in Pages workflow run [#116](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45333577162) on the interactive-atlas commit. The deploy job still fails; its logs are unavailable, so the precise host-side failure is not confirmed.
+- [ ] First live Pages deployment — the validated artifact is ready, but the deploy job has not succeeded. Confirm repository Pages is enabled with GitHub Actions as its source, then rerun/verify deployment.
 
 ## Active work — next in execution order
 
