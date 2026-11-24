@@ -84,8 +84,12 @@ public sealed record ExperimentCampaignExecutionRecord
         CampaignVersion = Required(campaignVersion, nameof(campaignVersion));
         ArgumentNullException.ThrowIfNull(campaignDefinition);
         if (!string.Equals(campaignDefinition.Id, CampaignId, StringComparison.Ordinal) ||
-            !string.Equals(campaignDefinition.Version, CampaignVersion, StringComparison.Ordinal))
-            throw new ArgumentException("The embedded campaign definition must match the execution's campaign identity and version.", nameof(campaignDefinition));
+            !string.Equals(campaignDefinition.Version, CampaignVersion, StringComparison.Ordinal) ||
+            !string.Equals(campaignDefinition.ExperimentId, ExperimentId, StringComparison.Ordinal) ||
+            !string.Equals(campaignDefinition.ExperimentVersion, ExperimentVersion, StringComparison.Ordinal) ||
+            !string.Equals(campaignDefinition.ModelId, ModelId, StringComparison.Ordinal) ||
+            !string.Equals(campaignDefinition.ModelVersion, ModelVersion, StringComparison.Ordinal))
+            throw new ArgumentException("The embedded campaign definition must match the execution's exact campaign, experiment, and model identities and versions.", nameof(campaignDefinition));
         CampaignDefinition = campaignDefinition;
         LaboratoryId = Required(laboratoryId, nameof(laboratoryId));
         LaboratoryVersion = Required(laboratoryVersion, nameof(laboratoryVersion));
