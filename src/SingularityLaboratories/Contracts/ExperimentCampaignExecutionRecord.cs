@@ -66,6 +66,7 @@ public sealed record ExperimentCampaignExecutionRecord
         Guid executionId,
         string campaignId,
         string campaignVersion,
+        ExperimentCampaignDefinition campaignDefinition,
         string laboratoryId,
         string laboratoryVersion,
         string experimentId,
@@ -81,6 +82,11 @@ public sealed record ExperimentCampaignExecutionRecord
             throw new ArgumentException("An execution identity is required.", nameof(executionId));
         CampaignId = Required(campaignId, nameof(campaignId));
         CampaignVersion = Required(campaignVersion, nameof(campaignVersion));
+        ArgumentNullException.ThrowIfNull(campaignDefinition);
+        if (!string.Equals(campaignDefinition.Id, CampaignId, StringComparison.Ordinal) ||
+            !string.Equals(campaignDefinition.Version, CampaignVersion, StringComparison.Ordinal))
+            throw new ArgumentException("The embedded campaign definition must match the execution's campaign identity and version.", nameof(campaignDefinition));
+        CampaignDefinition = campaignDefinition;
         LaboratoryId = Required(laboratoryId, nameof(laboratoryId));
         LaboratoryVersion = Required(laboratoryVersion, nameof(laboratoryVersion));
         ExperimentId = Required(experimentId, nameof(experimentId));
@@ -99,6 +105,9 @@ public sealed record ExperimentCampaignExecutionRecord
             throw new ArgumentException("A campaign execution requires non-null scenario results.", nameof(scenarios));
         if (snapshot.Select(scenario => scenario.ScenarioId).Distinct(StringComparer.Ordinal).Count() != snapshot.Length)
             throw new ArgumentException("Scenario result identifiers must be unique.", nameof(scenarios));
+        if (!snapshot.Select(scenario => scenario.ScenarioId).SequenceEqual(
+            campaignDefinition.Scenarios.Select(scenario => scenario.Id), StringComparer.Ordinal))
+            throw new ArgumentException("Scenario outcomes must preserve the campaign definition's complete scenario order.", nameof(scenarios));
         if (snapshot.Any(scenario => scenario.Run is { } run &&
             (!string.Equals(run.LaboratoryId, LaboratoryId, StringComparison.Ordinal) ||
              !string.Equals(run.LaboratoryVersion, LaboratoryVersion, StringComparison.Ordinal) ||
@@ -131,6 +140,7 @@ public sealed record ExperimentCampaignExecutionRecord
     public Guid ExecutionId { get; }
     public string CampaignId { get; }
     public string CampaignVersion { get; }
+    public ExperimentCampaignDefinition CampaignDefinition { get; }
     public string LaboratoryId { get; }
     public string LaboratoryVersion { get; }
     public string ExperimentId { get; }
