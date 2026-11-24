@@ -148,7 +148,7 @@ The current repository CI is the authority for the exact commit's build and test
 - [Virtual Laboratory Service](virtual-laboratory-service.md) — campaign and hosted-service concept.
 - [Experiment Physics Settings Dashboard](experiment-physics-settings-dashboard.md) — dependency and runtime evidence boundary.
 - [Sourcebook Catalogue](books/index.md) — deeper domain knowledge and publication status.
-- [Roadmap](ROADMAP.md) — remaining implementation gates.
+- [Roadmap](../ROADMAP.md) — remaining implementation gates.
 
 ---
 
