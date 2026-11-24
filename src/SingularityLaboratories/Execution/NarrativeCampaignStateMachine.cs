@@ -42,6 +42,79 @@ public sealed record NarrativeCampaignAttempt
         Events = Array.AsReadOnly(events.ToArray());
     }
 
+    /// <summary>Restores a persisted immutable attempt after validating its event and outcome invariants.</summary>
+    public static NarrativeCampaignAttempt Restore(
+        Guid attemptId,
+        NarrativeCampaignDefinition definition,
+        NarrativeCampaignOutcome outcome,
+        IReadOnlyList<NarrativeEvidenceRecord> evidence,
+        IReadOnlyList<NarrativeCampaignEvent> events)
+    {
+        if (attemptId == Guid.Empty)
+            throw new ArgumentException("An attempt identifier is required.", nameof(attemptId));
+        ArgumentNullException.ThrowIfNull(definition);
+        if (!Enum.IsDefined(outcome))
+            throw new ArgumentOutOfRangeException(nameof(outcome));
+        ArgumentNullException.ThrowIfNull(evidence);
+        ArgumentNullException.ThrowIfNull(events);
+
+        var evidenceSnapshot = evidence.ToArray();
+        if (evidenceSnapshot.Any(item => item is null ||
+            !definition.RequiredSafeEscapeEvidence.Contains(item.Kind)))
+            throw new ArgumentException("Persisted evidence must contain only required, non-null campaign evidence.", nameof(evidence));
+
+        var eventSnapshot = events.ToArray();
+        if (eventSnapshot.Length == 0 || eventSnapshot.Any(item => item is null))
+            throw new ArgumentException("A persisted attempt must contain its start event and non-null event history.", nameof(events));
+
+        for (var index = 0; index < eventSnapshot.Length; index++)
+        {
+            var item = eventSnapshot[index];
+            if (item.Sequence != index + 1 ||
+                !Enum.IsDefined(item.Kind) ||
+                item.OccurredAtUtc.Offset != TimeSpan.Zero ||
+                string.IsNullOrWhiteSpace(item.Details))
+                throw new ArgumentException("Persisted campaign events must have contiguous sequence, valid kind, UTC timestamp, and details.", nameof(events));
+            if ((index == 0) != (item.Kind == NarrativeCampaignEventKind.AttemptStarted))
+                throw new ArgumentException("The attempt-start event must appear exactly once as the first event.", nameof(events));
+            var terminalEvent = item.Kind is NarrativeCampaignEventKind.PlayerDeath or NarrativeCampaignEventKind.SafeEscapeVerified;
+            if (terminalEvent && index != eventSnapshot.Length - 1)
+                throw new ArgumentException("No event may follow a terminal campaign outcome.", nameof(events));
+        }
+
+        if (eventSnapshot.Count(item => item.Kind == NarrativeCampaignEventKind.EvidenceRecorded) != evidenceSnapshot.Length)
+            throw new ArgumentException("Evidence records and evidence-recorded events must have matching counts.", nameof(evidence));
+
+        var finalKind = eventSnapshot[^1].Kind;
+        var outcomeMatchesHistory = outcome switch
+        {
+            NarrativeCampaignOutcome.Active =>
+                finalKind is not NarrativeCampaignEventKind.PlayerDeath and not NarrativeCampaignEventKind.SafeEscapeVerified,
+            NarrativeCampaignOutcome.PlayerDeath => finalKind == NarrativeCampaignEventKind.PlayerDeath,
+            NarrativeCampaignOutcome.VerifiedSafeEscape => finalKind == NarrativeCampaignEventKind.SafeEscapeVerified,
+            _ => false
+        };
+        if (!outcomeMatchesHistory)
+            throw new ArgumentException("The persisted outcome must agree with the final event.", nameof(outcome));
+
+        if (outcome == NarrativeCampaignOutcome.VerifiedSafeEscape)
+        {
+            var latest = definition.RequiredSafeEscapeEvidence
+                .Select(kind => evidenceSnapshot.LastOrDefault(item => item.Kind == kind))
+                .ToArray();
+            var allCurrent = latest.All(item => item?.State == NarrativeEvidenceState.VerifiedCurrent);
+            var independentSources = latest.Where(item => item is not null)
+                .Select(item => item!.SourceId).Distinct(StringComparer.Ordinal).Count() == latest.Length;
+            var egress = latest.SingleOrDefault(item => item?.Kind == NarrativeEvidenceKind.EgressRecord);
+            var routeMatches = egress is not null &&
+                eventSnapshot[^1].Details.EndsWith($"route '{egress.EvidenceReference}'.", StringComparison.Ordinal);
+            if (!allCurrent || !independentSources || !routeMatches)
+                throw new ArgumentException("A persisted safe-escape outcome must satisfy the current evidence, independent-source, and egress-route gates.", nameof(outcome));
+        }
+
+        return new NarrativeCampaignAttempt(attemptId, definition, outcome, evidenceSnapshot, eventSnapshot);
+    }
+
     public Guid AttemptId { get; }
     public NarrativeCampaignDefinition Definition { get; }
     public string CampaignId { get; }
