@@ -22,6 +22,7 @@ VISUALS = [
     DOCS / "assets" / "laboratory-domain-map.svg",
     DOCS / "assets" / "laboratory-staff-roles.svg",
     DOCS / "assets" / "laboratory-facility-system.svg",
+    DOCS / "assets" / "teaching-research-campus-map.svg",
 ]
 
 
@@ -181,6 +182,8 @@ def main() -> int:
             "Pages entry point must link to both primary manuals")
     require(errors, "assets/laboratory-domain-map.svg" in page and "assets/laboratory-lifecycle.svg" in page,
             "Pages entry point must expose the living domain and research lifecycle diagrams")
+    require(errors, "assets/teaching-research-campus-map.svg" in page and "data-facility=" in page,
+            "Pages entry point must expose the campus map and interactive facility selector")
     require(errors, "campaign workbench" in page.lower() and "evidence" in page.lower(),
             "Pages entry point must retain its interactive workbench and evidence surfaces")
 
