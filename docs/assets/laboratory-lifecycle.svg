@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">The living laboratory lifecycle</title>
+  <desc id="desc">A research question flows through method selection, design, challenge, execution or observation, evidence, interpretation, and correction. A return path shows that evidence can revise the question.</desc>
+  <defs>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#10283a"/><stop offset="1" stop-color="#091722"/></linearGradient>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10z" fill="#83e2c2"/></marker>
+    <style>
+      .node{fill:url(#panel);stroke:#3c6477;stroke-width:2}.label{fill:#edf6fb;font:700 21px system-ui,sans-serif}.sub{fill:#a9bdca;font:15px system-ui,sans-serif}.path{fill:none;stroke:#83e2c2;stroke-width:3;marker-end:url(#arrow)}.return{fill:none;stroke:#f0c77b;stroke-width:3;stroke-dasharray:9 8;marker-end:url(#arrow)}.pulse{fill:#83e2c2;opacity:.8}
+      @media(prefers-reduced-motion:reduce){.pulse{display:none}}
+    </style>
+  </defs>
+  <rect width="1200" height="520" rx="24" fill="#07111d"/>
+  <g class="path">
+    <path d="M225 135H275"/><path d="M425 135H475"/><path d="M625 135H675"/><path d="M825 135H875"/>
+    <path d="M1025 135V300H950"/><path d="M800 365H750"/><path d="M600 365H550"/>
+  </g>
+  <g>
+    <rect class="node" x="45" y="85" width="180" height="100" rx="16"/><text class="label" x="135" y="125" text-anchor="middle">Question</text><text class="sub" x="135" y="153" text-anchor="middle">What is unknown?</text>
+    <rect class="node" x="275" y="85" width="150" height="100" rx="16"/><text class="label" x="350" y="125" text-anchor="middle">Method</text><text class="sub" x="350" y="153" text-anchor="middle">How can we know?</text>
+    <rect class="node" x="475" y="85" width="150" height="100" rx="16"/><text class="label" x="550" y="125" text-anchor="middle">Design</text><text class="sub" x="550" y="153" text-anchor="middle">Define the test</text>
+    <rect class="node" x="675" y="85" width="150" height="100" rx="16"/><text class="label" x="750" y="125" text-anchor="middle">Challenge</text><text class="sub" x="750" y="153" text-anchor="middle">Test assumptions</text>
+    <rect class="node" x="875" y="85" width="150" height="100" rx="16"/><text class="label" x="950" y="125" text-anchor="middle">Observe</text><text class="sub" x="950" y="153" text-anchor="middle">Run or fieldwork</text>
+    <rect class="node" x="800" y="315" width="150" height="100" rx="16"/><text class="label" x="875" y="355" text-anchor="middle">Evidence</text><text class="sub" x="875" y="383" text-anchor="middle">Preserve provenance</text>
+    <rect class="node" x="600" y="315" width="150" height="100" rx="16"/><text class="label" x="675" y="355" text-anchor="middle">Interpret</text><text class="sub" x="675" y="383" text-anchor="middle">Reason with limits</text>
+    <rect class="node" x="400" y="315" width="150" height="100" rx="16"/><text class="label" x="475" y="355" text-anchor="middle">Correct</text><text class="sub" x="475" y="383" text-anchor="middle">Revise the model</text>
+  </g>
+  <path class="return" d="M400 365H135V185"/>
+  <text x="260" y="345" fill="#f0c77b" font="16px system-ui,sans-serif" text-anchor="middle">new question / revised assumptions</text>
+  <circle class="pulse" r="7"><animateMotion dur="8s" repeatCount="indefinite" path="M225 135H275H425H475H625H675H825H875V135V300H950H800H750H600H550H400H135V185"/></circle>
+  <text x="600" y="475" fill="#a9bdca" font="14px system-ui,sans-serif" text-anchor="middle">Conceptual lifecycle · methods differ · not every inquiry is a controlled experiment</text>
+</svg>
