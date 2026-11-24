@@ -15,6 +15,8 @@ Each phase should produce a working capability and verifiable evidence. The plat
 
 ## Phase 1 — First living laboratory vertical slice
 
+- [x] Add a playable browser-only flagship campaign specimen with a fixed player role, evidence-gated safe-escape outcome, death ending, and explicit fictional safety boundary.
+
 - [x] Establish initial versioned laboratory/experiment/configuration contracts, model adapter boundary, run provenance, and portable facility/instrument manifest contracts.
 - [x] Implement and verify one end-to-end Physics-backed experiment through FSM_Execution. The actual Physics adapter runs through the registered FSM_Execution workflow handler; laboratory integration tests execute the selected Physics model. Physics' own test suite remains owned and validated by the Physics repository.
 - [x] Implement a typed laboratory catalog MicroBundle exposing immutable laboratory and facility definitions through its loaded provider instance.
