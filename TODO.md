@@ -44,14 +44,15 @@ Keep these states separate. A feature may be implemented but unverified. Never c
 - [x] Pages source with capability atlas, campaign-draft workbench, fictional campus explorer, and NIGHT SIGNAL browser prototype.
 - [x] Documentation validator for sourcebook structure, local links, HTML anchors, diagrams, SVG accessibility metadata, canonical work-queue sections, and README/docs-index work-queue links.
 - [x] GitHub Actions workflows for .NET validation, documentation validation, and Pages deployment source.
-- [ ] First live Pages deployment — workflow/source exists; repository Pages setting still needs enabling and deployment verification.
+- [x] Pages build pipeline now assembles the complete `docs/` experience into `_site`, adds `.nojekyll`, and runs a dedicated validator for root entry point, local files/fragments, and SVG well-formedness before artifact upload. Implementation is committed; first CI verification is pending.
+- [ ] First live Pages deployment — repository Pages setting still needs enabling and deployment verification.
 
 ## Active work — next in execution order
 
 1. **NIGHT SIGNAL live host-feed integration — in progress.** The host-neutral facility status projection is implemented and CI verified. Connect ServerApp/host observations to it with reliable source and timestamp provenance; status semantics, authentication, authorization, and geometry remain host-owned.
 2. **Host dashboard observation projection — [Issue #5](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/issues/5).** Project trustworthy host observations into the existing dashboard and separate timeline. ServerApp has an optional RunId/RuntimeId-correlated observer seam in PR #22; its CI was reported passing by the host repository. Loaded membership is not provider invocation. Per-provider dispatch instrumentation remains a separate evidence gate. Keep the Laboratories core free of ServerApp dependencies.
 3. **SURPS living-book adoption — [Issue #6](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/issues/6).** Finish the dual-adapter authoring standard, authoritative domain ownership/provenance, worked mechanics, meaningful living illustrations, and independent SURPS review. Current books are authored and structured; do not call the repository enrolled or independently approved.
-4. **Pages activation.** Once the owner enables GitHub Pages with GitHub Actions as source, verify a successful deployment and update the site status. Do not change repository Pages settings without explicit owner authorization.
+4. **Pages activation.** The build/validation pipeline is implemented on `development`; verify its CI run, then enable GitHub Pages with GitHub Actions as source and verify a successful deployment. Do not change repository Pages settings without explicit owner authorization.
 
 ## Planned platform work
 
@@ -93,11 +94,12 @@ Keep these states separate. A feature may be implemented but unverified. Never c
 
 - **.NET:** full workflow passed — [run #451](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45331116264), commit `3083c579fb34665757de45b3e86f06454a250bd2`. This includes narrative persistence round-trip and identity checks, FSM_Execution safe-escape/death/cancellation tests, version-bound room/apparatus/instrument/channel mapping, active/expired/wrong-role staff assignment tests, complete facility status projection validation, and successful persistence, workflow, Physics, and MicroBundle builds. Subsequent commits update documentation and task status only. Subsequent commits are documentation/status updates.
 - **Documentation/SURPS:** passed after the facility-status projection documentation, README, roadmap, and task-ledger updates — [run #78](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45331408705), commit `f0a8bc81`. The validator checks the canonical work-queue sections and README/docs-index links, and the workflow runs when `TODO.md` changes.
-- **Pages deployment:** latest attempt failed on commit `64817451` — [run #114](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45331289489). The failure details were not exposed by the available job-log endpoint. The site is not verified live; the repository Pages setting still requires owner enablement and a successful deployment.
+- **Pages deployment:** prior attempt failed on commit `64817451` — [run #114](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45331289489). GitHub reports the deploy job failed, but its logs are no longer retrievable. The replacement build/validation pipeline is implemented on `development`; its first CI result is pending. The site is not verified live; the repository Pages setting still requires owner enablement and a successful deployment.
 - **Branches:** last inventory returned exactly `development` and `master`.
 
 - [x] .NET tests and all adapter builds passed in run #451.
 - [x] Documentation/SURPS validation passed after facility-status projection and task-ledger updates (run #78).
+- [ ] Pages build/validation pipeline passed in CI.
 - [ ] Pages deployment verified after Pages is enabled.
 - [x] Exactly two active branches remain: `development` and `master` (last checked 2026-11-24 UTC).
 - [x] No promotion to `master`, NuGet publication, or release action performed in this workstream.
