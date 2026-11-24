@@ -19,7 +19,7 @@
  <rect class="support" x="100" y="300" width="260" height="100" rx="14"/><text class="t" x="230" y="342" text-anchor="middle">Instrument hall</text><text class="s" x="230" y="370" text-anchor="middle">Service · calibration context</text>
  <rect class="support" x="470" y="300" width="260" height="100" rx="14"/><text class="t" x="600" y="342" text-anchor="middle">Data centre</text><text class="s" x="600" y="370" text-anchor="middle">Provenance · visualization</text>
  <rect class="support" x="840" y="300" width="260" height="100" rx="14"/><text class="t" x="970" y="342" text-anchor="middle">Research offices</text><text class="s" x="970" y="370" text-anchor="middle">Planning · collaboration</text>
- <rect class="building" x="285" y="435" width="250" height="85" rx="14"/><text class="t" x="410" y="470" text-anchor="middle">Archive & library</text><text class="s" x="410" y="495" text-anchor="middle">Methods · records</text>
+ <rect class="building" x="285" y="435" width="250" height="85" rx="14"/><text class="t" x="410" y="470" text-anchor="middle">Archive &amp; library</text><text class="s" x="410" y="495" text-anchor="middle">Methods · records</text>
  <rect class="support" x="665" y="435" width="250" height="85" rx="14"/><text class="t" x="790" y="470" text-anchor="middle">Safety &amp; operations</text><text class="s" x="790" y="495" text-anchor="middle">Review · coordination</text>
 </g>
 <text class="s" x="600" y="560" text-anchor="middle">Conceptual campus composition · zones are descriptive, not authorization controls</text>
