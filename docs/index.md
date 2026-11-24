@@ -42,3 +42,6 @@ A facility is not merely a collection of rooms. It is an institution with a miss
 - Renderer / Visualize own presentation.
 
 **Implementation status:** These sourcebooks are design and research artifacts. They do not claim that the featured real facilities have been reconstructed or that all described runtime capabilities are implemented.
+
+
+For current implementation status and outstanding work, see the [repository work queue](../TODO.md) and [long-range roadmap](../ROADMAP.md).
