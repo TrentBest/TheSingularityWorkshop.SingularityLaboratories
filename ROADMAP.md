@@ -1,5 +1,8 @@
 # Roadmap
 
+> Current task state and verification evidence live in [TODO.md](TODO.md). This document is the long-range phase plan; it is not the live task ledger. Update both when implementation status changes.
+
+
 Each phase should produce a working capability and verifiable evidence. The platform is the laboratory abstraction and tooling; host worlds and city-scale presentation are separate integrations.
 
 ## Phase 0 — Repository and domain foundation
