@@ -16,6 +16,7 @@ MANUAL = DOCS / "laboratory-manual.md"
 COMPANION = DOCS / "laboratory-technical-companion.md"
 CATALOGUE = DOCS / "books" / "index.md"
 PAGE = DOCS / "index.html"
+CONTAINMENT_CAMPAIGN = DOCS / "specimens" / "night-signal-containment-campaign.md"
 VISUALS = [
     DOCS / "assets" / "laboratory-manual-cover.svg",
     DOCS / "assets" / "laboratory-lifecycle.svg",
@@ -72,7 +73,7 @@ def check_markdown_links(path: Path, errors: list[str]) -> int:
 
 def main() -> int:
     errors: list[str] = []
-    for path in (MANUAL, COMPANION, CATALOGUE, PAGE, *VISUALS):
+    for path in (MANUAL, COMPANION, CATALOGUE, PAGE, CONTAINMENT_CAMPAIGN, *VISUALS):
         require(errors, path.is_file(), f"required publication asset is missing: {path.relative_to(ROOT)}")
     if errors:
         print("\n".join(errors))
@@ -81,6 +82,7 @@ def main() -> int:
     manual = MANUAL.read_text(encoding="utf-8")
     companion = COMPANION.read_text(encoding="utf-8")
     catalogue = CATALOGUE.read_text(encoding="utf-8")
+    containment_campaign = CONTAINMENT_CAMPAIGN.read_text(encoding="utf-8")
     page = PAGE.read_text(encoding="utf-8")
 
     manual_requirements = [
@@ -138,6 +140,9 @@ def main() -> int:
         ):
             require(errors, marker in sourcebook, f"{label}: missing SURPS living-book element: {marker}")
 
+    for marker in ("# NIGHT SIGNAL", "## 1. Campaign identity", "## 6. Safe-escape gate", "## 7. Death and safe-escape endings", "## 9. Acceptance tests", "not a real-world checklist"):
+        require(errors, marker in containment_campaign, f"containment campaign is missing required scenario contract: {marker}")
+
     require(errors, "Living Rulebook and Experience Standard" in catalogue,
             "sourcebook catalogue must link the canonical SURPS living-book standard")
     require(errors, "Behavior Model and Adapters" in catalogue,
@@ -175,7 +180,7 @@ def main() -> int:
                 f"{visual.relative_to(ROOT)}: accessible title and description are required")
 
     link_count = 0
-    for path in (MANUAL, COMPANION, CATALOGUE, *(item[0] for item in sourcebooks)):
+    for path in (MANUAL, COMPANION, CATALOGUE, CONTAINMENT_CAMPAIGN, *(item[0] for item in sourcebooks)):
         link_count += check_markdown_links(path, errors)
 
     require(errors, "laboratory-manual.md" in page and "laboratory-technical-companion.md" in page,
@@ -190,6 +195,10 @@ def main() -> int:
     facility_record_keys = set(re.findall(r'\b(welcome|teaching|physics|instruments|research|data|operations|archive):\{title:', page))
     require(errors, facility_keys == facility_record_keys and len(facility_keys) == 8,
             "campus selector buttons and facility detail records must have the same eight stable keys")
+    require(errors, 'id="night-signal"' in page and "night-signal-containment-campaign.md" in page,
+            "Pages entry point must expose and document the Night Signal campaign")
+    require(errors, "data-night-action" in page and "safe-escape" in page and "terminal" in page,
+            "Night Signal proof of concept must expose decision actions and terminal outcome recording")
     require(errors, "campaign workbench" in page.lower() and "evidence" in page.lower(),
             "Pages entry point must retain its interactive workbench and evidence surfaces")
 
