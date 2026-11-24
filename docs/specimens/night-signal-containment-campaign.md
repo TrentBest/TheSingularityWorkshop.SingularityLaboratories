@@ -5,7 +5,7 @@
 **Domain:** Singularity Laboratories  
 **Experience:** First-person laboratory survival / systems investigation  
 **Fidelity:** Original fictional scenario; abstract containment simulation  
-**Status:** Browser-playable proof of concept plus typed narrative campaign contract/state machine; not yet persisted or host-workflow-backed, and not a validated biological model or operational biosafety procedure
+**Status:** Browser-playable proof of concept plus typed narrative campaign contract/state machine and atomic filesystem attempt persistence; not yet host-workflow-backed, and not a validated biological model or operational biosafety procedure
 
 > The alarm is already sounding when the player wakes at their workstation. The facility is sealed. The incident has begun. There is no character creator, loadout screen, or alternate opening. The only question is whether the player can understand the facility well enough to leave it safely.
 
@@ -113,7 +113,7 @@ A door opening, an animation, or a player reaching the map boundary cannot indep
 | Host composition | Rooms, navigation, identity, presentation | Laboratory semantics remain portable |
 | Analysis | Compare collected evidence to safe-escape gate | Pass, fail, or not-evaluable; no hidden assumptions |
 
-The scientific `ExperimentCampaignRunner` continues to execute experiment scenarios; it is not the narrative runner. The repository now has a separate typed `NarrativeCampaignDefinition` and `NarrativeCampaignStateMachine` with immutable attempt snapshots, evidence-source references, terminal death/safe-escape outcomes, and an append-only event sequence. NUnit tests cover the fixed opening, evidence gate, stale/contradicted evidence, terminal behavior, restart history, and campaign identity. The browser experience remains a separate local proof of concept: it does not invoke this C# state machine, persist attempts, or dispatch an FSM_Execution workflow.
+The scientific `ExperimentCampaignRunner` continues to execute experiment scenarios; it is not the narrative runner. The repository now has a separate typed `NarrativeCampaignDefinition` and `NarrativeCampaignStateMachine` with immutable attempt snapshots, evidence-source references, terminal death/safe-escape outcomes, and an append-only event sequence. `INarrativeCampaignAttemptStore` and `FileSystemNarrativeCampaignAttemptStore` persist the exact definition, outcome, complete evidence history, and ordered event history using atomic, non-overwriting JSON writes. Restoration validates event sequencing, evidence/event correspondence, terminal consistency, independent evidence sources, and the egress-route gate. NUnit tests cover the fixed opening, evidence gate, stale/contradicted evidence, terminal behavior, restart history, campaign identity, persistence round-trip, duplicate identities, and corrupt/mismatched records. The browser experience remains a separate local proof of concept: it does not invoke this C# state machine or store, and it does not dispatch an FSM_Execution workflow.
 
 ## 9. Acceptance tests
 
@@ -132,10 +132,11 @@ The scientific `ExperimentCampaignRunner` continues to execute experiment scenar
 
 1. **Browser scenario:** playable state machine, fixed opening, evidence retrieval, terminal outcomes, and downloadable local event log.
 2. **Typed campaign definition and domain state machine — implemented:** fixed role/start, required evidence categories, source-backed evidence records, immutable attempt snapshots, terminal outcomes, and append-only events; NUnit invariant tests added.
-3. **Execution adapter:** route narrative events through the host workflow lifecycle while retaining the laboratory campaign runner for scientific sub-experiments.
-4. **Facility adapter:** bind rooms, instruments, staff, and status snapshots to stable facility identities.
-5. **Analysis and replay:** evaluate terminal criteria from recorded evidence; replay attempts without rewriting history.
-6. **Host experience:** compose the facility in a world/GUI host without moving laboratory semantics into the host.
+3. **Durable attempt persistence — implemented:** atomic filesystem store, duplicate-ID rejection, exact identity verification, complete evidence/event round-trip, and validated restoration of terminal outcomes; persistence tests added.
+4. **Execution adapter:** route narrative events through the host workflow lifecycle while retaining the laboratory campaign runner for scientific sub-experiments.
+5. **Facility adapter:** bind rooms, instruments, staff, and status snapshots to stable facility identities.
+6. **Analysis and replay:** evaluate terminal criteria from recorded evidence; replay attempts without rewriting history.
+7. **Host experience:** compose the facility in a world/GUI host without moving laboratory semantics into the host.
 
 ## 11. Scientific and safety boundary
 
