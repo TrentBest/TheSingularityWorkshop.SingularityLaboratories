@@ -28,6 +28,7 @@ public sealed class NarrativeCampaignFacilityAdapter
             throw new ArgumentException("The facility binding must target the exact laboratory facility identity and version.", nameof(binding));
 
         var roomIds = facility.Rooms.Select(room => room.Id).ToHashSet(StringComparer.Ordinal);
+        var apparatusById = facility.Apparatus.ToDictionary(item => item.Id, StringComparer.Ordinal);
         var missingRooms = binding.Locations
             .Where(location => !roomIds.Contains(location.RoomId))
             .Select(location => location.RoomId)
@@ -36,6 +37,17 @@ public sealed class NarrativeCampaignFacilityAdapter
             throw new ArgumentException(
                 $"The facility binding references rooms that are not present in the selected facility: {string.Join(", ", missingRooms)}.",
                 nameof(binding));
+
+        foreach (var location in binding.Locations)
+        {
+            foreach (var apparatusId in location.ApparatusIds)
+            {
+                if (!apparatusById.TryGetValue(apparatusId, out var apparatus))
+                    throw new ArgumentException($"The facility binding references unknown apparatus '{apparatusId}'.", nameof(binding));
+                if (!string.Equals(apparatus.RoomId, location.RoomId, StringComparison.Ordinal))
+                    throw new ArgumentException($"Apparatus '{apparatusId}' is not installed in the room mapped to narrative location '{location.LocationId}'.", nameof(binding));
+            }
+        }
 
         var startingLocation = binding.Locations.Single(location =>
             string.Equals(location.LocationId, binding.StartingLocationId, StringComparison.Ordinal));
@@ -57,6 +69,7 @@ public sealed class NarrativeCampaignFacilityAdapter
 public sealed class NarrativeCampaignFacilityProjection
 {
     private readonly IReadOnlyDictionary<string, string> _roomIdsByLocation;
+    private readonly IReadOnlyDictionary<string, IReadOnlyList<string>> _apparatusIdsByLocation;
 
     internal NarrativeCampaignFacilityProjection(
         string campaignId,
@@ -76,6 +89,8 @@ public sealed class NarrativeCampaignFacilityProjection
         Locations = Array.AsReadOnly(locations.ToArray());
         _roomIdsByLocation = new ReadOnlyDictionary<string, string>(
             Locations.ToDictionary(location => location.LocationId, location => location.RoomId, StringComparer.Ordinal));
+        _apparatusIdsByLocation = new ReadOnlyDictionary<string, IReadOnlyList<string>>(
+            Locations.ToDictionary(location => location.LocationId, location => (IReadOnlyList<string>)Array.AsReadOnly(location.ApparatusIds.ToArray()), StringComparer.Ordinal));
     }
 
     public string CampaignId { get; }
@@ -85,6 +100,15 @@ public sealed class NarrativeCampaignFacilityProjection
     public string StartingLocationId { get; }
     public string StartingRoomId { get; }
     public IReadOnlyList<NarrativeCampaignLocationBinding> Locations { get; }
+
+    /// <summary>Resolves the apparatus identities installed in a validated narrative location.</summary>
+    public IReadOnlyList<string> ResolveApparatusIds(string locationId)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(locationId);
+        return _apparatusIdsByLocation.TryGetValue(locationId, out var apparatusIds)
+            ? apparatusIds
+            : throw new KeyNotFoundException($"No facility room is bound to narrative location '{locationId}'.");
+    }
 
     /// <summary>Resolves a stable narrative location ID to its validated laboratory room ID.</summary>
     public string ResolveRoomId(string locationId)
