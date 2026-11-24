@@ -40,7 +40,7 @@ Each phase should produce a working capability and verifiable evidence. The plat
 ## Phase 2 — Laboratory authoring toolkit
 
 - [x] Create the first static laboratory landing experience and GitHub Actions Pages deployment workflow on `development`.
-- [x] Assemble the complete `docs/` experience into a clean Pages artifact and validate local files, fragment navigation, and SVG well-formedness before upload. First CI verification remains pending.
+- [x] Assemble the complete `docs/` experience into a clean Pages artifact and validate local files, fragment navigation, and SVG well-formedness before upload. The build/validation job passed in Pages workflow run [#116](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45333577162); the separate deploy job failed and requires Pages configuration/host-side diagnosis.
 - [ ] Enable GitHub Pages for this repository with **GitHub Actions** as the build/deployment source and verify the first live deployment.
 - [ ] Expand the landing page into a live laboratory catalog, authoring, and experiment surface as host adapters become available.
 - [x] Establish the reader-facing Core Manual and technical companion, with SURPS-aligned reading paths across the three declared domain sourcebooks.
