@@ -7,7 +7,7 @@
 
 # Singularity Laboratories
 
-[Explore the interactive Singularity Laboratories experience](https://trentbest.github.io/TheSingularityWorkshop.SingularityLaboratories/) — capability atlas, campaign-design workbench, evidence boundaries, and research sourcebooks. The site source and Actions deployment are in place; the repository's Pages setting still needs to be enabled for the first deployment.
+[Explore the interactive Singularity Laboratories experience](https://trentbest.github.io/TheSingularityWorkshop.SingularityLaboratories/) — capability atlas, playable NIGHT SIGNAL containment campaign, campaign-design workbench, evidence boundaries, and research sourcebooks. The site source and Actions deployment are in place; the repository's Pages setting still needs to be enabled for the first deployment.
 
 **Start with the books:** [The Living Laboratory — Core Manual](docs/laboratory-manual.md) · [Technical Companion](docs/laboratory-technical-companion.md) · [SURPS sourcebook catalogue](docs/books/index.md)
 
