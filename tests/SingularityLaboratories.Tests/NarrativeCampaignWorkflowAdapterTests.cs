@@ -87,6 +87,40 @@ public sealed class NarrativeCampaignWorkflowAdapterTests
     }
 
     [Test]
+    public async Task Workflow_CancellationPersistsTheLastCompleteActiveAttempt()
+    {
+        var directory = CreateTemporaryDirectory();
+        try
+        {
+            var request = new NarrativeCampaignExecutionRequest(
+                CreateDefinition(),
+                Guid.NewGuid(),
+                StartTime,
+                [EvidenceCommand(NarrativeEvidenceKind.IncidentTimeline, "timeline")]);
+            var store = new FileSystemNarrativeCampaignAttemptStore(directory);
+            var registry = new WorkflowHandlerRegistry();
+            NarrativeCampaignWorkflowAdapter.Register(registry, store);
+            await using var coordinator = new WorkflowExecutionCoordinator(registry);
+            var accepted = coordinator.Submit(CreateWorkflow(), CreateContext(request));
+            var running = coordinator.StartAsync(accepted.RunId);
+
+            Assert.That(coordinator.Cancel(accepted.RunId), Is.True);
+            var result = await running;
+
+            Assert.That(result.Status, Is.EqualTo(WorkflowStatus.Cancelled));
+            var persisted = await store.GetAsync(request.AttemptId);
+            Assert.That(persisted, Is.Not.Null);
+            Assert.That(persisted!.Outcome, Is.EqualTo(NarrativeCampaignOutcome.Active));
+            Assert.That(persisted.Events, Has.Count.EqualTo(1));
+            Assert.That(persisted.Events[0].Kind, Is.EqualTo(NarrativeCampaignEventKind.AttemptStarted));
+        }
+        finally
+        {
+            Directory.Delete(directory, recursive: true);
+        }
+    }
+
+    [Test]
     public void Request_RejectsCommandsAfterTerminalOutcome()
     {
         Assert.Throws<ArgumentException>(() => new NarrativeCampaignExecutionRequest(
