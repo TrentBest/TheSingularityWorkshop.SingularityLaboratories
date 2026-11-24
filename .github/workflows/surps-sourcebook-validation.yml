@@ -14,6 +14,7 @@ on:
       - "docs/specimens/**"
       - "README.md"
       - "ROADMAP.md"
+      - "TODO.md"
       - "docs/assets/laboratory-*.svg"
       - "docs/assets/teaching-research-campus-map.svg"
       - "scripts/validate_documentation.py"
