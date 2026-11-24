@@ -115,7 +115,7 @@ public sealed class NarrativeCampaignStateMachineTests
         var definition = CreateDefinition();
         var attempt = machine.Start(definition, Guid.NewGuid(), StartTime);
         var evidence = Evidence(NarrativeEvidenceKind.IncidentTimeline, NarrativeEvidenceState.VerifiedCurrent, "timeline");
-        attempt = machine.RecordEvidence(definition, attempt, evidence);
+        attempt = machine.RecordEvidence(definition, attempt, evidence, StartTime.AddMinutes(2));
 
         attempt = machine.RecordEvidence(definition, attempt, Evidence(
             NarrativeEvidenceKind.IncidentTimeline, NarrativeEvidenceState.Stale, "timeline-refresh"), StartTime.AddMinutes(3));
