@@ -96,6 +96,43 @@ The same versioned experiment should retain the same scientific identity when it
 
 These are working domain concepts. They do not imply that every concept is already represented by a complete runtime service.
 
+### The researcher’s view
+
+A researcher or learner should be able to move through a simple, understandable path:
+
+1. State the question and why it matters.
+2. Choose a method that can produce relevant evidence.
+3. Inspect the model, instrument, or source and its limitations.
+4. Configure the investigation and identify what would challenge the expectation.
+5. Request or conduct the work under the applicable policy.
+6. Examine what actually happened, including missing or failed observations.
+7. Interpret the evidence within its scope and uncertainty.
+8. Preserve the record and decide what question should come next.
+
+The person should not need to understand every implementation detail to make a responsible choice. The interface should expose deeper information when the decision requires it.
+
+### The laboratory author’s Workshop view
+
+An author or operator needs a deeper surface for defining and inspecting the laboratory:
+
+- compose versioned facilities, instruments, apparatus, and measurement channels;
+- bind an experiment to an exact model identity and version;
+- declare parameter schemas, assumptions, supported ranges, and exclusions;
+- prepare templates and baseline/scenario configurations;
+- inspect admission decisions and every reason for denial;
+- follow execution lifecycle, outputs, failures, cancellation, and provenance;
+- compare only compatible measurements and preserve uncertainty;
+- review the evidence needed before a claim or handoff is accepted.
+
+Some of these capabilities exist as contracts and workflow foundations; a complete interactive authoring console and campaign analysis surface remain future work.
+
+### A living domain map
+
+![Singularity Laboratories domain and ownership map](assets/laboratory-domain-map.svg)
+
+The laboratory domain sits between scientific model providers, workflow execution, experience composition, presentation, and the trusted host. The arrows represent integration relationships, not ownership transfer. Physics remains authoritative for physical models; FSM_Execution remains authoritative for workflow lifecycle; the host remains responsible for security and enforcement.
+
+
 ---
 
 # Part II — Conducting an investigation
@@ -168,6 +205,17 @@ A model can be useful without being validated for every purpose. The correct res
 ## 9. Run, observe, and preserve
 
 The laboratory runtime provides a versioned path for experiment definitions, configurations, admission, execution, and run records. The current campaign foundation executes a baseline and scenario configurations through the ordinary experiment runner, records explicit outcomes, and preserves the original campaign definition alongside scenario evidence.
+
+
+### Adapter views: human inquiry and digital execution
+
+The human-facing procedure and the digital runtime are two views of one investigation, not competing sources of scientific truth.
+
+- **Human/researcher view:** a person can frame the question, select a method, record conditions, observe or measure, document uncertainty, and preserve the reasoning without depending on a particular application.
+- **Digital view:** versioned definitions and configurations bind to explicit providers; a host admits the work; FSM_Execution manages lifecycle; the model provider evaluates the request; and immutable records preserve the declared conditions and observed outcomes.
+- **SURPS/tabletop use:** Singularity Laboratories does not define a universal dice mechanic or generic tabletop adapter for scientific work. If a SURPS experience uses a laboratory investigation as play, the selected SURPS rulebook owns that player procedure. It must remain grounded in the laboratory’s authoritative scientific semantics and must not present a roleplaying abstraction as a physical measurement.
+
+The digital adapter may expose more detail than a person can conveniently calculate by hand. That detail should improve inspection, not hide assumptions or turn a model result into a stronger claim than the evidence supports.
 
 A run is not merely a number on a screen. It needs enough provenance to answer:
 
