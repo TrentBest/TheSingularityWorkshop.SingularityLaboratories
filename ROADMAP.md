@@ -90,7 +90,8 @@ Each phase should produce a working capability and verifiable evidence. The plat
 - [x] Define the experiment campaign concept: objective, baseline, factors, scenario set, acceptance criteria, constraints, run matrix, analysis, and disposition.
 - [x] Document scenario classes (nominal, boundary, sensitivity, tolerance, disturbance, supported failure, and adversarial) with explicit model-domain and evidence boundaries.
 - [x] Implement immutable, versioned campaign and scenario definition contracts with a required baseline, measurable acceptance criteria, unique scenario identities, and exact experiment-version binding; add constructor invariant tests.
-- [x] Implement campaign execution through the ordinary laboratory runner, with exact experiment/model version checks, host admission policy, per-scenario run provenance, explicit failed/cancelled/not-run outcomes, and continuation after an individual scenario failure. Campaign execution persistence and durable campaign-to-run lineage remain open.
+- [x] Implement campaign execution through the ordinary laboratory runner, with exact experiment/model version checks, host admission policy, per-scenario run provenance, explicit failed/cancelled/not-run outcomes, and continuation after an individual scenario failure.
+- [x] Persist complete campaign execution envelopes atomically, including successful scenario run records and explicit failure/cancellation outcomes; reject duplicate execution identities and verify round-trip lineage. Cross-store transactions with the individual run catalog remain a host integration concern.
 - [ ] Build a customer-facing capability catalog with model fidelity, validation evidence, assumptions, limitations, supported ranges, dependencies, and resource estimates.
 - [ ] Implement reservation lifecycle independently from scientific run lifecycle and execution admission.
 - [ ] Add tenant-scoped workspaces and enforce isolation and authorization in trusted host services.
