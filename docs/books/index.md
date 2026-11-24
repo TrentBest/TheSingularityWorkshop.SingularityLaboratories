@@ -21,6 +21,10 @@ The standard is the target for new work; full conformance remains in progress un
 | [Laboratory NPCs](laboratory-npcs.md) | 2 | [Descriptor](laboratory-npcs.book.json) | [Cover](covers/laboratory-npcs.svg) | Laboratory-specific positions, qualifications, staffing, shifts, and governance |
 | [Flagship Laboratory Facilities](flagship-laboratory-facilities.md) | 3 | [Descriptor](flagship-laboratory-facilities.book.json) | [Cover](covers/flagship-laboratory-facilities.svg) | Complete institutions, campuses, departments, infrastructure, operations, and experiences |
 
+## First facility specimen
+
+The [Teaching and Research Campus](../specimens/teaching-research-campus.md) is the first fictional facility composition target. Its status is an implementation specification with selected domain contracts and tests; it is not a packaged production campus, live instrument service, booking system, or deployed spatial experience.
+
 ## Ownership boundaries
 
 - **Singularity Laboratories:** portable laboratory semantics, experiment definitions, apparatus and instrument descriptions, measurement context, research workflows, laboratory staffing, facility composition, and provenance.
