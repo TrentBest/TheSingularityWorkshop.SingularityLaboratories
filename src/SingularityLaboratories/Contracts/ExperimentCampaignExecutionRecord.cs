@@ -66,6 +66,8 @@ public sealed record ExperimentCampaignExecutionRecord
         Guid executionId,
         string campaignId,
         string campaignVersion,
+        string laboratoryId,
+        string laboratoryVersion,
         string experimentId,
         string experimentVersion,
         string modelId,
@@ -79,6 +81,8 @@ public sealed record ExperimentCampaignExecutionRecord
             throw new ArgumentException("An execution identity is required.", nameof(executionId));
         CampaignId = Required(campaignId, nameof(campaignId));
         CampaignVersion = Required(campaignVersion, nameof(campaignVersion));
+        LaboratoryId = Required(laboratoryId, nameof(laboratoryId));
+        LaboratoryVersion = Required(laboratoryVersion, nameof(laboratoryVersion));
         ExperimentId = Required(experimentId, nameof(experimentId));
         ExperimentVersion = Required(experimentVersion, nameof(experimentVersion));
         ModelId = Required(modelId, nameof(modelId));
@@ -95,6 +99,14 @@ public sealed record ExperimentCampaignExecutionRecord
             throw new ArgumentException("A campaign execution requires non-null scenario results.", nameof(scenarios));
         if (snapshot.Select(scenario => scenario.ScenarioId).Distinct(StringComparer.Ordinal).Count() != snapshot.Length)
             throw new ArgumentException("Scenario result identifiers must be unique.", nameof(scenarios));
+        if (snapshot.Where(scenario => scenario.Run is not null).Any(scenario =>
+            !string.Equals(scenario.Run!.LaboratoryId, LaboratoryId, StringComparison.Ordinal) ||
+            !string.Equals(scenario.Run.LaboratoryVersion, LaboratoryVersion, StringComparison.Ordinal) ||
+            !string.Equals(scenario.Run.ExperimentId, ExperimentId, StringComparison.Ordinal) ||
+            !string.Equals(scenario.Run.ExperimentVersion, ExperimentVersion, StringComparison.Ordinal) ||
+            !string.Equals(scenario.Run.ModelId, ModelId, StringComparison.Ordinal) ||
+            !string.Equals(scenario.Run.ModelVersion, ModelVersion, StringComparison.Ordinal)))
+            throw new ArgumentException("Every successful scenario run must match the campaign execution's exact laboratory, experiment, and model versions.", nameof(scenarios));
         var completed = snapshot.Count(scenario => scenario.Status == ExperimentCampaignScenarioStatus.Completed);
         var failed = snapshot.Count(scenario => scenario.Status == ExperimentCampaignScenarioStatus.Failed);
         var cancelled = snapshot.Count(scenario => scenario.Status == ExperimentCampaignScenarioStatus.Cancelled);
@@ -119,6 +131,8 @@ public sealed record ExperimentCampaignExecutionRecord
     public Guid ExecutionId { get; }
     public string CampaignId { get; }
     public string CampaignVersion { get; }
+    public string LaboratoryId { get; }
+    public string LaboratoryVersion { get; }
     public string ExperimentId { get; }
     public string ExperimentVersion { get; }
     public string ModelId { get; }
