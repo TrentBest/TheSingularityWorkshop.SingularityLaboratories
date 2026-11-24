@@ -137,6 +137,15 @@ public sealed class NarrativeCampaignStateMachineTests
             new NarrativeCampaignDefinition("other", "1.0.0", "Role", "Start", definition.RequiredSafeEscapeEvidence),
             refreshed,
             Evidence(NarrativeEvidenceKind.FacilityState, NarrativeEvidenceState.VerifiedCurrent, "facility-other"), StartTime.AddMinutes(7)));
+
+        var changedDefinition = new NarrativeCampaignDefinition(
+            definition.Id,
+            definition.Version,
+            "Different fixed role",
+            definition.StartingLocation,
+            definition.RequiredSafeEscapeEvidence);
+        Assert.Throws<ArgumentException>(() => machine.AttemptSafeEscape(
+            changedDefinition, refreshed, "route-A", StartTime.AddMinutes(8)));
     }
 
     private static NarrativeCampaignDefinition CreateDefinition() => new(
