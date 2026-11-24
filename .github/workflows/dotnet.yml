@@ -59,8 +59,6 @@ jobs:
         run: dotnet build dependencies/FSM_COS/src/FSM_COS/FSM_COS.csproj --configuration Release --no-restore --property:WorkshopUseRepositorySources=true
       - name: Test laboratory domain contracts and adapters
         run: dotnet test tests/SingularityLaboratories.Tests/SingularityLaboratories.Tests.csproj --configuration Release --property:WorkshopUseRepositorySources=true
-      - name: Test the selected Physics experiment
-        run: dotnet test dependencies/Physics/tests/TheSingularityWorkshop.Physics.Tests/TheSingularityWorkshop.Physics.Tests.csproj --configuration Release --filter FullyQualifiedName~ElectricalThermalCouplingExperimentTests
       - name: Build laboratory persistence adapter
         run: dotnet build src/Laboratory.Persistence/Laboratory.Persistence.csproj --configuration Release
       - name: Build FSM_Execution workflow adapter
@@ -69,3 +67,5 @@ jobs:
         run: dotnet build src/Laboratory.PhysicsAdapter/Laboratory.PhysicsAdapter.csproj --configuration Release
       - name: Build laboratory MicroBundle adapter
         run: dotnet build src/Laboratory.MicroBundleAdapter/Laboratory.MicroBundleAdapter.csproj --configuration Release
+      - name: Test the selected Physics experiment
+        run: dotnet test dependencies/Physics/tests/TheSingularityWorkshop.Physics.Tests/TheSingularityWorkshop.Physics.Tests.csproj --configuration Release --filter FullyQualifiedName~ElectricalThermalCouplingExperimentTests
