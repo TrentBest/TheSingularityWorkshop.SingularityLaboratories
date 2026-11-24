@@ -36,6 +36,8 @@ public static class NarrativeCampaignWorkflowAdapter
             {
                 foreach (var command in request.Commands)
                 {
+                    // Yield between deterministic transitions so host cancellation remains cooperative.
+                    await Task.Yield();
                     cancellationToken.ThrowIfCancellationRequested();
                     attempt = command.Kind switch
                     {
