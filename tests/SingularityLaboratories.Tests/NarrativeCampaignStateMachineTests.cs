@@ -116,16 +116,27 @@ public sealed class NarrativeCampaignStateMachineTests
         var attempt = machine.Start(definition, Guid.NewGuid(), StartTime);
         var evidence = Evidence(NarrativeEvidenceKind.IncidentTimeline, NarrativeEvidenceState.VerifiedCurrent, "timeline");
         attempt = machine.RecordEvidence(definition, attempt, evidence, StartTime.AddMinutes(2));
+        attempt = machine.RecordEvidence(definition, attempt, Evidence(
+            NarrativeEvidenceKind.FacilityState, NarrativeEvidenceState.VerifiedCurrent, "facility"), StartTime.AddMinutes(2));
+        attempt = machine.RecordEvidence(definition, attempt, Evidence(
+            NarrativeEvidenceKind.EgressRecord, NarrativeEvidenceState.VerifiedCurrent, "egress"), StartTime.AddMinutes(2));
 
         attempt = machine.RecordEvidence(definition, attempt, Evidence(
             NarrativeEvidenceKind.IncidentTimeline, NarrativeEvidenceState.Stale, "timeline-refresh"), StartTime.AddMinutes(3));
         var denied = machine.AttemptSafeEscape(definition, attempt, "route-A", StartTime.AddMinutes(4));
         Assert.That(denied.Outcome, Is.EqualTo(NarrativeCampaignOutcome.Active));
         Assert.That(denied.Events[^1].Kind, Is.EqualTo(NarrativeCampaignEventKind.SafeEscapeDenied));
+
+        var refreshed = machine.RecordEvidence(definition, denied, Evidence(
+            NarrativeEvidenceKind.IncidentTimeline, NarrativeEvidenceState.VerifiedCurrent, "timeline-final"), StartTime.AddMinutes(5));
+        var escaped = machine.AttemptSafeEscape(definition, refreshed, "route-A", StartTime.AddMinutes(6));
+        Assert.That(escaped.Outcome, Is.EqualTo(NarrativeCampaignOutcome.VerifiedSafeEscape));
+        Assert.That(escaped.Evidence, Has.Count.EqualTo(5));
+
         Assert.Throws<ArgumentException>(() => machine.RecordEvidence(
             new NarrativeCampaignDefinition("other", "1.0.0", "Role", "Start", definition.RequiredSafeEscapeEvidence),
-            attempt,
-            Evidence(NarrativeEvidenceKind.FacilityState, NarrativeEvidenceState.VerifiedCurrent, "facility"), StartTime.AddMinutes(5)));
+            refreshed,
+            Evidence(NarrativeEvidenceKind.FacilityState, NarrativeEvidenceState.VerifiedCurrent, "facility-other"), StartTime.AddMinutes(7)));
     }
 
     private static NarrativeCampaignDefinition CreateDefinition() => new(
