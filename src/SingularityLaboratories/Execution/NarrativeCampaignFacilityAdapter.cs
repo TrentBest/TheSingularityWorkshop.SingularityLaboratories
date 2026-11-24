@@ -13,7 +13,9 @@ public sealed class NarrativeCampaignFacilityAdapter
     public NarrativeCampaignFacilityProjection Bind(
         NarrativeCampaignDefinition campaign,
         LaboratoryFacility facility,
-        NarrativeCampaignFacilityBinding binding)
+        NarrativeCampaignFacilityBinding binding,
+        IEnumerable<LaboratoryStaffAssignment>? staffAssignments = null,
+        DateTimeOffset? evaluatedAtUtc = null)
     {
         ArgumentNullException.ThrowIfNull(campaign);
         ArgumentNullException.ThrowIfNull(facility);
@@ -67,6 +69,34 @@ public sealed class NarrativeCampaignFacilityAdapter
             }
         }
 
+        var staffProjection = new List<NarrativeCampaignStaffProjection>();
+        if (binding.StaffBindings.Count > 0)
+        {
+            if (staffAssignments is null || evaluatedAtUtc is null || evaluatedAtUtc.Value.Offset != TimeSpan.Zero)
+                throw new ArgumentException("Staff bindings require host assignments and a UTC evaluation instant.", nameof(staffAssignments));
+            var assignmentsById = staffAssignments.ToDictionary(item => item.AssignmentId, StringComparer.Ordinal);
+            foreach (var staffBinding in binding.StaffBindings)
+            {
+                if (!string.Equals(staffBinding.CampaignRoleDisplayName, campaign.PlayerRole, StringComparison.Ordinal))
+                    throw new ArgumentException("A narrative staff binding must match the campaign's fixed player role.", nameof(binding));
+                if (!assignmentsById.TryGetValue(staffBinding.AssignmentId, out var assignment))
+                    throw new ArgumentException($"The host did not supply staff assignment '{staffBinding.AssignmentId}'.", nameof(staffAssignments));
+                if (!string.Equals(assignment.LaboratoryId, binding.LaboratoryId, StringComparison.Ordinal) ||
+                    assignment.Role != staffBinding.RequiredRole ||
+                    !assignment.IsActiveAt(evaluatedAtUtc.Value))
+                    throw new ArgumentException($"Staff assignment '{staffBinding.AssignmentId}' is not an active matching responsibility for this laboratory and campaign role.", nameof(staffAssignments));
+
+                staffProjection.Add(new NarrativeCampaignStaffProjection(
+                    staffBinding.CampaignRoleDisplayName,
+                    staffBinding.AssignmentId,
+                    staffBinding.RequiredRole));
+            }
+        }
+        else if (staffAssignments is not null || evaluatedAtUtc is not null)
+        {
+            throw new ArgumentException("Host staff assignments were supplied without a corresponding campaign staff binding.", nameof(staffAssignments));
+        }
+
         var startingLocation = binding.Locations.Single(location =>
             string.Equals(location.LocationId, binding.StartingLocationId, StringComparison.Ordinal));
         if (!string.Equals(startingLocation.DisplayName, campaign.StartingLocation, StringComparison.Ordinal))
@@ -79,7 +109,8 @@ public sealed class NarrativeCampaignFacilityAdapter
             facility.Version,
             binding.StartingLocationId,
             startingLocation.RoomId,
-            binding.Locations);
+            binding.Locations,
+            staffProjection);
     }
 }
 
@@ -98,7 +129,8 @@ public sealed class NarrativeCampaignFacilityProjection
         string facilityVersion,
         string startingLocationId,
         string startingRoomId,
-        IReadOnlyList<NarrativeCampaignLocationBinding> locations)
+        IReadOnlyList<NarrativeCampaignLocationBinding> locations,
+        IReadOnlyList<NarrativeCampaignStaffProjection> staffAssignments)
     {
         CampaignId = campaignId;
         CampaignVersion = campaignVersion;
@@ -107,6 +139,7 @@ public sealed class NarrativeCampaignFacilityProjection
         StartingLocationId = startingLocationId;
         StartingRoomId = startingRoomId;
         Locations = Array.AsReadOnly(locations.ToArray());
+        StaffAssignments = Array.AsReadOnly(staffAssignments.ToArray());
         _roomIdsByLocation = new ReadOnlyDictionary<string, string>(
             Locations.ToDictionary(location => location.LocationId, location => location.RoomId, StringComparer.Ordinal));
         _apparatusIdsByLocation = new ReadOnlyDictionary<string, IReadOnlyList<string>>(
@@ -124,6 +157,7 @@ public sealed class NarrativeCampaignFacilityProjection
     public string StartingLocationId { get; }
     public string StartingRoomId { get; }
     public IReadOnlyList<NarrativeCampaignLocationBinding> Locations { get; }
+    public IReadOnlyList<NarrativeCampaignStaffProjection> StaffAssignments { get; }
 
     /// <summary>Resolves the apparatus identities installed in a validated narrative location.</summary>
     public IReadOnlyList<string> ResolveApparatusIds(string locationId)
@@ -161,3 +195,9 @@ public sealed class NarrativeCampaignFacilityProjection
             : throw new KeyNotFoundException($"No facility room is bound to narrative location '{locationId}'.");
     }
 }
+
+/// <summary>Validated mapping from a fixed narrative role to a laboratory responsibility assignment.</summary>
+public sealed record NarrativeCampaignStaffProjection(
+    string CampaignRoleDisplayName,
+    string AssignmentId,
+    LaboratoryStaffRole Role);
