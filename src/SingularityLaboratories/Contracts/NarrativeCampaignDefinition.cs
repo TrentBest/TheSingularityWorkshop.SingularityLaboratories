@@ -84,6 +84,8 @@ public sealed record NarrativeCampaignDefinition
         var evidence = requiredSafeEscapeEvidence.ToArray();
         if (evidence.Length == 0)
             throw new ArgumentException("A safe-escape gate must require at least one evidence category.", nameof(requiredSafeEscapeEvidence));
+        if (!evidence.Contains(NarrativeEvidenceKind.EgressRecord))
+            throw new ArgumentException("A safe-escape gate must include an egress record so the attempted route can be cross-checked.", nameof(requiredSafeEscapeEvidence));
         if (evidence.Any(kind => !Enum.IsDefined(kind)))
             throw new ArgumentOutOfRangeException(nameof(requiredSafeEscapeEvidence));
         if (evidence.Distinct().Count() != evidence.Length)
