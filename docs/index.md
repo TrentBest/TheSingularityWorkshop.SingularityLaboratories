@@ -22,6 +22,12 @@ The scientific method is not a universal five-step recipe. Different fields use 
 
 Start with the [Scientific Inquiry sourcebook](books/scientific-inquiry.md), then explore the [global history](history-of-science.md), [research methods atlas](research-methods-atlas.md), and [reproducibility guide](reproducibility-and-open-science.md). Concrete method specimens now include [field observation](specimens/field-observation-watershed.md), [historical/archival inquiry](specimens/historical-archival-inquiry.md), and [computational study](specimens/computational-study.md). Every experiment also has a [Physics settings dashboard contract](experiment-physics-settings-dashboard.md) that separates declared Physics consumption from host-observed MicroBundle execution, plus [distinct provider specimens](experiment-provider-specimens.md) demonstrating the electrical/thermal model and a proposed gesture-driven security experiment.
 
+## Virtual laboratory service
+
+**Break it in concept before you try it in reality.** The long-term service lets a scientist reserve a virtual workspace, prepare a versioned experiment, challenge it with deliberate scenarios, inspect uncertainty and limitations, and export a reproducible evidence package before deciding whether a physical test is justified.
+
+Read the [Virtual Laboratory Service domain specification](virtual-laboratory-service.md) for the customer journey, experiment campaigns, scenario design, fidelity disclosures, reservation boundaries, and acceptance gates. This describes the intended service; hosted rental, billing, physical instrument control, and research-grade validation are not yet claimed as implemented.
+
 ## What makes the experience different?
 
 A facility is not merely a collection of rooms. It is an institution with a mission, people, programs, instruments, infrastructure, maintenance, safety and security governance, evidence, archives, and an operational rhythm. Every profile distinguishes documented fact, reconstruction, fiction, and speculation.
