@@ -9,6 +9,8 @@
 
 [Explore the interactive Singularity Laboratories experience](https://trentbest.github.io/TheSingularityWorkshop.SingularityLaboratories/) — capability atlas, campaign-design workbench, evidence boundaries, and research sourcebooks. The site source and Actions deployment are in place; the repository's Pages setting still needs to be enabled for the first deployment.
 
+**Start with the books:** [The Living Laboratory — Core Manual](docs/laboratory-manual.md) · [Technical Companion](docs/laboratory-technical-companion.md) · [SURPS sourcebook catalogue](docs/books/index.md)
+
 **The Workshop's laboratory, experimentation, education, and research platform — from the subatomic to the astronomical.**
 
 Singularity Laboratories provides abstractions, authoring tools, runtime workflows, instruments, and scientific services for creating and operating laboratories. It is where people configure investigations, study models, collect measurements, teach scientific inquiry, conduct research, and share reproducible work.
