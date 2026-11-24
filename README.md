@@ -61,7 +61,7 @@ Hazardous phenomena may be explored as bounded educational simulations of proces
 
 ## 4. Current implementation
 
-The initial runtime is a host-neutral foundation with versioned laboratory/experiment definitions, configuration validation, authoring templates, Physics and FSM_Execution adapters, MicroBundle composition, immutable run records, persistence, replay, result views, safety metadata, validation assessments, admission policy, and resource-budget estimates.
+The runtime includes versioned laboratory/experiment and campaign definitions, configuration validation, authoring templates, Physics and FSM_Execution adapters, MicroBundle composition, immutable run records, replay, result views, safety metadata, validation assessments, admission policy, and resource-budget estimates. Campaigns execute baseline and scenario configurations through the ordinary experiment runner, preserve per-scenario outcomes and run provenance, and can be submitted as FSM_Execution workflows with atomic campaign-execution persistence.
 
 The LaboratoryStaffAssignment contract currently records a host-issued opaque principal reference, laboratory identity, responsibility, assigning principal, assignment time, and optional expiry. Its PrincipalId is a digital host principal reference, **not** a City NPC/person ID. It does not prove a qualification, define a stable institutional position, or grant digital permissions. A future character-to-principal mapping requires an explicit trusted identity-link contract.
 
