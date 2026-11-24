@@ -89,12 +89,12 @@ Keep these states separate. A feature may be implemented but unverified. Never c
 **Latest observed CI snapshot (2026-11-24 UTC):**
 
 - **.NET:** full workflow passed — [run #404](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45329086362), commit `f1024175f42e09f5bc47729d2677e1a406a8a20e`. This includes domain/adapter tests, narrative persistence round-trip and identity checks, narrative FSM_Execution safe-escape/death/cancellation tests, and successful persistence, workflow, Physics, and MicroBundle builds.
-- **Documentation/SURPS:** most recent pass was [run #111](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45328299497), commit `84c9c0a5`; the NIGHT SIGNAL specimen update passed in [run #110](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45328291293), commit `1ceaf6e2`. The latest specimen/README/roadmap changes require a fresh validator run.
+- **Documentation/SURPS:** passed after the latest specimen, README, and roadmap updates — [run #52](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45329260682), commit `69caa88c`. Earlier passes on the specimen and README commits also succeeded (runs #50 and #51).
 - **Pages deployment:** failed on commit `1ceaf6e2` — [run #108](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/actions/runs/45328291264). The failure details were not exposed by the available job-log endpoint. The site is not verified live; the repository Pages setting still requires owner enablement and a successful deployment.
 - **Branches:** last inventory returned exactly `development` and `master`.
 
 - [x] .NET tests and all adapter builds passed in run #404.
-- [ ] Documentation/SURPS validation green after the latest specimen and README updates.
+- [x] Documentation/SURPS validation green after the latest specimen and README updates (run #52).
 - [ ] Pages deployment verified after Pages is enabled.
 - [x] Exactly two active branches remain: `development` and `master` (last checked 2026-11-24 UTC).
 - [x] No promotion to `master`, NuGet publication, or release action performed in this workstream.
