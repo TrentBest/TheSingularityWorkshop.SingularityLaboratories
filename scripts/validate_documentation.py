@@ -53,7 +53,7 @@ class PageParser(HTMLParser):
 def check_markdown_links(path: Path, errors: list[str]) -> int:
     source = path.read_text(encoding="utf-8")
     checked = 0
-    pattern = re.compile(r"!??\[[^\]]*\]\(([^)]+)\)")
+    pattern = re.compile(r"!??\[[^\]]*\]\(([^)]+)\")
     for raw in pattern.findall(source):
         target = raw.strip().split()[0].strip("<>")
         parts = urlsplit(target)
@@ -190,7 +190,7 @@ def main() -> int:
 
     print("Singularity Laboratories documentation validation passed.")
     print(f"Validated the core manual, technical companion, sourcebook catalogue, Pages anchors, and {link_count} local Markdown links.")
-    print("Validated three accessible SVG publication assets.")
+    print(f"Validated {len(VISUALS)} accessible SVG publication assets.")
     return 0
 
 
