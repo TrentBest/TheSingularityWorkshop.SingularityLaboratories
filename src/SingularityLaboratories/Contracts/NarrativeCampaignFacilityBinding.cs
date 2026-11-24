@@ -3,16 +3,21 @@ namespace TheSingularityWorkshop.SingularityLaboratories.Contracts;
 /// <summary>Maps one stable narrative location identity to a portable laboratory room identity.</summary>
 public sealed record NarrativeCampaignLocationBinding
 {
-    public NarrativeCampaignLocationBinding(string locationId, string displayName, string roomId)
+    public NarrativeCampaignLocationBinding(string locationId, string displayName, string roomId, IReadOnlyList<string>? apparatusIds = null)
     {
         LocationId = Required(locationId, nameof(locationId));
         DisplayName = Required(displayName, nameof(displayName));
         RoomId = Required(roomId, nameof(roomId));
+        var apparatus = (apparatusIds ?? Array.Empty<string>()).Select(id => Required(id, nameof(apparatusIds))).ToArray();
+        if (apparatus.Distinct(StringComparer.Ordinal).Count() != apparatus.Length)
+            throw new ArgumentException("Apparatus identifiers must be unique within a location.", nameof(apparatusIds));
+        ApparatusIds = Array.AsReadOnly(apparatus);
     }
 
     public string LocationId { get; }
     public string DisplayName { get; }
     public string RoomId { get; }
+    public IReadOnlyList<string> ApparatusIds { get; }
 
     private static string Required(string value, string parameterName)
     {
@@ -49,6 +54,9 @@ public sealed record NarrativeCampaignFacilityBinding
             throw new ArgumentException("Narrative location IDs must be unique.", nameof(locations));
         if (snapshot.Select(item => item.RoomId).Distinct(StringComparer.Ordinal).Count() != snapshot.Length)
             throw new ArgumentException("Each narrative location must map to a distinct facility room.", nameof(locations));
+        var apparatusIds = snapshot.SelectMany(item => item.ApparatusIds).ToArray();
+        if (apparatusIds.Distinct(StringComparer.Ordinal).Count() != apparatusIds.Length)
+            throw new ArgumentException("Each apparatus item may be mapped to only one narrative location.", nameof(locations));
         if (!snapshot.Any(item => string.Equals(item.LocationId, StartingLocationId, StringComparison.Ordinal)))
             throw new ArgumentException("The starting location must be present in the facility mapping.", nameof(startingLocationId));
 
