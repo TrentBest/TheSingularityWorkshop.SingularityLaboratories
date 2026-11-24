@@ -60,6 +60,10 @@ A campaign should eventually describe:
 
 Campaigns must not silently mutate a completed run. A changed parameter, model, experiment definition, or acceptance criterion creates a new version or run relationship with explicit lineage.
 
+### Current implementation boundary
+
+The first domain contracts now exist for immutable campaign definitions and individual scenarios. A campaign requires one baseline, at least one additional scenario, unique scenario identifiers, measurable acceptance criteria, and configurations bound to the exact experiment identity and version. These contracts describe a campaign; they do not yet execute scenario matrices, generate probes, persist campaign history, or provide hosted reservations.
+
 ## Scenario design: how to break an idea
 
 Scenario generation must be transparent and bounded. The platform should support deliberate probes such as:
