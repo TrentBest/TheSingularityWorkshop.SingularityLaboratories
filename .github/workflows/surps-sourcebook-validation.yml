@@ -20,6 +20,11 @@ on:
       - ".surps/participation.json"
       - "docs/books/**"
       - "docs/books/covers/**"
+      - "docs/laboratory-manual.md"
+      - "docs/laboratory-technical-companion.md"
+      - "docs/index.html"
+      - "docs/assets/laboratory-*.svg"
+      - "scripts/validate_documentation.py"
       - "scripts/validate_surps_participation.py"
       - ".github/workflows/surps-sourcebook-validation.yml"
   workflow_dispatch:
