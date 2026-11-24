@@ -7,6 +7,8 @@
 
 **Development manuscript · Edition 0.1**
 
+![The Living Laboratory — core manual cover](assets/laboratory-manual-cover.svg)
+
 > Ask a question. Design an investigation. Challenge the model. Preserve what happened. Make the next decision with evidence.
 
 ---
