@@ -7,6 +7,8 @@ namespace TheSingularityWorkshop.SingularityLaboratories.Tests;
 [TestFixture]
 public sealed class NarrativeCampaignFacilityAdapterTests
 {
+    private static readonly DateTimeOffset StartTime = new(2026, 11, 24, 2, 0, 0, TimeSpan.Zero);
+
     [Test]
     public void Bind_ResolvesFixedOpeningAndEveryNarrativeAreaToStableFacilityRooms()
     {
