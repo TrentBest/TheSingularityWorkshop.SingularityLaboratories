@@ -36,6 +36,9 @@ Each phase should produce a working capability and verifiable evidence. The plat
 - [x] Create the first static laboratory landing experience and GitHub Actions Pages deployment workflow on `development`.
 - [ ] Enable GitHub Pages for this repository with **GitHub Actions** as the build/deployment source and verify the first live deployment.
 - [ ] Expand the landing page into a live laboratory catalog, authoring, and experiment surface as host adapters become available.
+- [x] Establish the reader-facing Core Manual and technical companion, with SURPS-aligned reading paths across the three declared domain sourcebooks.
+- [x] Add a browser-only campaign-draft workbench and a fictional campus explorer; both label their prototype status and do not claim runtime execution or live facility services.
+- [x] Add a documentation CI gate for book structure, local links, Pages anchors, and accessible SVG metadata.
 
 - [x] Establish versioned laboratory, facility, instrument, apparatus, measurement-channel, and experiment definitions.
 - [x] Add versioned parameter schemas and a host-neutral result view projection.
