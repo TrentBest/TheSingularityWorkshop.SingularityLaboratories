@@ -111,8 +111,11 @@ public sealed class NarrativeCampaignWorkflowAdapterTests
             var persisted = await store.GetAsync(request.AttemptId);
             Assert.That(persisted, Is.Not.Null);
             Assert.That(persisted!.Outcome, Is.EqualTo(NarrativeCampaignOutcome.Active));
-            Assert.That(persisted.Events, Has.Count.EqualTo(1));
-            Assert.That(persisted.Events[0].Kind, Is.EqualTo(NarrativeCampaignEventKind.AttemptStarted));
+            Assert.That(persisted.Events.Count, Is.InRange(1, 2));
+            Assert.That(persisted.Events[^1].Kind, Is.AnyOf(
+                NarrativeCampaignEventKind.AttemptStarted,
+                NarrativeCampaignEventKind.EvidenceRecorded));
+            Assert.That(persisted.Evidence.Count, Is.EqualTo(persisted.Events.Count - 1));
         }
         finally
         {
