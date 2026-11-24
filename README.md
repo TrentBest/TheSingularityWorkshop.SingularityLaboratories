@@ -25,7 +25,7 @@ A laboratory is portable. It can appear directly in The Singularity Workshop, as
 - **Trusted hosts** own authentication, authorization, credentials, and enforcement.
 - **Renderer / Visualize** own presentation and visual manifestation.
 
-[Browse the laboratory sourcebook catalogue](docs/books/index.md). The sourcebook hierarchy includes [Scientific Inquiry — LOD 1](docs/books/scientific-inquiry.md), [Laboratory NPCs — LOD 2](docs/books/laboratory-npcs.md), and [Flagship Laboratory Facilities — LOD 3](docs/books/flagship-laboratory-facilities.md). These extend the same domain rather than creating duplicate people or scientific models.
+[Explore the virtual laboratory service concept](docs/virtual-laboratory-service.md), including rentable virtual workspaces and preflight experiment campaigns. [Browse the laboratory sourcebook catalogue](docs/books/index.md). The sourcebook hierarchy includes [Scientific Inquiry — LOD 1](docs/books/scientific-inquiry.md), [Laboratory NPCs — LOD 2](docs/books/laboratory-npcs.md), and [Flagship Laboratory Facilities — LOD 3](docs/books/flagship-laboratory-facilities.md). These extend the same domain rather than creating duplicate people or scientific models.
 
 ## 2. What this package owns
 
