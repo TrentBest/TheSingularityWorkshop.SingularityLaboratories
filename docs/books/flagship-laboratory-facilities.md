@@ -352,3 +352,8 @@ The next implementation stages should be incremental:
 7. Connect live observations only through real, attributable adapters. Never invent a live status feed.
 
 The ambition is not to build static museum scenery. It is to make a laboratory feel like a real, accountable, evolving institution—while preserving the boundary between what is known, what is modeled, and what is imagined.
+
+
+## Worked campaign: NIGHT SIGNAL
+
+The [NIGHT SIGNAL — Containment Breach campaign](../specimens/night-signal-containment-campaign.md) turns a fictional research annex into a playable facility systems test. It begins in medias res with a fixed player role and ends only in player death or evidence-verified safe escape. The [browser experience](../index.html#night-signal) is a local proof of concept; it does not execute the laboratory runtime or provide real-world biosafety guidance.
