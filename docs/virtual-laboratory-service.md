@@ -62,7 +62,7 @@ Campaigns must not silently mutate a completed run. A changed parameter, model, 
 
 ### Current implementation boundary
 
-The first domain contracts now exist for immutable campaign definitions and individual scenarios. A campaign requires one baseline, at least one additional scenario, unique scenario identifiers, measurable acceptance criteria, and configurations bound to the exact experiment identity and version. These contracts describe a campaign; they do not yet execute scenario matrices, generate probes, persist campaign history, or provide hosted reservations.
+The first domain contracts now exist for immutable campaign definitions and individual scenarios. A campaign requires one baseline, at least one additional scenario, unique scenario identifiers, measurable acceptance criteria, and configurations bound to the exact experiment identity and version. `ExperimentCampaignRunner` executes each scenario through the ordinary laboratory runner, checks the exact experiment/model versions, applies host admission policy, preserves successful run records, continues after individual scenario failures, and records cancelled or unstarted scenarios explicitly. `FileSystemExperimentCampaignExecutionStore` atomically persists the complete campaign outcome, including embedded run lineage, and rejects duplicate execution identities. Scenario generation, automated acceptance-criteria analysis, transactional coordination with the separate run catalog, hosted reservations, and tenant services remain future work.
 
 ## Scenario design: how to break an idea
 
