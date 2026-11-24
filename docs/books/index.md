@@ -2,6 +2,9 @@
 
 # Singularity Laboratories — SURPS Sourcebook Catalogue
 
+> This page is the local catalogue of SURPS-governed domain sourcebooks. It is not the primary package manual. Begin with [Singularity Laboratories — The Living Laboratory, Core Manual](../laboratory-manual.md), then use the [Technical Companion](../laboratory-technical-companion.md) for implementation and integration details.
+
+
 This is the canonical local catalogue for Laboratory-owned SURPS sourcebooks. The [SURPS Master Rulebook Map](https://github.com/TrentBest/TheSingularityWorkshop.SingularityUniversalRoleplayingSystem/blob/development/docs/rulebook-backlog/index.md) is authoritative for global identity, ownership sign-in, and repository participation.
 
 **Repository status:** integrated, not enrolled. The three sourcebooks below are draft declarations awaiting independent SURPS ownership review. Their presence does not claim that every described capability has a completed runtime implementation.
