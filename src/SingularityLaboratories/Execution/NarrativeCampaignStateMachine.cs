@@ -26,25 +26,24 @@ public sealed record NarrativeCampaignAttempt
 {
     internal NarrativeCampaignAttempt(
         Guid attemptId,
-        string campaignId,
-        string campaignVersion,
-        string playerRole,
-        string startingLocation,
+        NarrativeCampaignDefinition definition,
         NarrativeCampaignOutcome outcome,
         IReadOnlyList<NarrativeEvidenceRecord> evidence,
         IReadOnlyList<NarrativeCampaignEvent> events)
     {
         AttemptId = attemptId;
-        CampaignId = campaignId;
-        CampaignVersion = campaignVersion;
-        PlayerRole = playerRole;
-        StartingLocation = startingLocation;
+        Definition = definition;
+        CampaignId = definition.Id;
+        CampaignVersion = definition.Version;
+        PlayerRole = definition.FixedPlayerRole;
+        StartingLocation = definition.StartingLocation;
         Outcome = outcome;
         Evidence = Array.AsReadOnly(evidence.ToArray());
         Events = Array.AsReadOnly(events.ToArray());
     }
 
     public Guid AttemptId { get; }
+    public NarrativeCampaignDefinition Definition { get; }
     public string CampaignId { get; }
     public string CampaignVersion { get; }
     public string PlayerRole { get; }
@@ -80,10 +79,7 @@ public sealed class NarrativeCampaignStateMachine
             $"Fixed role '{definition.FixedPlayerRole}' begins at '{definition.StartingLocation}'.");
         return new NarrativeCampaignAttempt(
             attemptId,
-            definition.Id,
-            definition.Version,
-            definition.FixedPlayerRole,
-            definition.StartingLocation,
+            definition,
             NarrativeCampaignOutcome.Active,
             [],
             [started]);
@@ -167,8 +163,11 @@ public sealed class NarrativeCampaignStateMachine
         ArgumentNullException.ThrowIfNull(definition);
         ArgumentNullException.ThrowIfNull(attempt);
         if (!string.Equals(attempt.CampaignId, definition.Id, StringComparison.Ordinal) ||
-            !string.Equals(attempt.CampaignVersion, definition.Version, StringComparison.Ordinal))
-            throw new ArgumentException("The attempt belongs to a different campaign identity or version.", nameof(attempt));
+            !string.Equals(attempt.CampaignVersion, definition.Version, StringComparison.Ordinal) ||
+            !string.Equals(attempt.Definition.FixedPlayerRole, definition.FixedPlayerRole, StringComparison.Ordinal) ||
+            !string.Equals(attempt.Definition.StartingLocation, definition.StartingLocation, StringComparison.Ordinal) ||
+            !attempt.Definition.RequiredSafeEscapeEvidence.SequenceEqual(definition.RequiredSafeEscapeEvidence))
+            throw new ArgumentException("The attempt is not bound to this exact campaign definition and version.", nameof(attempt));
         if (attempt.Outcome != NarrativeCampaignOutcome.Active)
             throw new InvalidOperationException("A terminal campaign attempt cannot accept further transitions.");
     }
@@ -191,10 +190,7 @@ public sealed class NarrativeCampaignStateMachine
         IReadOnlyList<NarrativeCampaignEvent> events) =>
         new(
             attempt.AttemptId,
-            attempt.CampaignId,
-            attempt.CampaignVersion,
-            attempt.PlayerRole,
-            attempt.StartingLocation,
+            attempt.Definition,
             outcome,
             evidence,
             events);
