@@ -199,6 +199,8 @@ def main() -> int:
             "Pages entry point must expose and document the Night Signal campaign")
     require(errors, "data-night-action" in page and "safe-escape" in page and "terminal" in page,
             "Night Signal proof of concept must expose decision actions and terminal outcome recording")
+    require(errors, "archivedAttempts" in page and "night.archive.push" in page and "night-export" in page,
+            "Night Signal restart and export must preserve earlier attempts in the session archive")
     require(errors, "campaign workbench" in page.lower() and "evidence" in page.lower(),
             "Pages entry point must retain its interactive workbench and evidence surfaces")
 
