@@ -145,7 +145,7 @@ public sealed class ExperimentCampaignRunnerTests
         ["The fixture does not predict spatial temperature gradients."]);
 
     private static ExperimentCampaignDefinition CreateCampaign(
-        IEnumerable<ExperimentCampaignScenario>? scenarios = null) =>
+        IReadOnlyList<ExperimentCampaignScenario>? scenarios = null) =>
         new(
             "thermal-campaign",
             "1.0.0",
