@@ -70,8 +70,8 @@ public sealed record ExperimentCampaignDefinition
         string experimentVersion,
         string modelId,
         string modelVersion,
-        IEnumerable<string> acceptanceCriteria,
-        IEnumerable<ExperimentCampaignScenario> scenarios)
+        IReadOnlyList<string> acceptanceCriteria,
+        IReadOnlyList<ExperimentCampaignScenario> scenarios)
     {
         Id = Required(id, nameof(id));
         Version = Required(version, nameof(version));
