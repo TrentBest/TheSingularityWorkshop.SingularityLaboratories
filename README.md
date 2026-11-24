@@ -7,7 +7,7 @@
 
 # Singularity Laboratories
 
-[Explore the interactive Singularity Laboratories experience](https://trentbest.github.io/TheSingularityWorkshop.SingularityLaboratories/) — capability atlas, playable NIGHT SIGNAL containment campaign, campaign-design workbench, evidence boundaries, and research sourcebooks. The site source and Actions deployment are in place; the repository's Pages setting still needs to be enabled for the first deployment.
+[Explore the interactive Singularity Laboratories experience](https://trentbest.github.io/TheSingularityWorkshop.SingularityLaboratories/) — capability atlas, playable NIGHT SIGNAL containment campaign, campaign-design workbench, evidence boundaries, and research sourcebooks. The Pages workflow assembles and validates the complete site before deployment; the repository's Pages setting still needs to be enabled for the first live deployment.
 
 **Project status:** [Repository work queue](TODO.md) · [Long-range roadmap](ROADMAP.md) · [Documentation index](docs/index.md)
 
