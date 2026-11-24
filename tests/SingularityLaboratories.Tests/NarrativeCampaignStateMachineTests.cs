@@ -29,9 +29,9 @@ public sealed class NarrativeCampaignStateMachineTests
         var definition = CreateDefinition();
         var attempt = machine.Start(definition, Guid.NewGuid(), StartTime);
         attempt = machine.RecordEvidence(definition, attempt, Evidence(
-            NarrativeEvidenceKind.IncidentTimeline, NarrativeEvidenceState.VerifiedCurrent, "timeline"));
+            NarrativeEvidenceKind.IncidentTimeline, NarrativeEvidenceState.VerifiedCurrent, "timeline"), StartTime.AddMinutes(2));
         attempt = machine.RecordEvidence(definition, attempt, Evidence(
-            NarrativeEvidenceKind.FacilityState, NarrativeEvidenceState.VerifiedCurrent, "facility"));
+            NarrativeEvidenceKind.FacilityState, NarrativeEvidenceState.VerifiedCurrent, "facility"), StartTime.AddMinutes(2));
 
         var denied = machine.AttemptSafeEscape(definition, attempt, "route-A", StartTime.AddMinutes(3));
 
@@ -47,7 +47,7 @@ public sealed class NarrativeCampaignStateMachineTests
         var definition = CreateDefinition();
         var attempt = machine.Start(definition, Guid.NewGuid(), StartTime);
         foreach (var kind in definition.RequiredSafeEscapeEvidence)
-            attempt = machine.RecordEvidence(definition, attempt, Evidence(kind, NarrativeEvidenceState.VerifiedCurrent, kind.ToString()));
+            attempt = machine.RecordEvidence(definition, attempt, Evidence(kind, NarrativeEvidenceState.VerifiedCurrent, kind.ToString()), StartTime.AddMinutes(2));
 
         var escaped = machine.AttemptSafeEscape(definition, attempt, "route-A", StartTime.AddMinutes(4));
 
@@ -68,7 +68,7 @@ public sealed class NarrativeCampaignStateMachineTests
             attempt = machine.RecordEvidence(definition, attempt, Evidence(
                 kind,
                 kind == NarrativeEvidenceKind.FacilityState ? state : NarrativeEvidenceState.VerifiedCurrent,
-                kind.ToString()));
+                kind.ToString()), StartTime.AddMinutes(2));
 
         var result = machine.AttemptSafeEscape(definition, attempt, "route-A", StartTime.AddMinutes(5));
 
@@ -83,7 +83,7 @@ public sealed class NarrativeCampaignStateMachineTests
         var definition = CreateDefinition();
         var attempt = machine.Start(definition, Guid.NewGuid(), StartTime);
         attempt = machine.RecordEvidence(definition, attempt, Evidence(
-            NarrativeEvidenceKind.IncidentTimeline, NarrativeEvidenceState.Observed, "timeline"));
+            NarrativeEvidenceKind.IncidentTimeline, NarrativeEvidenceState.Observed, "timeline"), StartTime.AddMinutes(2));
 
         var dead = machine.RecordPlayerDeath(definition, attempt, "Fictional player health reached zero", StartTime.AddMinutes(2));
 
@@ -109,7 +109,7 @@ public sealed class NarrativeCampaignStateMachineTests
     }
 
     [Test]
-    public void EvidenceCannotBeRecordedTwiceOrAgainstAnotherCampaign()
+    public void EvidenceHistoryAllowsReinspectionButRejectsAnotherCampaign()
     {
         var machine = new NarrativeCampaignStateMachine();
         var definition = CreateDefinition();
@@ -117,11 +117,15 @@ public sealed class NarrativeCampaignStateMachineTests
         var evidence = Evidence(NarrativeEvidenceKind.IncidentTimeline, NarrativeEvidenceState.VerifiedCurrent, "timeline");
         attempt = machine.RecordEvidence(definition, attempt, evidence);
 
-        Assert.Throws<InvalidOperationException>(() => machine.RecordEvidence(definition, attempt, evidence));
+        attempt = machine.RecordEvidence(definition, attempt, Evidence(
+            NarrativeEvidenceKind.IncidentTimeline, NarrativeEvidenceState.Stale, "timeline-refresh"), StartTime.AddMinutes(3));
+        var denied = machine.AttemptSafeEscape(definition, attempt, "route-A", StartTime.AddMinutes(4));
+        Assert.That(denied.Outcome, Is.EqualTo(NarrativeCampaignOutcome.Active));
+        Assert.That(denied.Events[^1].Kind, Is.EqualTo(NarrativeCampaignEventKind.SafeEscapeDenied));
         Assert.Throws<ArgumentException>(() => machine.RecordEvidence(
             new NarrativeCampaignDefinition("other", "1.0.0", "Role", "Start", definition.RequiredSafeEscapeEvidence),
             attempt,
-            Evidence(NarrativeEvidenceKind.FacilityState, NarrativeEvidenceState.VerifiedCurrent, "facility")));
+            Evidence(NarrativeEvidenceKind.FacilityState, NarrativeEvidenceState.VerifiedCurrent, "facility"), StartTime.AddMinutes(5)));
     }
 
     private static NarrativeCampaignDefinition CreateDefinition() => new(
