@@ -99,13 +99,13 @@ public sealed record ExperimentCampaignExecutionRecord
             throw new ArgumentException("A campaign execution requires non-null scenario results.", nameof(scenarios));
         if (snapshot.Select(scenario => scenario.ScenarioId).Distinct(StringComparer.Ordinal).Count() != snapshot.Length)
             throw new ArgumentException("Scenario result identifiers must be unique.", nameof(scenarios));
-        if (snapshot.Where(scenario => scenario.Run is not null).Any(scenario =>
-            !string.Equals(scenario.Run!.LaboratoryId, LaboratoryId, StringComparison.Ordinal) ||
-            !string.Equals(scenario.Run.LaboratoryVersion, LaboratoryVersion, StringComparison.Ordinal) ||
-            !string.Equals(scenario.Run.ExperimentId, ExperimentId, StringComparison.Ordinal) ||
-            !string.Equals(scenario.Run.ExperimentVersion, ExperimentVersion, StringComparison.Ordinal) ||
-            !string.Equals(scenario.Run.ModelId, ModelId, StringComparison.Ordinal) ||
-            !string.Equals(scenario.Run.ModelVersion, ModelVersion, StringComparison.Ordinal)))
+        if (snapshot.Any(scenario => scenario.Run is { } run &&
+            (!string.Equals(run.LaboratoryId, LaboratoryId, StringComparison.Ordinal) ||
+             !string.Equals(run.LaboratoryVersion, LaboratoryVersion, StringComparison.Ordinal) ||
+             !string.Equals(run.ExperimentId, ExperimentId, StringComparison.Ordinal) ||
+             !string.Equals(run.ExperimentVersion, ExperimentVersion, StringComparison.Ordinal) ||
+             !string.Equals(run.ModelId, ModelId, StringComparison.Ordinal) ||
+             !string.Equals(run.ModelVersion, ModelVersion, StringComparison.Ordinal))))
             throw new ArgumentException("Every successful scenario run must match the campaign execution's exact laboratory, experiment, and model versions.", nameof(scenarios));
         var completed = snapshot.Count(scenario => scenario.Status == ExperimentCampaignScenarioStatus.Completed);
         var failed = snapshot.Count(scenario => scenario.Status == ExperimentCampaignScenarioStatus.Failed);
