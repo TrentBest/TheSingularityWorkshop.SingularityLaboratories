@@ -82,6 +82,12 @@ public sealed record ExperimentCampaignExecutionRecord
             throw new ArgumentException("An execution identity is required.", nameof(executionId));
         CampaignId = Required(campaignId, nameof(campaignId));
         CampaignVersion = Required(campaignVersion, nameof(campaignVersion));
+        LaboratoryId = Required(laboratoryId, nameof(laboratoryId));
+        LaboratoryVersion = Required(laboratoryVersion, nameof(laboratoryVersion));
+        ExperimentId = Required(experimentId, nameof(experimentId));
+        ExperimentVersion = Required(experimentVersion, nameof(experimentVersion));
+        ModelId = Required(modelId, nameof(modelId));
+        ModelVersion = Required(modelVersion, nameof(modelVersion));
         ArgumentNullException.ThrowIfNull(campaignDefinition);
         if (!string.Equals(campaignDefinition.Id, CampaignId, StringComparison.Ordinal) ||
             !string.Equals(campaignDefinition.Version, CampaignVersion, StringComparison.Ordinal) ||
@@ -91,12 +97,6 @@ public sealed record ExperimentCampaignExecutionRecord
             !string.Equals(campaignDefinition.ModelVersion, ModelVersion, StringComparison.Ordinal))
             throw new ArgumentException("The embedded campaign definition must match the execution's exact campaign, experiment, and model identities and versions.", nameof(campaignDefinition));
         CampaignDefinition = campaignDefinition;
-        LaboratoryId = Required(laboratoryId, nameof(laboratoryId));
-        LaboratoryVersion = Required(laboratoryVersion, nameof(laboratoryVersion));
-        ExperimentId = Required(experimentId, nameof(experimentId));
-        ExperimentVersion = Required(experimentVersion, nameof(experimentVersion));
-        ModelId = Required(modelId, nameof(modelId));
-        ModelVersion = Required(modelVersion, nameof(modelVersion));
         if (startedAtUtc.Offset != TimeSpan.Zero || completedAtUtc.Offset != TimeSpan.Zero)
             throw new ArgumentException("Campaign execution timestamps must be UTC.");
         if (completedAtUtc < startedAtUtc)
