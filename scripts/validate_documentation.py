@@ -20,6 +20,8 @@ VISUALS = [
     DOCS / "assets" / "laboratory-manual-cover.svg",
     DOCS / "assets" / "laboratory-lifecycle.svg",
     DOCS / "assets" / "laboratory-domain-map.svg",
+    DOCS / "assets" / "laboratory-staff-roles.svg",
+    DOCS / "assets" / "laboratory-facility-system.svg",
 ]
 
 
@@ -115,6 +117,26 @@ def main() -> int:
     for marker in companion_requirements:
         require(errors, marker in companion, f"technical companion is missing required structure: {marker}")
 
+    sourcebooks = [
+        (DOCS / "books" / "scientific-inquiry.md", "../assets/laboratory-lifecycle.svg", "## Methods in action"),
+        (DOCS / "books" / "laboratory-npcs.md", "../assets/laboratory-staff-roles.svg", "## Responsibilities in action"),
+        (DOCS / "books" / "flagship-laboratory-facilities.md", "../assets/laboratory-facility-system.svg", "## Facility composition in action"),
+    ]
+    for sourcebook_path, required_visual, worked_example in sourcebooks:
+        sourcebook = sourcebook_path.read_text(encoding="utf-8")
+        label = sourcebook_path.relative_to(ROOT)
+        for marker in (
+            "## How to use this book",
+            "## Player /",
+            "## Game Master / Workshop overview",
+            "## Living domain map",
+            "## Adapter views",
+            "## Authoring and reference",
+            worked_example,
+            required_visual,
+        ):
+            require(errors, marker in sourcebook, f"{label}: missing SURPS living-book element: {marker}")
+
     require(errors, "Living Rulebook and Experience Standard" in catalogue,
             "sourcebook catalogue must link the canonical SURPS living-book standard")
     require(errors, "Behavior Model and Adapters" in catalogue,
@@ -152,7 +174,7 @@ def main() -> int:
                 f"{visual.relative_to(ROOT)}: accessible title and description are required")
 
     link_count = 0
-    for path in (MANUAL, COMPANION, CATALOGUE):
+    for path in (MANUAL, COMPANION, CATALOGUE, *(item[0] for item in sourcebooks)):
         link_count += check_markdown_links(path, errors)
 
     require(errors, "laboratory-manual.md" in page and "laboratory-technical-companion.md" in page,
