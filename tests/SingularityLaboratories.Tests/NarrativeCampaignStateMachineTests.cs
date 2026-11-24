@@ -88,7 +88,7 @@ public sealed class NarrativeCampaignStateMachineTests
         var dead = machine.RecordPlayerDeath(definition, attempt, "Fictional player health reached zero", StartTime.AddMinutes(2));
 
         Assert.That(dead.Outcome, Is.EqualTo(NarrativeCampaignOutcome.PlayerDeath));
-        Assert.That(dead.Events.Select(item => item.Sequence), Is.EqualTo([1, 2, 3]));
+        Assert.That(dead.Events.Select(item => item.Sequence), Is.EqualTo(new[] { 1, 2, 3 }));
         Assert.Throws<InvalidOperationException>(() =>
             machine.AttemptSafeEscape(definition, dead, "route-A", StartTime.AddMinutes(3)));
     }
