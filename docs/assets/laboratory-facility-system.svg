@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+<title id="title">A laboratory institution as a composed system</title>
+<desc id="desc">An institution contains a campus and site, buildings and zones, laboratories and instruments, research and education programs, people and operations, and archives and evidence. The host owns surrounding civic space and access enforcement.</desc>
+<defs><style>
+.outer{fill:#0d1d2b;stroke:#f0c77b;stroke-width:2;stroke-dasharray:9 7}.layer{fill:#102b3b;stroke:#3c6477;stroke-width:2}.core{fill:#153e4c;stroke:#83e2c2;stroke-width:3}.t{fill:#edf6fb;font:700 21px system-ui,sans-serif}.s{fill:#a9bdca;font:15px system-ui,sans-serif}.link{fill:none;stroke:#83e2c2;stroke-width:3}
+</style></defs>
+<rect width="1200" height="560" rx="24" fill="#07111d"/>
+<rect class="outer" x="35" y="30" width="1130" height="500" rx="24"/>
+<text class="t" x="600" y="68" text-anchor="middle">HOST / CITY CONTEXT</text><text class="s" x="600" y="92" text-anchor="middle">Site, public realm, identity, access enforcement, social and spatial presentation</text>
+<rect class="layer" x="95" y="125" width="1010" height="345" rx="20"/>
+<text class="t" x="600" y="163" text-anchor="middle">LABORATORY INSTITUTION</text>
+<g>
+ <rect class="core" x="135" y="205" width="275" height="90" rx="14"/><text class="t" x="272" y="243" text-anchor="middle">Campus and site</text><text class="s" x="272" y="270" text-anchor="middle">Geography · utilities · access</text>
+ <rect class="core" x="462" y="205" width="275" height="90" rx="14"/><text class="t" x="599" y="243" text-anchor="middle">Buildings and zones</text><text class="s" x="599" y="270" text-anchor="middle">Rooms · controlled spaces</text>
+ <rect class="core" x="790" y="205" width="275" height="90" rx="14"/><text class="t" x="927" y="243" text-anchor="middle">Labs and instruments</text><text class="s" x="927" y="270" text-anchor="middle">Apparatus · channels · models</text>
+ <path class="link" d="M410 250H462M737 250H790"/>
+ <rect class="layer" x="135" y="345" width="275" height="85" rx="14"/><text class="t" x="272" y="380" text-anchor="middle">Programs</text><text class="s" x="272" y="407" text-anchor="middle">Research · education · service</text>
+ <rect class="layer" x="462" y="345" width="275" height="85" rx="14"/><text class="t" x="599" y="380" text-anchor="middle">People and operations</text><text class="s" x="599" y="407" text-anchor="middle">Staff · shifts · governance</text>
+ <rect class="layer" x="790" y="345" width="275" height="85" rx="14"/><text class="t" x="927" y="380" text-anchor="middle">Archives and evidence</text><text class="s" x="927" y="407" text-anchor="middle">Runs · datasets · publications</text>
+</g>
+<text x="600" y="505" fill="#f0c77b" font="16px system-ui,sans-serif" text-anchor="middle">The same portable scientific institution can be hosted in a campus, field station, classroom, remote workspace, or game.</text>
+</svg>
