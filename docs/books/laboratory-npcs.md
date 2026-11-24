@@ -20,6 +20,42 @@
 
 A laboratory is not just rooms, instruments, and experiment definitions. It is a working institution whose people establish questions, maintain apparatus, teach, review, protect, investigate, document, and make decisions. This book specializes the general City NPC model for laboratory contexts. A researcher remains the same continuing character when they leave the lab, visit a city, join a starship, or become a player character.
 
+## How to use this book
+
+- **Players and visitors:** read the participant overview to understand who does what and whom to approach.
+- **Game Masters and experience authors:** use the worked scenario to portray responsibilities, uncertainty, and institutional consequences.
+- **Laboratory designers:** use the role, qualification, shift, and governance sections to compose a plausible institution.
+- **Host developers:** read the contract and boundary sections before mapping people to digital principals or permissions.
+
+## Player / participant overview
+
+A laboratory participant encounters people through their responsibilities and decisions: a technician explains an instrument limitation, a researcher describes the question, an instructor guides a learner, and a reviewer asks for evidence. A role helps a participant understand who is accountable; it does not guarantee that the person is competent for every task or authorized to perform it.
+
+## Game Master / Workshop overview
+
+The author composes people from the shared City identity and agency model, then adds laboratory-specific positions, assignments, competence evidence, shifts, and governance. The Workshop view should make vacancies, expired qualifications, missing reviewers, and conflicts of responsibility visible rather than quietly inventing a qualified substitute.
+
+## Living domain map
+
+![Laboratory people, responsibility, and authority boundaries](../assets/laboratory-staff-roles.svg)
+
+Identity, qualification, assignment, and host permission are separate. The diagram is a conceptual teaching model; the current assignment contract does not prove qualifications or grant permissions.
+
+## Responsibilities in action
+
+A technician notices that an instrument's output appears inconsistent with its declared calibration context. The technician records the observation and relevant instrument identity, marks the instrument unavailable under the institution's policy, and escalates to the responsible researcher or reviewer. The institution decides whether the investigation must pause or whether an alternate method is appropriate.
+
+This scenario teaches accountability and evidence handling. It is not an implemented autonomous staff workflow, and it does not prescribe a calibration or repair procedure.
+
+## Adapter views
+
+In a human-facing experience, roles are explained through dialogue, visible responsibilities, and institutional records. A digital host may map a person or service identity to a laboratory assignment and separately enforce access permissions. A roleplay procedure must not convert a title into an automatic success bonus or permission token.
+
+## Authoring and reference
+
+Use the role families and staffing patterns below as composable examples, not a mandatory org chart. For the shared domain journey, see the [Core Manual](../laboratory-manual.md); for exact runtime boundaries, see the [Technical Companion](../laboratory-technical-companion.md).
+
+
 ## 1. Scope and inheritance
 
 This LOD 2 book inherits identity, continuity, capabilities, limitations, knowledge, motivation, relationships, agency, and population representation from the City LOD 1 book. It adds laboratory-specific responsibilities and operational context.
