@@ -7,6 +7,11 @@ on:
       - ".surps/participation.json"
       - "docs/books/**"
       - "docs/books/covers/**"
+      - "docs/laboratory-manual.md"
+      - "docs/laboratory-technical-companion.md"
+      - "docs/index.html"
+      - "docs/assets/laboratory-*.svg"
+      - "scripts/validate_documentation.py"
       - "scripts/validate_surps_participation.py"
       - ".github/workflows/surps-sourcebook-validation.yml"
   pull_request:
@@ -32,5 +37,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Validate laboratory books, links, and Pages entry point
+        run: python scripts/validate_documentation.py
       - name: Validate SURPS sourcebook declaration
         run: python scripts/validate_surps_participation.py
