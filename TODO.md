@@ -112,3 +112,10 @@ Keep these states separate. A feature may be implemented but unverified. Never c
 ## Maintenance rule
 
 When implementation changes, update this file, the relevant phase roadmap, and the feature's technical documentation in the same workstream. Record the evidence (test name, CI run, or host integration) that justifies each status change. If a task becomes blocked, state the external dependency instead of leaving an ambiguous unchecked box.
+
+## Cross-repository host integration
+
+- [ ] **WebPage host integration — planned.** Coordinate with [issue #7](https://github.com/TrentBest/TheSingularityWorkshop.SingularityLaboratories/issues/7) and the [WebPage ecosystem showcase plan](https://github.com/TrentBest/WebPage/issues/137). Inventory WebPage laboratory models, facility/entrance interactions, campaign prototypes, and documentation; preserve their behavior with tests; migrate portable scientific semantics here; expose the laboratory through the existing MicroBundle/FSM_COS boundary; and make WebPage consume the canonical contracts.
+- [ ] **Second-host identity proof — planned.** Demonstrate the same laboratory and experiment identities in both the standalone laboratory host and WebPage without changing scientific definitions, model versions, run provenance, or result identity.
+- [ ] **City facility handoff — planned.** Define the cross-domain reference from a City-owned place/anchor to a Laboratory-owned facility/entry point. City owns geography and resident identity; this repository owns laboratory/facility/experiment semantics; WebPage owns browser navigation and host adapters. Do not conflate LaboratoryStaffAssignment principal references with City Digiten IDs or host authorization.
+
