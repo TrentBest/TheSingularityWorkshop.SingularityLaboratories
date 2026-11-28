@@ -50,17 +50,10 @@ jobs:
           path: _site
 
   deploy:
-    name: Publish to GitHub Pages
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    name: Publish through CiAi
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/development'
     needs: build
-    runs-on: ubuntu-latest
     permissions:
       pages: write
       id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy validated laboratory experience
-        id: deployment
-        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # pinned commit SHA
+    uses: TrentBest/TheSingularityWorkshop.CiAi/.github/workflows/deploy-pages.yml@5083c452b555d7645dd0c8ab01d76008026da436
